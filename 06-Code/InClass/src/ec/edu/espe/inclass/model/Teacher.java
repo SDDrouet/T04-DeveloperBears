@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 /**
  *
+ * @author Alejandro Cuadrado, Developer Bears, DCCO-ESPE
  * @author Alexander Guaman, Developer Bears, DCCO-ESPE
+ * @author Sheylee Enriquez, Developer Bears, DCCO-ESPE
+ * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class Teacher {
 
@@ -15,7 +18,7 @@ public class Teacher {
     public Teacher() {
         name = "";
         id = "";
-        courses = new ArrayList<Course>();
+        courses = new ArrayList<>();
     }
     
     public Teacher(String name, String id, ArrayList<Course> courses) {
