@@ -1,6 +1,7 @@
 package ec.edu.espe.inclass.model;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Grade {
 
-    private ArrayList<Double> gradeValues;
+    private ArrayList<Float> gradeValues;
     private float totalGradePercent;
 
     public Grade() {
@@ -19,7 +20,7 @@ public class Grade {
         totalGradePercent = 0;
     }
 
-    public Grade(ArrayList<Double> gradeValues, float totalGradePercent) {
+    public Grade(ArrayList<Float> gradeValues, float totalGradePercent) {
         this.gradeValues = gradeValues;
         this.totalGradePercent = totalGradePercent;
     }
@@ -27,14 +28,14 @@ public class Grade {
     /**
      * @return the gradeValues
      */
-    public ArrayList<Double> getGradeValues() {
+    public ArrayList<Float> getGradeValues() {
         return gradeValues;
     }
 
     /**
      * @param gradeValues the gradeValues to set
      */
-    public void setGradeValues(ArrayList<Double> gradeValues) {
+    public void setGradeValues(ArrayList<Float> gradeValues) {
         this.gradeValues = gradeValues;
     }
 
@@ -52,11 +53,34 @@ public class Grade {
         this.totalGradePercent = totalGradePercent;
     }
     
-    public void add(Double value) {
+    public void add(Float value) {
         gradeValues.add(value);
     }
     
-    public void modify(int index, Double value) {
+    /*public void addGrade(ArrayList<Student> students) {        
+        int numberOfUnit;
+        
+        Scanner scan = new Scanner(System.in);               
+        
+        System.out.println("What unit do you need to enter?");
+        
+        try {
+            numberOfUnit = scan.nextInt();
+        } catch (Exception e) {
+            System.out.println("Error: invalid number");
+        }
+                
+        if (numberOfUnit >= 0 && numberOfUnit < 2) {
+            for (Student student : students) {            
+            System.out.println("name: " + student.getName());
+            student.
+            }
+        } else {
+            System.out.println("Error: number out of Bounds");
+        }
+    }*/
+    
+    public void modify(int index, Float value) {
         gradeValues.set(index, value);
     }
     
@@ -65,8 +89,8 @@ public class Grade {
         float sum = 0;
         int gradeNumber = gradeValues.size();
         
-        for (Double value : gradeValues) {
-            sum += value.floatValue();
+        for (Float value : gradeValues) {
+            sum += value;
         }
         
         grade = sum / gradeNumber * totalGradePercent;        

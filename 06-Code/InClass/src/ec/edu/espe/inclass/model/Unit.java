@@ -88,11 +88,7 @@ public class Unit {
 
     @Override
     public String toString() {
-        return "workshops=" + workshops + ", homeworks=" + homeworks + ", tests=" + tests + ", exam=" + exam;
+        return "workshops=" + workshops + ", homeworks=" + homeworks + ", tests=" + tests + ", exam=" + exam + " - Unit Grade: " + calculateUnitGrade();
     }
-
-
-    
-    
 
 }

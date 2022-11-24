@@ -6,11 +6,8 @@ import ec.edu.espe.inclass.model.Course;
 import ec.edu.espe.inclass.model.Student;
 import ec.edu.espe.inclass.model.Teacher;
 import ec.edu.espe.inclass.model.Tutorship;
-import static java.awt.AWTEventMulticaster.remove;
 import java.io.File;
 import java.io.FileWriter;
-import static java.nio.file.Files.delete;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -188,17 +185,18 @@ public class InClass {
         AttendanceRecord attendanceRecord;
         attendanceRecord = new AttendanceRecord();
 
-        while (option != 8) {
+        while (option != 9) {
             System.out.println(course);
             System.out.println("-----Course Menu-----");
             System.out.println("1. Managament student information");
             System.out.println("2. Show enrolled students");
-            System.out.println("3. Take Attendance");
-            System.out.println("4. Add student");
-            System.out.println("5. Remove student");
-            System.out.println("6. Get grade record");
-            System.out.println("7. Get attendance record");
-            System.out.println("8. Back");
+            System.out.println("3. Add Grade");
+            System.out.println("4. Take Attendance");
+            System.out.println("5. Add student");
+            System.out.println("6. Remove student");
+            System.out.println("7. Get grade record");
+            System.out.println("8. Get attendance record");
+            System.out.println("9. Back");
 
             option = askOption();
 
@@ -226,19 +224,24 @@ public class InClass {
                         System.out.println((i + 1) + ". " + course.getStudents().get(i));
                     }
                     break;
-
+                    
                 case 3:
+                    System.out.println("Add Grades for all");                    
+                    addGradeForAll(course);
+                    break;
+
+                case 4:
                     System.out.println("Function for take Attendance");
                     attendanceRecord.add(course.getStudents());
                     break;
 
-                case 4:
+                case 5:
                     System.out.println("Function for add student");
                     course.addStudent();
                     System.out.println(course.getStudents().toString());
                     break;
 
-                case 5:
+                case 6:
                     System.out.println("Function for remove student");
                     for (int i = 0; i < course.getStudents().size(); i++) {
                         System.out.println(i + 1 + "." + course.getStudents().get(i));
@@ -253,11 +256,15 @@ public class InClass {
                     }
                     break;
 
-                case 6:
+                case 7:
                     System.out.println("Function for grade record");
+                    for (Student student1 : course.getStudents()) {
+                        System.out.println("--------------------------------------------------------------------------------------------------");
+                        System.out.println("- " + student1.getName() + ": \n" + student1.getGradeRecord());
+                    }
                     break;
 
-                case 7:
+                case 8:
                     System.out.println("Function for attendance record");
                     for (Student student1 : course.getStudents()) {
                         System.out.print("- " + student1.getName());
@@ -265,7 +272,7 @@ public class InClass {
                     }
                     break;
 
-                case 8:
+                case 9:
                     break;
 
                 default:
@@ -273,11 +280,67 @@ public class InClass {
             }
         }
     }
+    
+    private static void addGradeForAll(Course course) {
+        int option;
+        int number;
+        float gradeValue;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("What unit do you need to enter? (1, 2 or 3)");
+        number = askOption() - 1;
+        if (number >= 0 && number < 3) {
+            System.out.println("What grade do you want to enter?");
+            System.out.println("1. Workshop");
+            System.out.println("2. Homework");
+            System.out.println("3. Test");
+            System.out.println("4. Exam");
+            option = askOption();
+            
+            switch (option) {
+                case 1:
+                    for (Student student1 : course.getStudents()) {
+                        System.out.print("- " + student1.getName() + " Grade: ");
+                        gradeValue = scan.nextFloat();
+                        student1.getGradeRecord().getUnits().get(number).getWorkshops().add(gradeValue);
+                    }
+                    break;
+                    
+                case 2:
+                    for (Student student1 : course.getStudents()) {
+                        System.out.print("- " + student1.getName() + " Grade: ");
+                        gradeValue = scan.nextFloat();
+                        student1.getGradeRecord().getUnits().get(number).getHomeworks().add(gradeValue);
+                    }
+                    break;
+                case 3:
+                    for (Student student1 : course.getStudents()) {
+                        System.out.print("- " + student1.getName() + " Grade: ");
+                        gradeValue = scan.nextFloat();
+                        student1.getGradeRecord().getUnits().get(number).getTests().add(gradeValue);
+                    }
+                    break;
+                case 4:
+                    for (Student student1 : course.getStudents()) {
+                        System.out.print("- " + student1.getName() + " Grade: ");
+                        gradeValue = scan.nextFloat();
+                        student1.getGradeRecord().getUnits().get(number).getExam().add(gradeValue);
+                    }
+                    break;
+                default:
+                    System.out.println("Error: Invalid option");
+            }
+            
+        } else {
+            System.out.println("Error: number out of Bounds");
+            
+        }
+        scan.nextLine();
+    }
 
     private static void ControlStudentInfoMenu(Student student) {
         int option = 0;
-
         while (option != 11) {
+            
             System.out.println(student);
             System.out.println("-----Control student information Menu-----");
             System.out.println(" 3. Add workshop grade");
