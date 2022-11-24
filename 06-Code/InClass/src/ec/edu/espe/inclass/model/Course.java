@@ -15,14 +15,12 @@ public class Course {
     private int nrc;
     private int studentNumber;
     private ArrayList<Student> students;
-    private Tutorship tutorship;
 
     public Course() {
         name = "";
         nrc = 0;
         studentNumber = 0;
         students = new ArrayList<>();
-        tutorship = new Tutorship();
     }
 
     public Course(String name, int nrc) {
@@ -30,7 +28,6 @@ public class Course {
         this.nrc = nrc;
         this.studentNumber = 0;
         this.students = new ArrayList<>();
-        tutorship = new Tutorship();
     }
 
     @Override
@@ -68,14 +65,6 @@ public class Course {
 
     public void setStudents(ArrayList<Student> students) {
         this.students = students;
-    }
-
-    public Tutorship getTutorship() {
-        return tutorship;
-    }
-
-    public void setTutorship(Tutorship tutorship) {
-        this.tutorship = tutorship;
     }
 
     public void addStudent() {
