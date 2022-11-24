@@ -1,6 +1,7 @@
 package ec.edu.espe.inclass.model;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -10,7 +11,6 @@ import java.util.ArrayList;
  * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class Course {
-
     private String name;
     private int nrc;
     private int studentNumber;
@@ -25,84 +25,81 @@ public class Course {
         tutorship = new Tutorship();
     }
 
-    public Course(String name, int nrc, int studentNumber, ArrayList<Student> students, int totalClassNumber, Tutorship tutorship) {
+    public Course(String name, int nrc) {
         this.name = name;
         this.nrc = nrc;
-        this.studentNumber = studentNumber;
-        this.students = students;
-        this.tutorship = tutorship;
+        this.studentNumber = 0;
+        this.students = new ArrayList<>();
+        tutorship = new Tutorship();
     }
 
-    /**
-     * @return the name
-     */
+    @Override
+    public String toString() {
+        return "Course{" + "name=" + name + ", nrc=" + nrc + '}';
+    }
+
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return the nrc
-     */
     public int getNrc() {
         return nrc;
     }
 
-    /**
-     * @param nrc the nrc to set
-     */
     public void setNrc(int nrc) {
         this.nrc = nrc;
     }
 
-    /**
-     * @return the studentNumber
-     */
     public int getStudentNumber() {
         return studentNumber;
     }
 
-    /**
-     * @param studentNumber the studentNumber to set
-     */
     public void setStudentNumber(int studentNumber) {
         this.studentNumber = studentNumber;
     }
 
-    /**
-     * @return the students
-     */
     public ArrayList<Student> getStudents() {
         return students;
     }
 
-    /**
-     * @param students the students to set
-     */
     public void setStudents(ArrayList<Student> students) {
         this.students = students;
     }
 
-    /**
-     * @return the tutorship
-     */
     public Tutorship getTutorship() {
         return tutorship;
     }
 
-    /**
-     * @param tutorship the tutorship to set
-     */
     public void setTutorship(Tutorship tutorship) {
         this.tutorship = tutorship;
     }
-    
-    
 
+    public void addStudent() {
+
+        Student newStudent = new Student();
+
+        String name;
+        String espeId;
+        
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            System.out.print("Student name: ");
+            name = sc.nextLine();
+            System.out.print("Student ID: ");
+            espeId = sc.nextLine();
+
+            newStudent.setName(name);
+            newStudent.setEspeId(espeId);
+
+            students.add(newStudent);
+        } catch (Exception e) {
+            System.out.println("Error! You should verify the information entered :)");
+        }
+    }
+   
 }

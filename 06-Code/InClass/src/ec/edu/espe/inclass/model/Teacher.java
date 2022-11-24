@@ -1,6 +1,7 @@
 package ec.edu.espe.inclass.model;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Teacher {
         id = "";
         courses = new ArrayList<>();
     }
-    
+
     public Teacher(String name, String id, ArrayList<Course> courses) {
         this.name = name;
         this.id = id;
@@ -69,7 +70,28 @@ public class Teacher {
         this.courses = courses;
     }
 
-    
-    
-    
+    public void addCourse() {
+
+        Course newCourse = new Course();
+
+        String name;
+        int nrc;
+
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            System.out.print("Assignature name: ");
+            name = sc.nextLine();
+            System.out.print("Enter course's NRC: ");
+            nrc = sc.nextInt();
+            sc.nextLine();
+
+            newCourse.setName(name);
+            newCourse.setNrc(nrc);
+
+            courses.add(newCourse);
+        } catch (Exception e) {
+            System.out.println("Error! You should verify the information entered :)");
+        }
+    }
 }

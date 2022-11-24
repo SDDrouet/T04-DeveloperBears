@@ -1,6 +1,11 @@
 package ec.edu.espe.inclass.view;
 
+import ec.edu.espe.inclass.model.Course;
+import ec.edu.espe.inclass.model.Student;
 import ec.edu.espe.inclass.model.Teacher;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -11,13 +16,14 @@ import java.util.Scanner;
  * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class InClass {
+
+    static Teacher teacher;
+
     public static void main(String[] args) {
 
-        Teacher teacher;
         teacher = new Teacher();
         teacher.setId("L002424");
         teacher.setName("Santiago Valencia");
-
         controlMainMenu();
 
     }
@@ -29,7 +35,7 @@ public class InClass {
             System.out.println("======================================");
             System.out.println("----------------InClass---------------");
             System.out.println("======================================");
-            System.out.println("-----------Developer Bears------------");            
+            System.out.println("-----------Developer Bears------------");
             System.out.println("Alejandro Cuadrado, Alexander Guaman");
             System.out.println("Sheylee Enriquez, Stephen Drouet");
             System.out.println("======================================");
@@ -86,6 +92,10 @@ public class InClass {
 
     private static void controlTeacherMenu() {
         int option = 0;
+        Course course;
+        course = new Course();
+        ArrayList<Course> courses;
+        int number;
 
         while (option != 4) {
             System.out.println("-----Teacher Menu-----");
@@ -98,11 +108,21 @@ public class InClass {
 
             switch (option) {
                 case 1:
-                    ControlCourseMenu();
+                    System.out.println("Which course do you want to enter: ");
+                    number = askOption()-1;
+                  
+                    try {
+                        course = teacher.getCourses().get(number);
+                        ControlCourseMenu(course);
+                    } catch (Exception e) {
+                        System.out.println("Error: Course was not find");
+                    }
                     break;
 
                 case 2:
                     System.out.println("Function for add Course");
+                    teacher.addCourse();
+                    System.out.println(teacher.getCourses().get(0));
                     break;
 
                 case 3:
@@ -117,10 +137,11 @@ public class InClass {
         }
     }
 
-    private static void ControlCourseMenu() {
+    private static void ControlCourseMenu(Course course) {
         int option = 0;
 
         while (option != 8) {
+            System.out.println(course);
             System.out.println("-----Course Menu-----");
             System.out.println("1. Managament student information");
             System.out.println("2. Show enrolled students");
@@ -144,6 +165,8 @@ public class InClass {
 
                 case 3:
                     System.out.println("Function for add student");
+                    course.addStudent();
+                    System.out.println(course.getStudents().toString());
                     break;
 
                 case 4:

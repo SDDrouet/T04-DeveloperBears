@@ -23,12 +23,12 @@ public class Student {
         gradeRecord = new GradeRecord();
     }
 
-    public Student(String name, String espeId, boolean isApproved, AttendanceRecord attendanceRecord, GradeRecord gradeRecord) {
+    public Student(String name, String espeId) {
         this.name = name;
         this.espeId = espeId;
-        this.isApproved = isApproved;
-        this.attendanceRecord = attendanceRecord;
-        this.gradeRecord = gradeRecord;
+        this.isApproved = false;
+        this.attendanceRecord = new AttendanceRecord();
+        this.gradeRecord = new GradeRecord();
     }
 
     /**
@@ -100,7 +100,5 @@ public class Student {
     public void setGradeRecord(GradeRecord gradeRecord) {
         this.gradeRecord = gradeRecord;
     }
-    
-    
 
 }
