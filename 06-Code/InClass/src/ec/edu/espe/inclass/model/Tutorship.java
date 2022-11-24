@@ -15,7 +15,7 @@ public class Tutorship {
     private String id = "";
     private String name = "";
     private String career = "";
-    private String courseName = "";
+    private String courseName = "";    
 
     public Tutorship() {
         date = new Date();
@@ -114,4 +114,11 @@ public class Tutorship {
                 + " in the database the request for a tutoring of the: " + getCourseName() + "For the attention to the request, receive my thanks.");
 
     }
+
+    @Override
+    public String toString() {
+        return  "date=" + date + ", id=" + id + ", name=" + name + ", career=" + career + ", courseName=" + courseName;
+    }
+    
+    
 }

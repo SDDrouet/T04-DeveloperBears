@@ -85,7 +85,7 @@ public class AttendanceRecord {
 
     @Override
     public String toString() {
-        return "AttendanceRecord{" + "attendanceNumber=" + attendanceNumber + ", totalClassNumber=" + totalClassNumber + '}';
+        return "attendanceNumber: " + attendanceNumber + ", totalClassNumber: " + totalClassNumber;
     }
 
 }

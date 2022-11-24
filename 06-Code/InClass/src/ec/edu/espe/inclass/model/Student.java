@@ -101,4 +101,11 @@ public class Student {
         this.gradeRecord = gradeRecord;
     }
 
+    @Override
+    public String toString() {
+        return "name: " + name + ", espeId: " + espeId;
+    }
+    
+    
+
 }
