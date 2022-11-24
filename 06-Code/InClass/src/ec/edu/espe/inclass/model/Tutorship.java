@@ -10,16 +10,26 @@ import java.util.Scanner;
  * @author Sheylee Enriquez, Developer Bears, DCCO-ESPE
  * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
-public class Tutorship {
+public class Tutorship{
     private Date date;
-    private String id = "";
-    private String name = "";
-    private String career = "";
-    private String courseName = "";    
+    private String id;
+    private String name;
+    private String career;
+    private String courseName;
 
-    public Tutorship() {
-        date = new Date();
-
+    public Tutorship(){
+        date = null;
+        id = "";
+        name = "";
+        courseName = "";
+        career = "";
+    }
+    public Tutorship(Date date, String id, String name, String career, String courseName) {
+        this.date = date;
+        this.id = id;
+        this.name = name;
+        this.career = career;
+        this.courseName = courseName;
     }
 
     public Tutorship(Date date) {
@@ -101,13 +111,13 @@ public class Tutorship {
         //Using data from Keyboard
         Scanner scan = new Scanner(System.in);
         System.out.print("Enter student id: ");
-        setId(scan.nextLine());
+        id= scan.nextLine();
         System.out.print("student career:");
-        setCareer(scan.nextLine());
+        career = scan.nextLine();
         System.out.print("Name student: ");
-        setName(scan.nextLine());
+        name = scan.nextLine();
         System.out.print("Course Name: ");
-        setCourseName(scan.nextLine());
+        courseName = scan.nextLine();
         System.out.println(date);
         System.out.println("I, " + getName() + ", with ID: " + getId() + ", student of the Career: " + getCareer()
                 + " of Universidad de las Fuerzas Armadas -- ESPE Matriz Sangolqui , I request you, Mr.Director Career, it is designated to enter and register"

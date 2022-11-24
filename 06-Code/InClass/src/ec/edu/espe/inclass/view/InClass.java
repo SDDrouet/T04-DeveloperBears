@@ -5,6 +5,7 @@ import ec.edu.espe.inclass.model.AttendanceRecord;
 import ec.edu.espe.inclass.model.Course;
 import ec.edu.espe.inclass.model.Student;
 import ec.edu.espe.inclass.model.Teacher;
+import ec.edu.espe.inclass.model.Tutorship;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -84,6 +85,13 @@ public class InClass {
 
             switch (option) {
                 case 1:
+                    Tutorship tutorship = new Tutorship();
+                    tutorship.requestTutorship();
+                    try {
+                        teacher.getTutorships().add(tutorship);
+                    } catch (Exception e) {
+                        System.out.println("error could not add tutorship");
+                    }
                     System.out.println("A tutorship was requested");
                     break;
 
@@ -107,7 +115,8 @@ public class InClass {
             System.out.println("1. Enter a course");
             System.out.println("2. Add Course");
             System.out.println("3. Remove Course");
-            System.out.println("4. Back");
+            System.out.println("4. Get tutorship record");
+            System.out.println("5. Back");
 
             option = askOption();
 
@@ -139,6 +148,18 @@ public class InClass {
                     break;
 
                 case 4:
+                    for (Tutorship tutorship: teacher.getTutorships()){
+                        System.out.println("==============================================");
+                        System.out.println("- date: "+ tutorship.getDate());
+                        System.out.println("- Course Name: "+ tutorship.getCourseName());
+                        System.out.println("- Student Name: "+ tutorship.getName());
+                        System.out.println("- Student Id: "+ tutorship.getId());
+                        System.out.println("- Student Career: "+ tutorship.getCareer()+ "\n");
+                    }
+                                                           
+                    System.out.println("Function for tutorship record");
+                    break;
+                case 5:
                     break;
                 default:
                     System.out.println("Error: Invalid option try again.");
@@ -163,8 +184,7 @@ public class InClass {
             System.out.println("5. Remove student");
             System.out.println("6. Get grade record");
             System.out.println("7. Get attendance record");
-            System.out.println("8. Get tutorship record");
-            System.out.println("9. Back");
+            System.out.println("8. Back");
 
             option = askOption();
 
@@ -219,12 +239,8 @@ public class InClass {
                         System.out.println(": " + student1.getAttendanceRecord());
                     }
                     break;
-
+                    
                 case 8:
-                    System.out.println("Function for tutorship record");
-                    break;
-
-                case 9:
                     break;
 
                 default:

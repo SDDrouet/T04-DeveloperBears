@@ -15,17 +15,20 @@ public class Teacher {
     private String name;
     private String id;
     private ArrayList<Course> courses;
+    private ArrayList<Tutorship> tutorships;
+
+    public Teacher(String name, String id, ArrayList<Course> courses, ArrayList<Tutorship> tutorship) {
+        this.name = name;
+        this.id = id;
+        this.courses = courses;
+        this.tutorships = tutorship;
+    }
 
     public Teacher() {
         name = "";
         id = "";
         courses = new ArrayList<>();
-    }
-
-    public Teacher(String name, String id, ArrayList<Course> courses) {
-        this.name = name;
-        this.id = id;
-        this.courses = courses;
+        tutorships = new ArrayList<>();
     }
 
     /**
@@ -89,9 +92,23 @@ public class Teacher {
             newCourse.setName(name);
             newCourse.setNrc(nrc);
 
-            courses.add(newCourse);
+            getCourses().add(newCourse);
         } catch (Exception e) {
             System.out.println("Error! You should verify the information entered :)");
         }
+    }
+
+    /**
+     * @return the tutorship
+     */
+    public ArrayList<Tutorship> getTutorships() {
+        return tutorships;
+    }
+
+    /**
+     * @param tutorship the tutorship to set
+     */
+    public void setTutorships(ArrayList<Tutorship> tutorship) {
+        this.tutorships = tutorship;
     }
 }
