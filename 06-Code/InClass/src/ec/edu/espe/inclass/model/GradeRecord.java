@@ -12,16 +12,9 @@ import java.util.ArrayList;
 public class GradeRecord {
 
     private ArrayList<Unit> units;
-    private float finalGrade;
 
     public GradeRecord() {
         units = new ArrayList<>();
-        finalGrade = 0;
-    }
-
-    public GradeRecord(ArrayList<Unit> units, float finalGrade) {
-        this.units = units;
-        this.finalGrade = finalGrade;
     }
 
     /**
@@ -37,19 +30,24 @@ public class GradeRecord {
     public void setUnits(ArrayList<Unit> units) {
         this.units = units;
     }
-
-    /**
-     * @return the finalGrade
-     */
-    public float getFinalGrade() {
-        return finalGrade;
+    
+    public void addUnit() {
+        units.add(new Unit());
     }
 
-    /**
-     * @param finalGrade the finalGrade to set
-     */
-    public void setFinalGrade(float finalGrade) {
-        this.finalGrade = finalGrade;
+    
+    public float calculateFinalGrade() {
+        float finalGrade;
+        float sum = 0;
+        int numberOfUnits = units.size();
+        
+        for (Unit unit : units) {            
+            sum += unit.calculateUnitGrade();
+        }
+        
+        finalGrade = sum / numberOfUnits;
+        
+        return finalGrade;
     }
 
 }

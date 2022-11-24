@@ -51,5 +51,34 @@ public class Grade {
     public void setTotalGradePercent(float totalGradePercent) {
         this.totalGradePercent = totalGradePercent;
     }
+    
+    public void add(Double value) {
+        gradeValues.add(value);
+    }
+    
+    public void modify(int index, Double value) {
+        gradeValues.set(index, value);
+    }
+    
+    public float calculateGrade() {
+        float grade;
+        float sum = 0;
+        int gradeNumber = gradeValues.size();
+        
+        for (Double value : gradeValues) {
+            sum += value.floatValue();
+        }
+        
+        grade = sum / gradeNumber * totalGradePercent;        
+        
+        return grade;
+    }
+
+    @Override
+    public String toString() {
+        return gradeValues.toString();
+    }
+    
+    
 
 }
