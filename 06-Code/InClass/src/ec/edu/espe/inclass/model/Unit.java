@@ -1,5 +1,7 @@
 package ec.edu.espe.inclass.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Alejandro Cuadrado, Developer Bears, DCCO-ESPE
@@ -13,22 +15,12 @@ public class Unit {
     private Grade homeworks;
     private Grade tests;
     private Grade exam;
-    private float unitGrade;
 
     public Unit() {
-        workshops = new Grade();
-        homeworks = new Grade();
-        tests = new Grade();
-        exam = new Grade();
-        unitGrade = 0;
-    }
-
-    public Unit(Grade workshops, Grade homeworks, Grade tests, Grade exam, float unitGrade) {
-        this.workshops = workshops;
-        this.homeworks = homeworks;
-        this.tests = tests;
-        this.exam = exam;
-        this.unitGrade = unitGrade;
+        workshops = new Grade(new ArrayList<>(), 0.2f);
+        homeworks = new Grade(new ArrayList<>(), 0.2f);
+        tests = new Grade(new ArrayList<>(), 0.25f);
+        exam = new Grade(new ArrayList<>(), 0.35f);
     }
 
     /**
@@ -86,19 +78,21 @@ public class Unit {
     public void setExam(Grade exam) {
         this.exam = exam;
     }
-
-    /**
-     * @return the unitGrade
-     */
-    public float getUnitGrade() {
+    
+    public float calculateUnitGrade() {
+        float unitGrade;
+        unitGrade = workshops.calculateGrade() + homeworks.calculateGrade() + tests.calculateGrade() + exam.calculateGrade();
+        
         return unitGrade;
     }
 
-    /**
-     * @param unitGrade the unitGrade to set
-     */
-    public void setUnitGrade(float unitGrade) {
-        this.unitGrade = unitGrade;
+    @Override
+    public String toString() {
+        return "workshops=" + workshops + ", homeworks=" + homeworks + ", tests=" + tests + ", exam=" + exam;
     }
+
+
+    
+    
 
 }

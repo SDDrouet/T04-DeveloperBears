@@ -1,6 +1,7 @@
 package ec.edu.espe.inclass.model;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -22,6 +23,36 @@ public class AttendanceRecord {
     public AttendanceRecord(int attendanceNumber, int totalClassNumber) {
         this.attendanceNumber = attendanceNumber;
         this.totalClassNumber = totalClassNumber;
+    }
+
+    public void add(ArrayList<Student> students) {
+        //boolean isPresent = false;
+        String isPresentString = "";
+        Scanner scan = new Scanner(System.in);
+
+        for (Student student : students) {
+            System.out.println("name: " + student.getName());
+
+            System.out.print("Is present? (y/n): ");
+            isPresentString = scan.nextLine();
+            if ("y".equals(isPresentString.toLowerCase())) {
+                //isPresent = true;
+                student.getAttendanceRecord().addAttendance();
+                student.getAttendanceRecord().addClassNumber();
+            } else {
+                //isPresent = false;
+                student.getAttendanceRecord().addClassNumber();
+            }
+
+        }
+    }
+
+    public void addAttendance() {
+        attendanceNumber++;
+    }
+
+    public void addClassNumber() {
+        totalClassNumber++;
     }
 
     /**
@@ -51,6 +82,10 @@ public class AttendanceRecord {
     public void setTotalClassNumber(int totalClassNumber) {
         this.totalClassNumber = totalClassNumber;
     }
-    
+
+    @Override
+    public String toString() {
+        return "AttendanceRecord{" + "attendanceNumber=" + attendanceNumber + ", totalClassNumber=" + totalClassNumber + '}';
+    }
 
 }
