@@ -101,5 +101,6 @@ public class Course {
             System.out.println("Error! You should verify the information entered :)");
         }
     }
+
    
 }

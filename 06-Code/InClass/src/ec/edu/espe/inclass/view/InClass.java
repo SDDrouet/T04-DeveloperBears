@@ -6,8 +6,10 @@ import ec.edu.espe.inclass.model.Course;
 import ec.edu.espe.inclass.model.Student;
 import ec.edu.espe.inclass.model.Teacher;
 import ec.edu.espe.inclass.model.Tutorship;
+import static java.awt.AWTEventMulticaster.remove;
 import java.io.File;
 import java.io.FileWriter;
+import static java.nio.file.Files.delete;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,17 +29,17 @@ public class InClass {
         teacher = new Teacher();
         teacher.setId("L002424");
         teacher.setName("Santiago Valencia");
-        
+
         teacher = loadFileJson();
 
-        controlMainMenu();                
+        controlMainMenu();
 
-    }   
+    }
 
     public static void controlMainMenu() {
         int option = 0;
 
-        while (option != 3) {            
+        while (option != 3) {
             System.out.println("======================================");
             System.out.println("----------------InClass---------------");
             System.out.println("======================================");
@@ -67,7 +69,7 @@ public class InClass {
                 default:
                     System.out.println("Error: Invalid option try again.");
             }
-            
+
             SaveFileJson(teacher);
         }
     }
@@ -109,8 +111,9 @@ public class InClass {
         int option = 0;
         Course course;
         int number;
+        int num;
 
-        while (option != 4) {
+        while (option != 5) {
             System.out.println("-----Teacher Menu-----");
             System.out.println("1. Enter a course");
             System.out.println("2. Add Course");
@@ -126,7 +129,7 @@ public class InClass {
                         System.out.println(i + 1 + ". " + teacher.getCourses().get(i));
                     }
 
-                    System.out.println("Which course do you want to enter: ");
+                    System.out.println("Which course do you want to enter?: ");
                     number = askOption() - 1;
 
                     try {
@@ -145,18 +148,29 @@ public class InClass {
 
                 case 3:
                     System.out.println("Function for remove Course");
+                    for (int i = 0; i < teacher.getCourses().size(); i++) {
+                        System.out.println(i + 1 + "." + teacher.getCourses().get(i));
+                    }
+                    System.out.println("Which course do you want to remove?: ");
+                    num = askOption() - 1;
+                    try {
+                        teacher.getCourses().remove(num);
+                        System.out.println("The course was remove successfully");
+                    } catch (Exception e) {
+                        System.out.println("The course was not remove");
+                    }
                     break;
 
                 case 4:
-                    for (Tutorship tutorship: teacher.getTutorships()){
-                        System.out.println("==============================================");
-                        System.out.println("- date: "+ tutorship.getDate());
-                        System.out.println("- Course Name: "+ tutorship.getCourseName());
-                        System.out.println("- Student Name: "+ tutorship.getName());
-                        System.out.println("- Student Id: "+ tutorship.getId());
-                        System.out.println("- Student Career: "+ tutorship.getCareer()+ "\n");
+                    for (Tutorship tutorship : teacher.getTutorships()) {
+                        System.out.println("================================================");
+                        System.out.println("- Date: " + tutorship.getDate());
+                        System.out.println("- Course Name: " + tutorship.getCourseName());
+                        System.out.println("- Student Name: " + tutorship.getName());
+                        System.out.println("- Student Id: " + tutorship.getId());
+                        System.out.println("- Student Career: " + tutorship.getCareer() + "\n");
                     }
-                                                           
+
                     System.out.println("Function for tutorship record");
                     break;
                 case 5:
@@ -168,13 +182,13 @@ public class InClass {
     }
 
     private static void ControlCourseMenu(Course course) {
-        Student student;        
+        Student student;
         int option = 0;
-        int number;        
+        int number;
         AttendanceRecord attendanceRecord;
         attendanceRecord = new AttendanceRecord();
-        
-        while (option != 9) {
+
+        while (option != 8) {
             System.out.println(course);
             System.out.println("-----Course Menu-----");
             System.out.println("1. Managament student information");
@@ -191,7 +205,7 @@ public class InClass {
             switch (option) {
                 case 1:
                     for (int i = 0; i < course.getStudents().size(); i++) {
-                        System.out.println((i+1) + ". " + course.getStudents().get(i));
+                        System.out.println((i + 1) + ". " + course.getStudents().get(i));
                     }
 
                     System.out.println("Which course do you want to enter: ");
@@ -202,17 +216,17 @@ public class InClass {
                         ControlStudentInfoMenu(student);
                     } catch (Exception e) {
                         System.out.println("Error: Course was not find");
-                    }                    
-                    
+                    }
+
                     break;
 
                 case 2:
                     System.out.println("Function for enrolled students");
                     for (int i = 0; i < course.getStudents().size(); i++) {
-                        System.out.println((i+1) + ". " + course.getStudents().get(i));
+                        System.out.println((i + 1) + ". " + course.getStudents().get(i));
                     }
                     break;
-                    
+
                 case 3:
                     System.out.println("Function for take Attendance");
                     attendanceRecord.add(course.getStudents());
@@ -226,10 +240,21 @@ public class InClass {
 
                 case 5:
                     System.out.println("Function for remove student");
+                    for (int i = 0; i < course.getStudents().size(); i++) {
+                        System.out.println(i + 1 + "." + course.getStudents().get(i));
+                    }
+                    System.out.println("Which student do you want to remove?: ");
+                    number = askOption() - 1;
+                    try {
+                        course.getStudents().remove(number);
+                        System.out.println("The student was remove successfully");
+                    } catch (Exception e) {
+                        System.out.println("The student was not remove");
+                    }
                     break;
 
                 case 6:
-                    System.out.println("Function for grade record");                    
+                    System.out.println("Function for grade record");
                     break;
 
                 case 7:
@@ -239,7 +264,7 @@ public class InClass {
                         System.out.println(": " + student1.getAttendanceRecord());
                     }
                     break;
-                    
+
                 case 8:
                     break;
 
@@ -250,13 +275,11 @@ public class InClass {
     }
 
     private static void ControlStudentInfoMenu(Student student) {
-        int option = 0;        
-        
+        int option = 0;
+
         while (option != 11) {
             System.out.println(student);
             System.out.println("-----Control student information Menu-----");
-            System.out.println(" 1. Add attendance of today");
-            System.out.println(" 2. Modify attendance of today");
             System.out.println(" 3. Add workshop grade");
             System.out.println(" 4. Add homework grade");
             System.out.println(" 5. Add tests grade");
@@ -336,21 +359,20 @@ public class InClass {
 
         return option;
     }
-    
-        private static Teacher loadFileJson() {
+
+    private static Teacher loadFileJson() {
         Gson gson = new Gson();
-        
+
         Teacher newTeacher = new Teacher();
         String jsonFile = "";
-        
+
         try ( Scanner scFile = new Scanner(new File("./InClass.json"))) {
             while (scFile.hasNextLine()) {
                 jsonFile += scFile.nextLine();
             }
-          
+
             newTeacher = gson.fromJson(jsonFile, Teacher.class);
-             
-            
+
             System.out.println("----------File was loaded----------");
         } catch (Exception e) {
             System.out.println(e);
@@ -359,18 +381,18 @@ public class InClass {
 
         return newTeacher;
     }
-    
+
     private static void SaveFileJson(Teacher teacherInfo) {
         Gson gson = new Gson();
         String json = gson.toJson(teacherInfo);
-        
+
         File file = new File("./InClass.json");
-        try ( FileWriter fw = new FileWriter(file);) {            
-            fw.write(json);            
+        try ( FileWriter fw = new FileWriter(file);) {
+            fw.write(json);
             System.out.println("----------File was saved----------");
         } catch (Exception e) {
             System.out.println("Error: File not open or found");
-        } 
+        }
     }
-    
+
 }
