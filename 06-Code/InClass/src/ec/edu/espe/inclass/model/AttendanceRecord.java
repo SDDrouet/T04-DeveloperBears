@@ -35,10 +35,7 @@ public class AttendanceRecord {
             System.out.print("  Is present? (y/n): ");
             isPresentString = scan.nextLine();
 
-            while (!"y".equals(isPresentString.toLowerCase()) && !"n".equals(isPresentString.toLowerCase())) {
-                System.out.print("(y/n): ");
-                isPresentString = scan.nextLine();
-            }
+            isPresentString = validatePresentString(isPresentString, scan);
 
             if ("y".equals(isPresentString.toLowerCase())) {
                 student.getAttendanceRecord().addAttendance();
@@ -48,6 +45,14 @@ public class AttendanceRecord {
             }
 
         }
+    }
+
+    private String validatePresentString(String isPresentString, Scanner scan) {
+        while (!"y".equals(isPresentString.toLowerCase()) && !"n".equals(isPresentString.toLowerCase())) {
+            System.out.print("(y/n): ");
+            isPresentString = scan.nextLine();
+        }
+        return isPresentString;
     }
 
     public void addAttendance() {
