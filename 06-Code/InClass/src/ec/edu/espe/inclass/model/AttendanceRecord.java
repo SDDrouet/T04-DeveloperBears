@@ -26,21 +26,24 @@ public class AttendanceRecord {
     }
 
     public void add(ArrayList<Student> students) {
-        //boolean isPresent = false;
-        String isPresentString = "";
+        String isPresentString;
         Scanner scan = new Scanner(System.in);
 
         for (Student student : students) {
-            System.out.println("name: " + student.getName());
+            System.out.print("name: " + student.getName());
 
-            System.out.print("Is present? (y/n): ");
+            System.out.print("  Is present? (y/n): ");
             isPresentString = scan.nextLine();
+
+            while (!"y".equals(isPresentString.toLowerCase()) && !"n".equals(isPresentString.toLowerCase())) {
+                System.out.print("(y/n): ");
+                isPresentString = scan.nextLine();
+            }
+
             if ("y".equals(isPresentString.toLowerCase())) {
-                //isPresent = true;
                 student.getAttendanceRecord().addAttendance();
                 student.getAttendanceRecord().addClassNumber();
             } else {
-                //isPresent = false;
                 student.getAttendanceRecord().addClassNumber();
             }
 
