@@ -3,6 +3,7 @@ package ec.edu.espe.inclass.view;
 import com.google.gson.Gson;
 import ec.edu.espe.inclass.model.AttendanceRecord;
 import ec.edu.espe.inclass.model.Course;
+import ec.edu.espe.inclass.model.Grade;
 import ec.edu.espe.inclass.model.Student;
 import ec.edu.espe.inclass.model.Teacher;
 import ec.edu.espe.inclass.model.Tutorship;
@@ -60,9 +61,11 @@ public class InClass {
                 case 2:
                     controlStudentMenu();
                     break;
+
                 case 3:
                     System.out.println("See you...");
                     break;
+
                 default:
                     System.out.println("Error: Invalid option try again.");
             }
@@ -105,10 +108,10 @@ public class InClass {
     }
 
     private static void controlTeacherMenu() {
-        int option = 0;
         Course course;
-        int number;
-        int num;
+
+        int option = 0;
+        int courseNumber;
 
         while (option != 5) {
             System.out.println("-----Teacher Menu-----");
@@ -122,15 +125,13 @@ public class InClass {
 
             switch (option) {
                 case 1:
-                    for (int i = 0; i < teacher.getCourses().size(); i++) {
-                        System.out.println(i + 1 + ". " + teacher.getCourses().get(i));
-                    }
+                    showCourses();
 
                     System.out.println("Which course do you want to enter?: ");
-                    number = askOption() - 1;
+                    courseNumber = askOption() - 1;
 
                     try {
-                        course = teacher.getCourses().get(number);
+                        course = teacher.getCourses().get(courseNumber);
                         ControlCourseMenu(course);
                     } catch (Exception e) {
                         System.out.println("Error: Course was not find");
@@ -140,18 +141,17 @@ public class InClass {
                 case 2:
                     System.out.println("Function for add Course");
                     teacher.addCourse();
-                    System.out.println(teacher.getCourses().get(0));
                     break;
 
                 case 3:
                     System.out.println("Function for remove Course");
-                    for (int i = 0; i < teacher.getCourses().size(); i++) {
-                        System.out.println(i + 1 + "." + teacher.getCourses().get(i));
-                    }
+                    showCourses();
+
                     System.out.println("Which course do you want to remove?: ");
-                    num = askOption() - 1;
+                    courseNumber = askOption() - 1;
+
                     try {
-                        teacher.getCourses().remove(num);
+                        teacher.getCourses().remove(courseNumber);
                         System.out.println("The course was remove successfully");
                     } catch (Exception e) {
                         System.out.println("The course was not remove");
@@ -170,18 +170,28 @@ public class InClass {
 
                     System.out.println("Function for tutorship record");
                     break;
+
                 case 5:
                     break;
+
                 default:
                     System.out.println("Error: Invalid option try again.");
             }
         }
     }
 
+    private static void showCourses() {
+        for (int CourseNumber = 0; CourseNumber < teacher.getCourses().size(); CourseNumber++) {
+            System.out.println(CourseNumber + 1 + ". " + teacher.getCourses().get(CourseNumber));
+        }
+    }
+
     private static void ControlCourseMenu(Course course) {
         Student student;
+
         int option = 0;
-        int number;
+        int studentNumber;
+
         AttendanceRecord attendanceRecord;
         attendanceRecord = new AttendanceRecord();
 
@@ -202,15 +212,13 @@ public class InClass {
 
             switch (option) {
                 case 1:
-                    for (int i = 0; i < course.getStudents().size(); i++) {
-                        System.out.println((i + 1) + ". " + course.getStudents().get(i));
-                    }
+                    showStudents(course);
 
-                    System.out.println("Which course do you want to enter: ");
-                    number = askOption() - 1;
+                    System.out.println("Which student do you want to manage?: ");
+                    studentNumber = askOption() - 1;
 
                     try {
-                        student = course.getStudents().get(number);
+                        student = course.getStudents().get(studentNumber);
                         ControlStudentInfoMenu(student);
                     } catch (Exception e) {
                         System.out.println("Error: Course was not find");
@@ -220,9 +228,7 @@ public class InClass {
 
                 case 2:
                     System.out.println("Function for enrolled students");
-                    for (int i = 0; i < course.getStudents().size(); i++) {
-                        System.out.println((i + 1) + ". " + course.getStudents().get(i));
-                    }
+                    showStudents(course);
                     break;
 
                 case 3:
@@ -243,13 +249,13 @@ public class InClass {
 
                 case 6:
                     System.out.println("Function for remove student");
-                    for (int i = 0; i < course.getStudents().size(); i++) {
-                        System.out.println(i + 1 + "." + course.getStudents().get(i));
-                    }
+                    showStudents(course);
+
                     System.out.println("Which student do you want to remove?: ");
-                    number = askOption() - 1;
+                    studentNumber = askOption() - 1;
+
                     try {
-                        course.getStudents().remove(number);
+                        course.getStudents().remove(studentNumber);
                         System.out.println("The student was remove successfully");
                     } catch (Exception e) {
                         System.out.println("The student was not remove");
@@ -281,14 +287,22 @@ public class InClass {
         }
     }
 
+    private static void showStudents(Course course) {
+        for (int studentNumber = 0; studentNumber < course.getStudents().size(); studentNumber++) {
+            System.out.println((studentNumber + 1) + ". " + course.getStudents().get(studentNumber));
+        }
+    }
+
     private static void addGradeForAll(Course course) {
         int option;
-        int number;
-        float gradeValue;
+        int unitNumber;
+
+        Grade studentSubject;
 
         System.out.println("What unit do you need to enter? (1, 2 or 3)");
-        number = askOption() - 1;
-        if (number >= 0 && number < 3) {
+        unitNumber = askOption() - 1;
+
+        if (unitNumber >= 0 && unitNumber < 3) {
             System.out.println("What grade do you want to enter?");
             System.out.println("1. Workshop");
             System.out.println("2. Homework");
@@ -299,62 +313,80 @@ public class InClass {
             switch (option) {
                 case 1:
                     for (Student student1 : course.getStudents()) {
-                        System.out.print("- " + student1.getName() + " Grade: ");
-                        gradeValue = inputGrade();
-                        student1.getGradeRecord().getUnits().get(number).getWorkshops().add(gradeValue);
+                        studentSubject = student1.getGradeRecord().getUnits().get(unitNumber).getWorkshops();
+                        AddStudentGrade(student1, studentSubject);
                     }
                     break;
 
                 case 2:
                     for (Student student1 : course.getStudents()) {
-                        System.out.print("- " + student1.getName() + " Grade: ");
-                        gradeValue = inputGrade();
-                        student1.getGradeRecord().getUnits().get(number).getHomeworks().add(gradeValue);
+                        studentSubject = student1.getGradeRecord().getUnits().get(unitNumber).getHomeworks();
+                        AddStudentGrade(student1, studentSubject);
                     }
                     break;
+
                 case 3:
                     for (Student student1 : course.getStudents()) {
-                        System.out.print("- " + student1.getName() + " Grade: ");
-                        gradeValue = inputGrade();
-                        student1.getGradeRecord().getUnits().get(number).getTests().add(gradeValue);
+                        studentSubject = student1.getGradeRecord().getUnits().get(unitNumber).getTests();
+                        AddStudentGrade(student1, studentSubject);
                     }
                     break;
+
                 case 4:
                     for (Student student1 : course.getStudents()) {
-                        System.out.print("- " + student1.getName() + " Grade: ");
-                        gradeValue = inputGrade();
-                        student1.getGradeRecord().getUnits().get(number).getExam().add(gradeValue);
+                        studentSubject = student1.getGradeRecord().getUnits().get(unitNumber).getExam();
+                        AddStudentGrade(student1, studentSubject);
                     }
                     break;
+
                 default:
                     System.out.println("Error: Invalid option");
             }
 
         } else {
-            System.out.println("Error: number out of Bounds");
+            System.out.println("Error: The selected unit does not exist");
         }
+    }
+
+    private static void AddStudentGrade(Student student1, Grade studentSubject) {
+        float gradeValue;
+
+        System.out.print("- " + student1.getName() + " Grade: ");
+
+        do {
+            gradeValue = inputGrade();            
+        } while (Float.isNaN(gradeValue));
+
+        studentSubject.add(gradeValue);
     }
 
     private static float inputGrade() {
         Scanner scan = new Scanner(System.in);
-        float gradeValue;
+        float gradeValue = Float.NaN;
+
         try {
             gradeValue = scan.nextFloat();
-            return gradeValue;
+            if (gradeValue <= 20 && gradeValue >= 0) {
+                return gradeValue;
+            } else {
+                System.out.println("The range of the grades is from 0 to 20.\nTry again");
+                gradeValue = Float.NaN;
+            }
+            
         } catch (Exception e) {
-            System.out.println("Error: invalid number, use comma (,)");
+            System.out.println("Error: Invalid number, please use comma(,) for decimal numbers and the range is (0-20).\nTry again: ");
         }
 
-        return Float.NaN;
+        return gradeValue;
     }
 
     private static void ControlStudentInfoMenu(Student student) {
-        int number;
-        int unitNumber;
-        float gradeValue;
+        int unitNumber = 0;
         int option = 0;
-        while (option != 5) {
 
+        Grade studentSubject;
+
+        while (option != 5) {
             System.out.println(student);
             System.out.println("-----Control student information Menu-----");
             System.out.println("1. Modify workshop grade");
@@ -365,63 +397,35 @@ public class InClass {
 
             option = askOption();
 
-            try {
+            if (option != 5) {
+                System.out.println("What unit do you need to modify? (1, 2 or 3)");
+                unitNumber = askOption() - 1;
+            }
+
+            if (unitNumber >= 0 && unitNumber < 3) {
                 switch (option) {
                     case 1:
-                        System.out.println("Function for Modify workshop grade");
-
-                        System.out.println("What unit do you need to modify? (1, 2 or 3)");
-                        unitNumber = askOption() - 1;
-                        if (unitNumber >= 0 && unitNumber < 3) {
-                            System.out.println(student.getGradeRecord().getUnits().get(unitNumber).getWorkshops());
-                            System.out.println("What workshop do you need to modify");
-                            number = askOption() - 1;
-                            System.out.println("What is the new grade");
-                            gradeValue = inputGrade();
-                            student.getGradeRecord().getUnits().get(unitNumber).getWorkshops().modify(number, gradeValue);
-                        }
+                        System.out.println("Function for modify workshop grade");
+                        studentSubject = student.getGradeRecord().getUnits().get(unitNumber).getWorkshops();
+                        modifyStudenSubject(studentSubject);
                         break;
 
                     case 2:
-                        System.out.println("Function for Modify homework grade");
-                        System.out.println("What unit do you need to modify? (1, 2 or 3)");
-                        unitNumber = askOption() - 1;
-                        if (unitNumber >= 0 && unitNumber < 3) {
-                            System.out.println(student.getGradeRecord().getUnits().get(unitNumber).getHomeworks());
-                            System.out.println("What homework do you need to modify");
-                            number = askOption() - 1;
-                            System.out.println("What is the new grade");
-                            gradeValue = inputGrade();
-                            student.getGradeRecord().getUnits().get(unitNumber).getHomeworks().modify(number, gradeValue);
-                        }
+                        System.out.println("Function for modify homework grade");
+                        studentSubject = student.getGradeRecord().getUnits().get(unitNumber).getHomeworks();
+                        modifyStudenSubject(studentSubject);
                         break;
 
                     case 3:
-                        System.out.println("Function for Modify test grade");
-                        System.out.println("What unit do you need to modify? (1, 2 or 3)");
-                        unitNumber = askOption() - 1;
-                        if (unitNumber >= 0 && unitNumber < 3) {
-                            System.out.println(student.getGradeRecord().getUnits().get(unitNumber).getTests());
-                            System.out.println("What test do you need to modify");
-                            number = askOption() - 1;
-                            System.out.println("What is the new grade");
-                            gradeValue = inputGrade();
-                            student.getGradeRecord().getUnits().get(unitNumber).getTests().modify(number, gradeValue);
-                        }
+                        System.out.println("Function for modify test grade");
+                        studentSubject = student.getGradeRecord().getUnits().get(unitNumber).getTests();
+                        modifyStudenSubject(studentSubject);
                         break;
 
                     case 4:
-                        System.out.println("Function for Modify exam grade");
-                        System.out.println("What unit do you need to modify? (1, 2 or 3)");
-                        unitNumber = askOption() - 1;
-                        if (unitNumber >= 0 && unitNumber < 3) {
-                            System.out.println(student.getGradeRecord().getUnits().get(unitNumber).getExam());
-                            System.out.println("What exam do you need to modify");
-                            number = askOption() - 1;
-                            System.out.println("What is the new grade");
-                            gradeValue = inputGrade();
-                            student.getGradeRecord().getUnits().get(unitNumber).getExam().modify(number, gradeValue);
-                        }
+                        System.out.println("Function for modify exam grade");
+                        studentSubject = student.getGradeRecord().getUnits().get(unitNumber).getExam();
+                        modifyStudenSubject(studentSubject);
                         break;
 
                     case 5:
@@ -430,12 +434,28 @@ public class InClass {
                     default:
                         System.out.println("Error: Invalid option try again.");
                 }
-            } catch (Exception e) {
-                System.out.println("Error: invalid Date or option, please use comma(,) for float");
+            } else {
+                System.out.println("Error: The selected unit does not exist");
             }
-
         }
+    }
 
+    private static void modifyStudenSubject(Grade studentSubject) {
+        int gradenNumber;
+        float gradeValue;
+
+        System.out.println(studentSubject);
+
+        System.out.println("What workshop do you need to modify");
+        gradenNumber = askOption() - 1;
+
+        System.out.println("What is the new grade?");
+
+        do {
+            gradeValue = inputGrade();
+        } while (Float.isNaN(gradeValue));
+
+        studentSubject.modify(gradenNumber, gradeValue);
     }
 
     public static int askOption() {

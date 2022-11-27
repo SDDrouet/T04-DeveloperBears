@@ -57,29 +57,6 @@ public class Grade {
         gradeValues.add(value);
     }
     
-    /*public void addGrade(ArrayList<Student> students) {        
-        int numberOfUnit;
-        
-        Scanner scan = new Scanner(System.in);               
-        
-        System.out.println("What unit do you need to enter?");
-        
-        try {
-            numberOfUnit = scan.nextInt();
-        } catch (Exception e) {
-            System.out.println("Error: invalid number");
-        }
-                
-        if (numberOfUnit >= 0 && numberOfUnit < 2) {
-            for (Student student : students) {            
-            System.out.println("name: " + student.getName());
-            student.
-            }
-        } else {
-            System.out.println("Error: number out of Bounds");
-        }
-    }*/
-    
     public void modify(int index, Float value) {
         gradeValues.set(index, value);
     }
