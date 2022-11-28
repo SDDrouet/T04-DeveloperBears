@@ -83,11 +83,8 @@ public class Teacher {
         Scanner sc = new Scanner(System.in);
 
         try {
-            System.out.print("Assignature name: ");
-            name = sc.nextLine();
-            System.out.print("Enter course's NRC: ");
-            nrc = sc.nextInt();
-            sc.nextLine();
+            name = scanAssignatureName(sc);
+            nrc = scanCourseNrc(sc);
 
             newCourse.setName(name);
             newCourse.setNrc(nrc);
@@ -96,6 +93,21 @@ public class Teacher {
         } catch (Exception e) {
             System.out.println("Error! You should verify the information entered :)");
         }
+    }
+
+    private int scanCourseNrc(Scanner sc) {
+        int nrc;
+        System.out.print("Enter course's NRC: ");
+        nrc = sc.nextInt();
+        sc.nextLine();
+        return nrc;
+    }
+
+    private String scanAssignatureName(Scanner sc) {
+        String name;
+        System.out.print("Assignature name: ");
+        name = sc.nextLine();
+        return name;
     }
 
     /**

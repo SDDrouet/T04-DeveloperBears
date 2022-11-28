@@ -146,16 +146,7 @@ public class InClass {
                 case 3:
                     System.out.println("Function for remove Course");
                     showCourses();
-
-                    System.out.println("Which course do you want to remove?: ");
-                    courseNumber = askOption() - 1;
-
-                    try {
-                        teacher.getCourses().remove(courseNumber);
-                        System.out.println("The course was remove successfully");
-                    } catch (Exception e) {
-                        System.out.println("The course was not remove");
-                    }
+                    removeCourse();
                     break;
 
                 case 4:
@@ -177,6 +168,18 @@ public class InClass {
                 default:
                     System.out.println("Error: Invalid option try again.");
             }
+        }
+    }
+
+    public static void removeCourse() {
+        int courseNumber;
+        System.out.println("Which course do you want to remove?: ");
+        courseNumber = askOption() - 1;
+        try {
+            teacher.getCourses().remove(courseNumber);
+            System.out.println("The course was remove successfully");
+        } catch (Exception e) {
+            System.out.println("The course was not remove");
         }
     }
 
