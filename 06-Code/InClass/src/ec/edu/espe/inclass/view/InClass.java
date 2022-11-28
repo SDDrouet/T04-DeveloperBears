@@ -126,16 +126,7 @@ public class InClass {
             switch (option) {
                 case 1:
                     showCourses();
-
-                    System.out.println("Which course do you want to enter?: ");
-                    courseNumber = askOption() - 1;
-
-                    try {
-                        course = teacher.getCourses().get(courseNumber);
-                        ControlCourseMenu(course);
-                    } catch (Exception e) {
-                        System.out.println("Error: Course was not find");
-                    }
+                    enterCourse();
                     break;
 
                 case 2:
@@ -151,12 +142,7 @@ public class InClass {
 
                 case 4:
                     for (Tutorship tutorship : teacher.getTutorships()) {
-                        System.out.println("================================================");
-                        System.out.println("- Date: " + tutorship.getDate());
-                        System.out.println("- Course Name: " + tutorship.getCourseName());
-                        System.out.println("- Student Name: " + tutorship.getName());
-                        System.out.println("- Student Id: " + tutorship.getId());
-                        System.out.println("- Student Career: " + tutorship.getCareer() + "\n");
+                        printTutorships(tutorship);
                     }
 
                     System.out.println("Function for tutorship record");
@@ -169,6 +155,28 @@ public class InClass {
                     System.out.println("Error: Invalid option try again.");
             }
         }
+    }
+
+    public static void enterCourse() {
+        int courseNumber;
+        Course course;
+        System.out.println("Which course do you want to enter?: ");
+        courseNumber = askOption() - 1;
+        try {
+            course = teacher.getCourses().get(courseNumber);
+            ControlCourseMenu(course);
+        } catch (Exception e) {
+            System.out.println("Error: Course was not find");
+        }
+    }
+
+    public static void printTutorships(Tutorship tutorship) {
+        System.out.println("================================================");
+        System.out.println("- Date: " + tutorship.getDate());
+        System.out.println("- Course Name: " + tutorship.getCourseName());
+        System.out.println("- Student Name: " + tutorship.getName());
+        System.out.println("- Student Id: " + tutorship.getId());
+        System.out.println("- Student Career: " + tutorship.getCareer() + "\n");
     }
 
     public static void removeCourse() {
