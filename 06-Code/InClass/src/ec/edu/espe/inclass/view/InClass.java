@@ -28,11 +28,13 @@ public class InClass {
         ManagementJson managementJson;
         teacher = new Teacher();
         teacher.setId("L002424");
-        teacher.setName("Santiago Valencia");
-        managementJson = new ManagementJson(teacher);
+        teacher.setName("Santiago Valencia");                        
         
-        loadFileJson();
-        managementJson.saveInClassInfo();
+        managementJson = new ManagementJson(teacher);
+        managementJson.loadInClassInfo();
+        
+        teacher = managementJson.getTeacher();
+
         controlMainMenu();
 
     }

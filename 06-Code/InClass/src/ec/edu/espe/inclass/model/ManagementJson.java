@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ec.edu.espe.inclass.model;
 
 import com.google.gson.Gson;
@@ -11,7 +7,10 @@ import java.util.Scanner;
 
 /**
  *
+ * @author Alejandro Cuadrado, Developer Bears, DCCO-ESPE
+ * @author Alexander Guaman, Developer Bears, DCCO-ESPE
  * @author Sheylee Enriquez, Developer Bears, DCCO-ESPE
+ * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class ManagementJson {
 
@@ -25,8 +24,8 @@ public class ManagementJson {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setTeacher(Teacher teacher1) {
+        this.teacher = teacher1;
     }
 
     public void saveTeacher() {
@@ -42,7 +41,6 @@ public class ManagementJson {
         } catch (Exception e) {
             System.out.println("Error: File not open or found");
         }
-        System.out.println(teacher.getCourses().get(0));
     }
 
     private void saveCourses() {
@@ -59,9 +57,18 @@ public class ManagementJson {
 
     private void saveStudents() {
         String json = "[";
-        for (Course course : teacher.getCourses()) {
-            json += course.getStudentsJson() + ",";
+
+        int coursesSize = teacher.getCourses().size();
+        for (int i = 0; i < coursesSize; i++) {
+
+            if (i == coursesSize - 1) {
+                json += teacher.getCourses().get(i).getStudentsJson();
+            } else {
+                json += teacher.getCourses().get(i).getStudentsJson() + ",";
+            }
+
         }
+        
         json += "]";
         File file = new File("./students.json");
         try ( FileWriter fw = new FileWriter(file);) {
@@ -91,14 +98,20 @@ public class ManagementJson {
         saveCourses();
         saveTutorships();
         saveTeacher();
-
     }
 
     private void saveAttendanceRecord() {
         String json = "[";
-        for (Course course : teacher.getCourses()) {
-            for (Student student : course.getStudents()) {
-                json += student.saveAttendanceRecordJson() + ",";
+        int coursesSize = teacher.getCourses().size();
+        int studentsSize;
+        for (int i = 0; i < coursesSize; i++) {
+            studentsSize = teacher.getCourses().get(i).getStudents().size();
+            for (int j = 0; j < studentsSize; j++) {
+                if (i == coursesSize - 1 && j == studentsSize - 1) {
+                    json += teacher.getCourses().get(i).getStudents().get(j).saveAttendanceRecordJson();
+                } else {
+                    json += teacher.getCourses().get(i).getStudents().get(j).saveAttendanceRecordJson() + ",";
+                }
             }
         }
 
@@ -115,9 +128,17 @@ public class ManagementJson {
 
     private void saveGradeRecord() {
         String json = "[";
-        for (Course course : teacher.getCourses()) {
-            for (Student student : course.getStudents()) {
-                json += student.saveGradeRecordJson() + ",";
+
+        int coursesSize = teacher.getCourses().size();
+        int studentsSize;
+        for (int i = 0; i < coursesSize; i++) {
+            studentsSize = teacher.getCourses().get(i).getStudents().size();
+            for (int j = 0; j < studentsSize; j++) {
+                if (i == coursesSize - 1 && j == studentsSize - 1) {
+                    json += teacher.getCourses().get(i).getStudents().get(j).saveGradeRecordJson();
+                } else {
+                    json += teacher.getCourses().get(i).getStudents().get(j).saveGradeRecordJson() + ",";
+                }
             }
         }
 
@@ -132,7 +153,7 @@ public class ManagementJson {
         }
     }
 
-    private Teacher loadTeacher() {
+    private void loadTeacher() {
         Gson gson = new Gson();
 
         Teacher newTeacher = new Teacher();
@@ -150,14 +171,10 @@ public class ManagementJson {
             System.out.println(e);
             System.out.println("Error: File not open or found");
         }
-
-        return newTeacher;
+        teacher = newTeacher;
     }
 
-    private Course loadCourses() {
-        Gson gson = new Gson();
-
-        Course newCourse = new Course();
+    private String loadCourses() {
         String jsonFile = "";
 
         try ( Scanner scFile = new Scanner(new File("./courses.json"))) {
@@ -165,21 +182,16 @@ public class ManagementJson {
                 jsonFile += scFile.nextLine();
             }
 
-            newCourse = gson.fromJson(jsonFile, Course.class);
-
             System.out.println("----------File was loaded----------");
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Error: File not open or found");
         }
 
-        return newCourse;
+        return jsonFile;
     }
 
-    private Student loadStudents() {
-        Gson gson = new Gson();
-
-        Student newStudent = new Student();
+    private String loadStudents() {
         String jsonFile = "";
 
         try ( Scanner scFile = new Scanner(new File("./students.json"))) {
@@ -187,30 +199,26 @@ public class ManagementJson {
                 jsonFile += scFile.nextLine();
             }
 
-            newStudent = gson.fromJson(jsonFile, Student.class);
-
             System.out.println("----------File was loaded----------");
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Error: File not open or found");
         }
 
-        return newStudent;
+        return jsonFile;
     }
 
-    public Teacher loadInClassInfo(){
+    public void loadInClassInfo() {
         loadCourses();
         loadStudents();
         loadTutorships();
         loadAttendanceRecord();
         loadGradeRecord();
-        return loadTeacher();
+        loadTeacher();
     }
-    
-    private Tutorship loadTutorships() {
-        Gson gson = new Gson();
 
-        Tutorship newTutorship = new Tutorship();
+    private String loadTutorships() {
+
         String jsonFile = "";
 
         try ( Scanner scFile = new Scanner(new File("./tutorships.json"))) {
@@ -218,21 +226,16 @@ public class ManagementJson {
                 jsonFile += scFile.nextLine();
             }
 
-            newTutorship = gson.fromJson(jsonFile, Tutorship.class);
-
             System.out.println("----------File was loaded----------");
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Error: File not open or found");
         }
 
-        return newTutorship;
+        return jsonFile;
     }
 
-    private AttendanceRecord loadAttendanceRecord() {
-        Gson gson = new Gson();
-
-        AttendanceRecord newAttendanceRecord = new AttendanceRecord();
+    private String loadAttendanceRecord() {
         String jsonFile = "";
 
         try ( Scanner scFile = new Scanner(new File("./attendanceRecord.json"))) {
@@ -240,21 +243,16 @@ public class ManagementJson {
                 jsonFile += scFile.nextLine();
             }
 
-            newAttendanceRecord = gson.fromJson(jsonFile, AttendanceRecord.class);
-
             System.out.println("----------File was loaded----------");
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Error: File not open or found");
         }
 
-        return newAttendanceRecord;
+        return jsonFile;
     }
 
-    private GradeRecord loadGradeRecord() {
-        Gson gson = new Gson();
-
-        GradeRecord newGradeRecord = new GradeRecord();
+    private String loadGradeRecord() {
         String jsonFile = "";
 
         try ( Scanner scFile = new Scanner(new File("./gradeRecord.json"))) {
@@ -262,14 +260,12 @@ public class ManagementJson {
                 jsonFile += scFile.nextLine();
             }
 
-            newGradeRecord = gson.fromJson(jsonFile, GradeRecord.class);
-
             System.out.println("----------File was loaded----------");
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Error: File not open or found");
         }
 
-        return newGradeRecord;
+        return jsonFile;
     }
 }
