@@ -1,7 +1,6 @@
 package ec.edu.espe.inclass.model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *

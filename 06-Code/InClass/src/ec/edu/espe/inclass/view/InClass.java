@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import ec.edu.espe.inclass.model.AttendanceRecord;
 import ec.edu.espe.inclass.model.Course;
 import ec.edu.espe.inclass.model.Grade;
+import ec.edu.espe.inclass.model.ManagementJson;
 import ec.edu.espe.inclass.model.Student;
 import ec.edu.espe.inclass.model.Teacher;
 import ec.edu.espe.inclass.model.Tutorship;
@@ -24,12 +25,14 @@ public class InClass {
 
     public static void main(String[] args) {
 
+        ManagementJson managementJson;
         teacher = new Teacher();
         teacher.setId("L002424");
         teacher.setName("Santiago Valencia");
-
-        teacher = loadFileJson();
-
+        managementJson = new ManagementJson(teacher);
+        
+        loadFileJson();
+        managementJson.saveInClassInfo();
         controlMainMenu();
 
     }
@@ -70,7 +73,7 @@ public class InClass {
                     System.out.println("Error: Invalid option try again.");
             }
 
-            SaveFileJson(teacher);
+            saveFileJson(teacher);
         }
     }
 
@@ -365,7 +368,7 @@ public class InClass {
         System.out.print("- " + student1.getName() + " Grade: ");
 
         do {
-            gradeValue = inputGrade();            
+            gradeValue = inputGrade();
         } while (Float.isNaN(gradeValue));
 
         studentSubject.add(gradeValue);
@@ -383,7 +386,7 @@ public class InClass {
                 System.out.println("The range of the grades is from 0 to 20.\nTry again");
                 gradeValue = Float.NaN;
             }
-            
+
         } catch (Exception e) {
             System.out.println("Error: Invalid number, please use comma(,) for decimal numbers and the range is (0-20).\nTry again: ");
         }
@@ -508,7 +511,7 @@ public class InClass {
         return newTeacher;
     }
 
-    private static void SaveFileJson(Teacher teacherInfo) {
+    private static void saveFileJson(Teacher teacherInfo) {
         Gson gson = new Gson();
         String json = gson.toJson(teacherInfo);
 

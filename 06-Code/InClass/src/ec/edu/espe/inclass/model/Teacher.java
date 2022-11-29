@@ -1,5 +1,6 @@
 package ec.edu.espe.inclass.model;
 
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
  * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class Teacher {
-
+    
     private String name;
     private String id;
     private ArrayList<Course> courses;
@@ -123,4 +124,20 @@ public class Teacher {
     public void setTutorships(ArrayList<Tutorship> tutorship) {
         this.tutorships = tutorship;
     }
+
+
+    public String getCoursesJson() {
+        Gson gson = new Gson();
+        String json = gson.toJson(courses);
+
+        return json;
+    }
+
+    public String saveTutorshipsJson() {
+        Gson gson = new Gson();
+        String json = gson.toJson(tutorships);
+
+        return json;
+    }
+
 }

@@ -1,5 +1,6 @@
 package ec.edu.espe.inclass.model;
 
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,6 +12,7 @@ import java.util.Scanner;
  * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class Course {
+
     private String name;
     private int nrc;
     private int studentNumber;
@@ -73,7 +75,7 @@ public class Course {
 
         String name;
         String espeId;
-        
+
         Scanner sc = new Scanner(System.in);
 
         try {
@@ -91,5 +93,11 @@ public class Course {
         }
     }
 
-   
+    public String getStudentsJson() {
+        Gson gson = new Gson();
+        String json = gson.toJson(students);
+
+        return json;
+    }
+    
 }
