@@ -3,11 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Desktop/Espe/OOP/T04-DeveloperBears/06-Code/InClass/src/ec/edu/espe/inclass/model/Tutorship.java</file>
-            <file>file:/C:/Users/user/Desktop/Espe/OOP/T04-DeveloperBears/06-Code/InClass/src/ec/edu/espe/inclass/model/Teacher.java</file>
-            <file>file:/C:/Users/user/Desktop/Espe/OOP/T04-DeveloperBears/06-Code/InClass/src/ec/edu/espe/inclass/model/Student.java</file>
-            <file>file:/C:/Users/user/Desktop/Espe/OOP/T04-DeveloperBears/06-Code/InClass/src/ec/edu/espe/inclass/view/InClass.java</file>
-            <file>file:/C:/Users/user/Desktop/Espe/OOP/T04-DeveloperBears/06-Code/InClass/src/ec/edu/espe/inclass/model/Course.java</file>
+            <file>file:/C:/David/Universidad/Universidad/3%20Semestre/POO%207996/Grupo%20no%20repo/InClass/src/ec/edu/espe/inclass/controller/TutorshipController.java</file>
+            <file>file:/C:/David/Universidad/Universidad/3%20Semestre/POO%207996/Grupo%20no%20repo/InClass/src/ec/edu/espe/inclass/controller/StudentController.java</file>
+            <file>file:/C:/David/Universidad/Universidad/3%20Semestre/POO%207996/Grupo%20no%20repo/InClass/src/ec/edu/espe/inclass/model/Course.java</file>
+            <file>file:/C:/David/Universidad/Universidad/3%20Semestre/POO%207996/Grupo%20no%20repo/InClass/src/ec/edu/espe/inclass/model/Teacher.java</file>
+            <file>file:/C:/David/Universidad/Universidad/3%20Semestre/POO%207996/Grupo%20no%20repo/InClass/src/ec/edu/espe/inclass/model/Student.java</file>
+            <file>file:/C:/David/Universidad/Universidad/3%20Semestre/POO%207996/Grupo%20no%20repo/InClass/src/ec/edu/espe/inclass/controller/TeacherController.java</file>
+            <file>file:/C:/David/Universidad/Universidad/3%20Semestre/POO%207996/Grupo%20no%20repo/InClass/src/ec/edu/espe/inclass/view/InClass.java</file>
+            <file>file:/C:/David/Universidad/Universidad/3%20Semestre/POO%207996/Grupo%20no%20repo/InClass/src/utils/DBManager.java</file>
+            <file>file:/C:/David/Universidad/Universidad/3%20Semestre/POO%207996/Grupo%20no%20repo/InClass/src/ec/edu/espe/inclass/controller/CourseController.java</file>
         </group>
     </open-files>
 </project-private>

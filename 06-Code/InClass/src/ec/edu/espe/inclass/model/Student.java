@@ -13,14 +13,12 @@ public class Student {
 
     private String name;
     private String espeId;
-    private boolean isApproved;
     private AttendanceRecord attendanceRecord;
     private GradeRecord gradeRecord;
 
     public Student() {
         name = "";
         espeId = "";
-        isApproved = false;
         attendanceRecord = new AttendanceRecord();
         gradeRecord = new GradeRecord();
     }
@@ -28,7 +26,6 @@ public class Student {
     public Student(String name, String espeId) {
         this.name = name;
         this.espeId = espeId;
-        this.isApproved = false;
         this.attendanceRecord = new AttendanceRecord();
         this.gradeRecord = new GradeRecord();
     }
@@ -59,20 +56,6 @@ public class Student {
      */
     public void setEspeId(String espeId) {
         this.espeId = espeId;
-    }
-
-    /**
-     * @return the isApproved
-     */
-    public boolean isIsApproved() {
-        return isApproved;
-    }
-
-    /**
-     * @param isApproved the isApproved to set
-     */
-    public void setIsApproved(boolean isApproved) {
-        this.isApproved = isApproved;
     }
 
     /**

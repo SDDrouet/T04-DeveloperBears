@@ -1,16 +1,18 @@
 package ec.edu.espe.inclass.view;
 
-import com.google.gson.Gson;
+import ec.edu.espe.inclass.controller.CourseController;
 import ec.edu.espe.inclass.model.AttendanceRecord;
 import ec.edu.espe.inclass.model.Course;
 import ec.edu.espe.inclass.model.Grade;
-import ec.edu.espe.inclass.model.ManagementJson;
+import ec.edu.espe.inclass.controller.StudentController;
+import ec.edu.espe.inclass.controller.TeacherController;
+import ec.edu.espe.inclass.controller.TutorshipController;
 import ec.edu.espe.inclass.model.Student;
 import ec.edu.espe.inclass.model.Teacher;
 import ec.edu.espe.inclass.model.Tutorship;
-import java.io.File;
-import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
+import utils.DBManager;
 
 /**
  *
@@ -22,21 +24,34 @@ import java.util.Scanner;
 public class InClass {
 
     static Teacher teacher;
+    static DBManager dBManager;
 
     public static void main(String[] args) {
 
-        ManagementJson managementJson;
-        teacher = new Teacher();
-        teacher.setId("L002424");
-        teacher.setName("Santiago Valencia");                        
-        
-        managementJson = new ManagementJson(teacher);
-        managementJson.loadInClassInfo();
-        
-        teacher = managementJson.getTeacher();
+        dBManager = new DBManager();
+        dBManager.connect("mongodb+srv://oop22:oop22@cluster0.cd2tjad.mongodb.net/test", "InClassProject");
 
+        loadFromDataBase();
         controlMainMenu();
+    }
 
+    public static void loadFromDataBase() {
+        ArrayList<Tutorship> tutorships;
+        ArrayList<Course> courses;
+        ArrayList<Student> students;
+                
+        teacher = new Teacher();
+        teacher = TeacherController.jsonToTeacher((String)dBManager.readCollection("Teacher").get(0));
+        tutorships = TutorshipController.loadTutorships(dBManager.readCollection("Tutorships"));
+        courses = CourseController.loadCourses(dBManager.readCollection("Courses"));       
+
+        for (Course course : courses) {
+            students = StudentController.loadStudents(dBManager.readCollection("Students", "nrc", course.getNrc()));
+            course.setStudents(students);
+        }
+
+        teacher.setTutorships(tutorships);
+        teacher.setCourses(courses);
     }
 
     public static void controlMainMenu() {
@@ -74,8 +89,6 @@ public class InClass {
                 default:
                     System.out.println("Error: Invalid option try again.");
             }
-
-            saveFileJson(teacher);
         }
     }
 
@@ -96,6 +109,7 @@ public class InClass {
                     tutorship.requestTutorship();
                     try {
                         teacher.getTutorships().add(tutorship);
+                        dBManager.createDocument("Tutorships", DBManager.toJson(tutorship));
                     } catch (Exception e) {
                         System.out.println("error could not add tutorship");
                     }
@@ -113,13 +127,13 @@ public class InClass {
     }
 
     private static void controlTeacherMenu() {
-        Course course;
-
         int option = 0;
-        int courseNumber;
 
         while (option != 5) {
-            System.out.println("-----Teacher Menu-----");
+            System.out.println("--------------------------------------------");
+            System.out.println("   Hi, " + teacher.getName() + " - ESPE ID: " + teacher.getEspeId());
+            System.out.println("---------------------------------------------");
+            System.out.println("----------Teacher Menu----------");
             System.out.println("1. Enter a course");
             System.out.println("2. Add Course");
             System.out.println("3. Remove Course");
@@ -490,40 +504,5 @@ public class InClass {
 
         return option;
     }
-
-    private static Teacher loadFileJson() {
-        Gson gson = new Gson();
-
-        Teacher newTeacher = new Teacher();
-        String jsonFile = "";
-
-        try ( Scanner scFile = new Scanner(new File("./InClass.json"))) {
-            while (scFile.hasNextLine()) {
-                jsonFile += scFile.nextLine();
-            }
-
-            newTeacher = gson.fromJson(jsonFile, Teacher.class);
-
-            System.out.println("----------File was loaded----------");
-        } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("Error: File not open or found");
-        }
-
-        return newTeacher;
-    }
-
-    private static void saveFileJson(Teacher teacherInfo) {
-        Gson gson = new Gson();
-        String json = gson.toJson(teacherInfo);
-
-        File file = new File("./InClass.json");
-        try ( FileWriter fw = new FileWriter(file);) {
-            fw.write(json);
-            System.out.println("----------File was saved----------");
-        } catch (Exception e) {
-            System.out.println("Error: File not open or found");
-        }
-    }
-
+    
 }

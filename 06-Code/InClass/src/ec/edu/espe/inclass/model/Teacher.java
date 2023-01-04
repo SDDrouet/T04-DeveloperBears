@@ -14,20 +14,20 @@ import java.util.Scanner;
 public class Teacher {
     
     private String name;
-    private String id;
+    private String espeId;
     private ArrayList<Course> courses;
     private ArrayList<Tutorship> tutorships;
 
     public Teacher(String name, String id, ArrayList<Course> courses, ArrayList<Tutorship> tutorship) {
         this.name = name;
-        this.id = id;
+        this.espeId = id;
         this.courses = courses;
         this.tutorships = tutorship;
     }
 
     public Teacher() {
         name = "";
-        id = "";
+        espeId = "";
         courses = new ArrayList<>();
         tutorships = new ArrayList<>();
     }
@@ -49,15 +49,15 @@ public class Teacher {
     /**
      * @return the id
      */
-    public String getId() {
-        return id;
+    public String getEspeId() {
+        return espeId;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
-        this.id = id;
+    public void setEspeId(String id) {
+        this.espeId = id;
     }
 
     /**

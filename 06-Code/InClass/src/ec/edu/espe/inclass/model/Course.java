@@ -15,20 +15,17 @@ public class Course {
 
     private String name;
     private int nrc;
-    private int studentNumber;
     private ArrayList<Student> students;
 
     public Course() {
         name = "";
         nrc = 0;
-        studentNumber = 0;
         students = new ArrayList<>();
     }
 
     public Course(String name, int nrc) {
         this.name = name;
         this.nrc = nrc;
-        this.studentNumber = 0;
         this.students = new ArrayList<>();
     }
 
@@ -51,14 +48,6 @@ public class Course {
 
     public void setNrc(int nrc) {
         this.nrc = nrc;
-    }
-
-    public int getStudentNumber() {
-        return studentNumber;
-    }
-
-    public void setStudentNumber(int studentNumber) {
-        this.studentNumber = studentNumber;
     }
 
     public ArrayList<Student> getStudents() {

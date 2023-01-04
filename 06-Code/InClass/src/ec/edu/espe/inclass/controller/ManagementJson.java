@@ -1,6 +1,7 @@
-package ec.edu.espe.inclass.model;
+package ec.edu.espe.inclass.controller;
 
 import com.google.gson.Gson;
+import ec.edu.espe.inclass.model.Teacher;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
