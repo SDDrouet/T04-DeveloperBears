@@ -1,6 +1,5 @@
 package ec.edu.espe.inclass.model;
 
-import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,26 +73,27 @@ public class Teacher {
         this.courses = courses;
     }
 
-    public void addCourse() {
+    public Course addCourse() {
 
-        Course newCourse = new Course();
-
-        String name;
+        Course newCourse = null;
+        String courseName;
         int nrc;
 
         Scanner sc = new Scanner(System.in);
 
         try {
-            name = scanAssignatureName(sc);
+            courseName = scanAssignatureName(sc);
             nrc = scanCourseNrc(sc);
-
-            newCourse.setName(name);
-            newCourse.setNrc(nrc);
-
+            
+            newCourse = new Course(courseName, nrc);
+                        
             getCourses().add(newCourse);
+            
         } catch (Exception e) {
             System.out.println("Error! You should verify the information entered :)");
         }
+        
+        return  newCourse;
     }
 
     private int scanCourseNrc(Scanner sc) {
@@ -105,10 +105,10 @@ public class Teacher {
     }
 
     private String scanAssignatureName(Scanner sc) {
-        String name;
+        String courseName;
         System.out.print("Assignature name: ");
-        name = sc.nextLine();
-        return name;
+        courseName = sc.nextLine();
+        return courseName;
     }
 
     /**
@@ -123,21 +123,6 @@ public class Teacher {
      */
     public void setTutorships(ArrayList<Tutorship> tutorship) {
         this.tutorships = tutorship;
-    }
-
-
-    public String getCoursesJson() {
-        Gson gson = new Gson();
-        String json = gson.toJson(courses);
-
-        return json;
-    }
-
-    public String saveTutorshipsJson() {
-        Gson gson = new Gson();
-        String json = gson.toJson(tutorships);
-
-        return json;
     }
 
 }

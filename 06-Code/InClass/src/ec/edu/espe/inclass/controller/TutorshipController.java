@@ -6,7 +6,10 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Stephen Drouet, Developer Bears, DCC-ESPE
+ * @author Alejandro Cuadrado, Developer Bears, DCCO-ESPE
+ * @author Alexander Guaman, Developer Bears, DCCO-ESPE
+ * @author Sheylee Enriquez, Developer Bears, DCCO-ESPE
+ * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class TutorshipController {
 

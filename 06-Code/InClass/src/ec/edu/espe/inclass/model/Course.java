@@ -1,6 +1,5 @@
 package ec.edu.espe.inclass.model;
 
-import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,9 +57,9 @@ public class Course {
         this.students = students;
     }
 
-    public void addStudent() {
+    public Student addStudent() {
 
-        Student newStudent = new Student();
+        Student newStudent = null;
 
         String name;
         String espeId;
@@ -73,20 +72,13 @@ public class Course {
             System.out.print("Student ID: ");
             espeId = sc.nextLine();
 
-            newStudent.setName(name);
-            newStudent.setEspeId(espeId);
-
+            newStudent = new Student(name, espeId);
             students.add(newStudent);
         } catch (Exception e) {
-            System.out.println("Error! You should verify the information entered :)");
+            System.out.println("Error! You should verify the information entered");
         }
+
+        return newStudent;
     }
 
-    public String getStudentsJson() {
-        Gson gson = new Gson();
-        String json = gson.toJson(students);
-
-        return json;
-    }
-    
 }

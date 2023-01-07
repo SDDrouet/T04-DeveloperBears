@@ -107,14 +107,15 @@ public class DBManager {
         return listObjects;
     }
     
-    public void updateDocument(String collectionName, String id, String json) {
+    public void updateDocument(String collectionName, String id, int nrc, String json) {
         MongoCollection collection;
         Document document;
         
         try {
             collection = getDatabase().getCollection(collectionName);
             
-            document = (Document) collection.find(new Document("id", id)).first();
+
+            document = (Document) collection.find((new Document("espeId", id)).append("nrc", nrc)).first();
             
             if (document != null) {
                 Bson updateValue = Document.parse(json);
@@ -139,8 +140,49 @@ public class DBManager {
             System.out.println("The document was successfully deleted");
         } catch (Exception e) {
             System.out.println("Error: Document no founded");
-        }
-            
+        }            
+    }
+    
+    public void deleteDocument(String collectionName, int id) {
+        MongoCollection collection;
+        Document document;
+        
+        try {
+            collection = getDatabase().getCollection(collectionName);            
+            document = (Document) collection.find(new Document("id", id)).first();            
+            collection.deleteOne(document);
+            System.out.println("The document was successfully deleted");
+        } catch (Exception e) {
+            System.out.println("Error: Document no founded");
+        }            
+    }
+    
+    public void deleteStudentDocument(String espeId ,int nrc) {
+        MongoCollection collection;
+        Document document;
+        
+        try {
+            collection = getDatabase().getCollection("Students");            
+            document = (Document) collection.find((new Document("espeId", espeId)).append("nrc", nrc)).first();
+            collection.deleteOne(document);
+            System.out.println("The document was successfully deleted");
+        } catch (Exception e) {
+            System.out.println("Error: Document no founded");
+        }            
+    }
+    
+    public void deleteDocument(String collectionName, String key ,int value) {
+        MongoCollection collection;
+        Document document;
+        
+        try {
+            collection = getDatabase().getCollection(collectionName);            
+            document = (Document) collection.find(new Document(key, value)).first();            
+            collection.deleteOne(document);
+            System.out.println("The document was successfully deleted");
+        } catch (Exception e) {
+            System.out.println("Error: Document no founded");
+        }            
     }
     
     public String findDocument(String collectionName, String id) {

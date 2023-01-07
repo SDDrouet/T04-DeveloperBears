@@ -28,22 +28,21 @@ public class InClass {
 
     public static void main(String[] args) {
 
-        dBManager = new DBManager();
-        dBManager.connect("mongodb+srv://oop22:oop22@cluster0.cd2tjad.mongodb.net/test", "InClassProject");
-
-        loadFromDataBase();
+        connectMongoDB();
         controlMainMenu();
     }
 
-    public static void loadFromDataBase() {
+    public static void connectMongoDB() {
         ArrayList<Tutorship> tutorships;
         ArrayList<Course> courses;
         ArrayList<Student> students;
-                
+
+        dBManager = new DBManager();
+        dBManager.connect("mongodb+srv://oop22:oop22@cluster0.cd2tjad.mongodb.net/test", "InClassProject");
         teacher = new Teacher();
-        teacher = TeacherController.jsonToTeacher((String)dBManager.readCollection("Teacher").get(0));
+        teacher = TeacherController.jsonToTeacher((String) dBManager.readCollection("Teacher").get(0));
         tutorships = TutorshipController.loadTutorships(dBManager.readCollection("Tutorships"));
-        courses = CourseController.loadCourses(dBManager.readCollection("Courses"));       
+        courses = CourseController.loadCourses(dBManager.readCollection("Courses"));
 
         for (Course course : courses) {
             students = StudentController.loadStudents(dBManager.readCollection("Students", "nrc", course.getNrc()));
@@ -74,20 +73,13 @@ public class InClass {
             option = askOption();
 
             switch (option) {
-                case 1:
-                    controlTeacherMenu();
-                    break;
+                case 1 -> controlTeacherMenu();
 
-                case 2:
-                    controlStudentMenu();
-                    break;
+                case 2 -> controlStudentMenu();
 
-                case 3:
-                    System.out.println("See you...");
-                    break;
+                case 3 -> System.out.println("See you...");
 
-                default:
-                    System.out.println("Error: Invalid option try again.");
+                default -> System.out.println("Error: Invalid option try again.");
             }
         }
     }
@@ -104,7 +96,7 @@ public class InClass {
             option = askOption();
 
             switch (option) {
-                case 1:
+                case 1 -> {
                     Tutorship tutorship = new Tutorship();
                     tutorship.requestTutorship();
                     try {
@@ -114,19 +106,18 @@ public class InClass {
                         System.out.println("error could not add tutorship");
                     }
                     System.out.println("A tutorship was requested");
-                    break;
+                }
 
-                case 2:
-                    break;
+                case 2 -> {
+                }
 
-                default:
-                    System.out.println("Error: Invalid option try again.");
+                default -> System.out.println("Error: Invalid option try again.");
             }
         }
-
     }
 
     private static void controlTeacherMenu() {
+        Course course;
         int option = 0;
 
         while (option != 5) {
@@ -143,35 +134,38 @@ public class InClass {
             option = askOption();
 
             switch (option) {
-                case 1:
+                case 1 -> {
                     showCourses();
                     enterCourse();
-                    break;
+                }
 
-                case 2:
+                case 2 -> {
                     System.out.println("Function for add Course");
-                    teacher.addCourse();
-                    break;
+                    course = teacher.addCourse();
 
-                case 3:
+                    if (course != null) {
+                        dBManager.createDocument("Courses", CourseController.courseToJsonForDB(course));
+                    }
+                }
+
+                case 3 -> {
                     System.out.println("Function for remove Course");
                     showCourses();
                     removeCourse();
-                    break;
+                }
 
-                case 4:
+                case 4 -> {
+                    System.out.println("Tutorship record");
                     for (Tutorship tutorship : teacher.getTutorships()) {
-                        printTutorships(tutorship);
+                        System.out.println("\n======================================");
+                        tutorship.printRequestTutorship();
                     }
+                }
 
-                    System.out.println("Function for tutorship record");
-                    break;
+                case 5 -> {
+                }
 
-                case 5:
-                    break;
-
-                default:
-                    System.out.println("Error: Invalid option try again.");
+                default -> System.out.println("Error: Invalid option try again.");
             }
         }
     }
@@ -189,20 +183,12 @@ public class InClass {
         }
     }
 
-    public static void printTutorships(Tutorship tutorship) {
-        System.out.println("================================================");
-        System.out.println("- Date: " + tutorship.getDate());
-        System.out.println("- Course Name: " + tutorship.getCourseName());
-        System.out.println("- Student Name: " + tutorship.getName());
-        System.out.println("- Student Id: " + tutorship.getId());
-        System.out.println("- Student Career: " + tutorship.getCareer() + "\n");
-    }
-
     public static void removeCourse() {
         int courseNumber;
         System.out.println("Which course do you want to remove?: ");
         courseNumber = askOption() - 1;
         try {
+            dBManager.deleteDocument("Courses", "nrc", teacher.getCourses().get(courseNumber).getNrc());
             teacher.getCourses().remove(courseNumber);
             System.out.println("The course was remove successfully");
         } catch (Exception e) {
@@ -241,7 +227,7 @@ public class InClass {
             option = askOption();
 
             switch (option) {
-                case 1:
+                case 1 -> {
                     showStudents(course);
 
                     System.out.println("Which student do you want to manage?: ");
@@ -250,34 +236,37 @@ public class InClass {
                     try {
                         student = course.getStudents().get(studentNumber);
                         ControlStudentInfoMenu(student);
+                        dBManager.updateDocument("Students", student.getEspeId(), course.getNrc(),
+                                StudentController.studentToJsonForDB(student, course.getNrc()));
                     } catch (Exception e) {
                         System.out.println("Error: Course was not find");
                     }
+                }
 
-                    break;
-
-                case 2:
+                case 2 -> {
                     System.out.println("Function for enrolled students");
                     showStudents(course);
-                    break;
+                }
 
-                case 3:
+                case 3 -> {
                     System.out.println("Add Grades for all");
                     addGradeForAll(course);
-                    break;
+                    UpdateStudentsInDB(course);
+                }
 
-                case 4:
+                case 4 -> {
                     System.out.println("Function for take Attendance");
                     attendanceRecord.add(course.getStudents());
-                    break;
+                    UpdateStudentsInDB(course);
+                }
 
-                case 5:
+                case 5 -> {
                     System.out.println("Function for add student");
-                    course.addStudent();
-                    System.out.println(course.getStudents().toString());
-                    break;
+                    student = course.addStudent();
+                    dBManager.createDocument("Students", StudentController.studentToJsonForDB(student, course.getNrc()));
+                }
 
-                case 6:
+                case 6 -> {
                     System.out.println("Function for remove student");
                     showStudents(course);
 
@@ -285,35 +274,42 @@ public class InClass {
                     studentNumber = askOption() - 1;
 
                     try {
+                        dBManager.deleteStudentDocument(course.getStudents().get(studentNumber).getEspeId(), course.getNrc());
                         course.getStudents().remove(studentNumber);
                         System.out.println("The student was remove successfully");
                     } catch (Exception e) {
                         System.out.println("The student was not remove");
                     }
-                    break;
+                }
 
-                case 7:
+                case 7 -> {
                     System.out.println("Function for grade record");
                     for (Student student1 : course.getStudents()) {
                         System.out.println("--------------------------------------------------------------------------------------------------");
                         System.out.println("- " + student1.getName() + ": \n" + student1.getGradeRecord());
                     }
-                    break;
+                }
 
-                case 8:
+                case 8 -> {
                     System.out.println("Function for attendance record");
                     for (Student student1 : course.getStudents()) {
                         System.out.print("- " + student1.getName());
                         System.out.println(": " + student1.getAttendanceRecord());
                     }
-                    break;
+                }
 
-                case 9:
-                    break;
+                case 9 -> {
+                }
 
-                default:
-                    System.out.println("Error: Invalid option try again.");
+                default -> System.out.println("Error: Invalid option try again.");
             }
+        }
+    }
+
+    private static void UpdateStudentsInDB(Course course) {
+        for (Student student1 : course.getStudents()) {
+            dBManager.updateDocument("Students", student1.getEspeId(), course.getNrc(),
+                    StudentController.studentToJsonForDB(student1, course.getNrc()));
         }
     }
 
@@ -341,36 +337,35 @@ public class InClass {
             option = askOption();
 
             switch (option) {
-                case 1:
+                case 1 -> {
                     for (Student student1 : course.getStudents()) {
                         studentSubject = student1.getGradeRecord().getUnits().get(unitNumber).getWorkshops();
                         AddStudentGrade(student1, studentSubject);
                     }
-                    break;
+                }
 
-                case 2:
+                case 2 -> {
                     for (Student student1 : course.getStudents()) {
                         studentSubject = student1.getGradeRecord().getUnits().get(unitNumber).getHomeworks();
                         AddStudentGrade(student1, studentSubject);
                     }
-                    break;
+                }
 
-                case 3:
+                case 3 -> {
                     for (Student student1 : course.getStudents()) {
                         studentSubject = student1.getGradeRecord().getUnits().get(unitNumber).getTests();
                         AddStudentGrade(student1, studentSubject);
                     }
-                    break;
+                }
 
-                case 4:
+                case 4 -> {
                     for (Student student1 : course.getStudents()) {
                         studentSubject = student1.getGradeRecord().getUnits().get(unitNumber).getExam();
                         AddStudentGrade(student1, studentSubject);
                     }
-                    break;
+                }
 
-                default:
-                    System.out.println("Error: Invalid option");
+                default -> System.out.println("Error: Invalid option");
             }
 
         } else {
@@ -434,35 +429,34 @@ public class InClass {
 
             if (unitNumber >= 0 && unitNumber < 3) {
                 switch (option) {
-                    case 1:
+                    case 1 -> {
                         System.out.println("Function for modify workshop grade");
                         studentSubject = student.getGradeRecord().getUnits().get(unitNumber).getWorkshops();
                         modifyStudenSubject(studentSubject);
-                        break;
+                    }
 
-                    case 2:
+                    case 2 -> {
                         System.out.println("Function for modify homework grade");
                         studentSubject = student.getGradeRecord().getUnits().get(unitNumber).getHomeworks();
                         modifyStudenSubject(studentSubject);
-                        break;
+                    }
 
-                    case 3:
+                    case 3 -> {
                         System.out.println("Function for modify test grade");
                         studentSubject = student.getGradeRecord().getUnits().get(unitNumber).getTests();
                         modifyStudenSubject(studentSubject);
-                        break;
+                    }
 
-                    case 4:
+                    case 4 -> {
                         System.out.println("Function for modify exam grade");
                         studentSubject = student.getGradeRecord().getUnits().get(unitNumber).getExam();
                         modifyStudenSubject(studentSubject);
-                        break;
+                    }
 
-                    case 5:
-                        break;
+                    case 5 -> {
+                    }
 
-                    default:
-                        System.out.println("Error: Invalid option try again.");
+                    default -> System.out.println("Error: Invalid option try again.");
                 }
             } else {
                 System.out.println("Error: The selected unit does not exist");
@@ -504,5 +498,5 @@ public class InClass {
 
         return option;
     }
-    
+
 }

@@ -122,7 +122,7 @@ public class Tutorship{
         printRequestTutorship();
     }
     
-    private void printRequestTutorship() {
+    public void printRequestTutorship() {
         System.out.println("I, " + getName() + ", with ID: " + getId() + ", student of the Career: " + getCareer()
                 + " of Universidad de las Fuerzas Armadas -- ESPE Matriz Sangolqui , I request you, Mr.Director Career, it is designated to enter and register"
                         + " in the database the request for a tutoring of the: " + getCourseName() + "For the attention to the request, receive my thanks.");
@@ -130,7 +130,7 @@ public class Tutorship{
 
     @Override
     public String toString() {
-        return  "date=" + date + ", id=" + id + ", name=" + name + ", career=" + career + ", courseName=" + courseName;
+        return  "Date=" + date + ", id=" + id + ", name=" + name + ", career=" + career + ", courseName=" + courseName;
     }
     
     

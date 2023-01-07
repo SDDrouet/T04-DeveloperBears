@@ -1,7 +1,5 @@
 package ec.edu.espe.inclass.model;
 
-import com.google.gson.Gson;
-
 /**
  *
  * @author Alejandro Cuadrado, Developer Bears, DCCO-ESPE
@@ -89,20 +87,6 @@ public class Student {
     @Override
     public String toString() {
         return "name: " + name + ", espeId: " + espeId;
-    }
-
-    public String saveGradeRecordJson() {
-        Gson gson = new Gson();
-        String json = gson.toJson(gradeRecord);
-
-        return json;
-    }
-
-    public String saveAttendanceRecordJson() {
-        Gson gson = new Gson();
-        String json = gson.toJson(attendanceRecord);
-
-        return json;
     }
 
 }

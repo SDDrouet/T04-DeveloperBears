@@ -34,12 +34,6 @@ public class GradeRecord {
         this.units = units;
     }
 
-    public void addUnits() {
-        units.add(new Unit());
-        units.add(new Unit());
-        units.add(new Unit());
-    }
-
     public float calculateFinalGrade() {
         float finalGrade;
         float sum = 0;
@@ -62,6 +56,5 @@ public class GradeRecord {
                 + "\n    - FinalGrade: " + calculateFinalGrade();
 
     }
-
 
 }
