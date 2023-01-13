@@ -1,5 +1,9 @@
 package ec.edu.espe.inclass.view;
 
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+
 /**
  *
  * @author Alejandro Cuadrado, Developer Bears, DCCO-ESPE
@@ -35,10 +39,10 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         btnManagement = new javax.swing.JButton();
         btnEnrolled = new javax.swing.JButton();
         btnAddGrade = new javax.swing.JButton();
-        btnattendance = new javax.swing.JButton();
+        btnAttendance = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         btnRecord = new javax.swing.JButton();
-        btnattendancerecord = new javax.swing.JButton();
+        btnAttendanceRecord = new javax.swing.JButton();
         pnlButtons = new javax.swing.JPanel();
         btnback = new javax.swing.JButton();
 
@@ -67,8 +71,8 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         btnAddGrade.setText("Add grade");
         btnAddGrade.setEnabled(false);
 
-        btnattendance.setText("Take attendance");
-        btnattendance.setEnabled(false);
+        btnAttendance.setText("Take attendance");
+        btnAttendance.setEnabled(false);
 
         btnRemove.setText("Remove Student");
         btnRemove.setEnabled(false);
@@ -76,11 +80,11 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         btnRecord.setText("Get grade record");
         btnRecord.setEnabled(false);
 
-        btnattendancerecord.setText("Get attendance record");
-        btnattendancerecord.setEnabled(false);
-        btnattendancerecord.addContainerListener(new java.awt.event.ContainerAdapter() {
+        btnAttendanceRecord.setText("Get attendance record");
+        btnAttendanceRecord.setEnabled(false);
+        btnAttendanceRecord.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
-                btnattendancerecordComponentAdded(evt);
+                btnAttendanceRecordComponentAdded(evt);
             }
         });
 
@@ -98,8 +102,8 @@ public class FrmEnterCourse extends javax.swing.JFrame {
                             .addComponent(btnAddGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnManagement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEnrolled, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnattendance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnattendancerecord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnAttendance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAttendanceRecord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(pnlMenuLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,13 +137,13 @@ public class FrmEnterCourse extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnAddGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnattendance)
+                .addComponent(btnAttendance)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove)
                 .addGap(18, 18, 18)
                 .addComponent(btnRecord)
                 .addGap(18, 18, 18)
-                .addComponent(btnattendancerecord)
+                .addComponent(btnAttendanceRecord)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -206,15 +210,38 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnattendancerecordComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_btnattendancerecordComponentAdded
+    private void btnAttendanceRecordComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_btnAttendanceRecordComponentAdded
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnattendancerecordComponentAdded
+    }//GEN-LAST:event_btnAttendanceRecordComponentAdded
 
     private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
         // TODO add your handling code here:
-        int courseToFind;
+                int courseToFind;
+        int exists = 0;
 
         courseToFind = Integer.parseInt(txtCourse.getText());
+        exists = InClass.findCourse(courseToFind);
+
+        if (exists == 1) {
+            JOptionPane.showMessageDialog(this, "Course successfully found", "COURSE FIND", INFORMATION_MESSAGE);
+            btnManagement.setEnabled(true);
+            btnEnrolled.setEnabled(true);
+            btnAddGrade.setEnabled(true);
+            btnAttendance.setEnabled(true);
+            btnRemove.setEnabled(true);
+            btnRecord.setEnabled(true);
+            btnAttendanceRecord.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Course not exists, try again", "COURSE FIND", ERROR_MESSAGE);
+            btnManagement.setEnabled(false);
+            btnEnrolled.setEnabled(false);
+            btnAddGrade.setEnabled(false);
+            btnAttendance.setEnabled(false);
+            btnRemove.setEnabled(false);
+            btnRecord.setEnabled(false);
+            btnAttendanceRecord.setEnabled(false);
+            txtCourse.setText("");
+        }
 
 
     }//GEN-LAST:event_btnfindActionPerformed
@@ -294,12 +321,12 @@ public class FrmEnterCourse extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddGrade;
+    private javax.swing.JButton btnAttendance;
+    private javax.swing.JButton btnAttendanceRecord;
     private javax.swing.JButton btnEnrolled;
     private javax.swing.JButton btnManagement;
     private javax.swing.JButton btnRecord;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JButton btnattendance;
-    private javax.swing.JButton btnattendancerecord;
     private javax.swing.JButton btnback;
     private javax.swing.JButton btnfind;
     private javax.swing.JLabel jLabel1;

@@ -82,8 +82,8 @@
                                   <Component id="btnAddGrade" max="32767" attributes="0"/>
                                   <Component id="btnManagement" max="32767" attributes="0"/>
                                   <Component id="btnEnrolled" max="32767" attributes="0"/>
-                                  <Component id="btnattendance" max="32767" attributes="0"/>
-                                  <Component id="btnattendancerecord" max="32767" attributes="0"/>
+                                  <Component id="btnAttendance" max="32767" attributes="0"/>
+                                  <Component id="btnAttendanceRecord" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -127,13 +127,13 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnAddGrade" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnattendance" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAttendance" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnRemove" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnRecord" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnattendancerecord" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAttendanceRecord" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -186,7 +186,7 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnattendance">
+            <Component class="javax.swing.JButton" name="btnAttendance">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Take attendance"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -204,13 +204,13 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnattendancerecord">
+            <Component class="javax.swing.JButton" name="btnAttendanceRecord">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Get attendance record"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="componentAdded" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="btnattendancerecordComponentAdded"/>
+                <EventHandler event="componentAdded" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="btnAttendanceRecordComponentAdded"/>
               </Events>
             </Component>
           </SubComponents>
