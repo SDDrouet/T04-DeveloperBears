@@ -1,12 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.inclass.view;
+
+import ec.edu.espe.inclass.controller.CourseController;
+import ec.edu.espe.inclass.model.Course;
+import static ec.edu.espe.inclass.view.InClass.connectMongoDB;
+import static ec.edu.espe.inclass.view.InClass.dBManager;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 /**
  *
- * @author alejo
+ * @author Alejandro Cuadrado, Developer Bears, DCCO-ESPE
+ * @author Alexander Guaman, Developer Bears, DCCO-ESPE
+ * @author Sheylee Enriquez, Developer Bears, DCCO-ESPE
+ * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class FrmAddCourse extends javax.swing.JFrame {
 
@@ -29,30 +36,33 @@ public class FrmAddCourse extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtname = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtNRC = new javax.swing.JTextField();
-        txtteacher = new javax.swing.JTextField();
-        txtID = new javax.swing.JTextField();
+        txtNrc = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        btnAccept = new javax.swing.JButton();
-        btndelete = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         btnback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
-        jLabel1.setText("Add Course");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("ADD COURSE");
 
         jLabel2.setText("Assignature's name:");
 
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNameKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("NRC:");
 
-        jLabel4.setText("Teacher's name:");
-
-        jLabel5.setText("Teacher's ID:");
+        txtNrc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNrcKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -61,72 +71,69 @@ public class FrmAddCourse extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
                             .addComponent(jLabel3))
                         .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtname, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                            .addComponent(txtteacher)
-                            .addComponent(txtID)
-                            .addComponent(txtNRC, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNrc, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(jLabel1)))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtNRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtteacher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtNrc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        btnAccept.setText("Accept");
-
-        btndelete.setText("Delete");
+        btnAdd.setBackground(new java.awt.Color(0, 153, 51));
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnback.setText("Back");
+        btnback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(btnAccept)
-                .addGap(61, 61, 61)
-                .addComponent(btndelete)
-                .addGap(68, 68, 68)
+                .addGap(69, 69, 69)
+                .addComponent(btnAdd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnback)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(49, 49, 49))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAccept)
-                    .addComponent(btndelete)
+                    .addComponent(btnAdd)
                     .addComponent(btnback))
                 .addGap(14, 14, 14))
         );
@@ -155,6 +162,58 @@ public class FrmAddCourse extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+
+        Course course;
+        String name;
+        int nrc;
+
+        connectMongoDB();
+
+        name = String.valueOf(txtName.getText());
+        nrc = Integer.parseInt(txtNrc.getText());
+
+        try {
+            course = new Course(name, nrc);
+        } catch (Exception e) {
+            course = null;
+        }
+
+        if (course != null) {
+            dBManager.createDocument("Courses", CourseController.courseToJsonForDB(course));
+            JOptionPane.showMessageDialog(this, "Course successfully added", "COURSE add", INFORMATION_MESSAGE);
+            txtName.setText("");
+            txtNrc.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Course not add", "COURSE add", INFORMATION_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
+        // TODO add your handling code here:
+        FrmTeacherMenu frmTeacherMenu = new FrmTeacherMenu();
+        frmTeacherMenu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnbackActionPerformed
+
+    private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isAlphabetic(c) && !Character.isSpaceChar(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, c + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtNameKeyTyped
+
+    private void txtNrcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNrcKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, c + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_txtNrcKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -182,6 +241,12 @@ public class FrmAddCourse extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -192,19 +257,14 @@ public class FrmAddCourse extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAccept;
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnback;
-    private javax.swing.JButton btndelete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtNRC;
-    private javax.swing.JTextField txtname;
-    private javax.swing.JTextField txtteacher;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtNrc;
     // End of variables declaration//GEN-END:variables
 }

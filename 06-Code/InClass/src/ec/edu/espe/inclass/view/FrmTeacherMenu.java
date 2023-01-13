@@ -47,8 +47,18 @@ public class FrmTeacherMenu extends javax.swing.JFrame {
         });
 
         btnadd.setText("Add Course");
+        btnadd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnaddActionPerformed(evt);
+            }
+        });
 
         btnremove.setText("Remove Course");
+        btnremove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnremoveActionPerformed(evt);
+            }
+        });
 
         btnget.setText("Get Tutorship Record");
 
@@ -150,6 +160,20 @@ public class FrmTeacherMenu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnenterActionPerformed
 
+    private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
+        // TODO add your handling code here:
+        FrmAddCourse frmAddCourse = new FrmAddCourse();
+        frmAddCourse.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnaddActionPerformed
+
+    private void btnremoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnremoveActionPerformed
+        // TODO add your handling code here:
+        FrmRemoveCourse frmRemoveCourse = new FrmRemoveCourse();
+        frmRemoveCourse.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnremoveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -175,6 +199,30 @@ public class FrmTeacherMenu extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmTeacherMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

@@ -106,11 +106,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Add Course"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnaddActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnremove">
           <Properties>
             <Property name="text" type="java.lang.String" value="Remove Course"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnremoveActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnget">
           <Properties>

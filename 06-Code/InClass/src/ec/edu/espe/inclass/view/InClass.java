@@ -547,4 +547,23 @@ public class InClass {
 
     }
 
+    public static int addCourse(String name, int nrc) {
+
+        Course newCourse;
+        int validated;
+
+        try {
+
+            newCourse = new Course(name, nrc);
+
+            teacher.getCourses().add(newCourse);
+            validated=1;
+
+        } catch (Exception e) {
+            validated=0;
+        }
+
+        return validated;
+    }
+
 }
