@@ -7,54 +7,23 @@ package ec.edu.espe.inclass.model;
  * @author Sheylee Enriquez, Developer Bears, DCCO-ESPE
  * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
-public class Student {
+public class Student extends UniversityMember {
 
-    private String name;
-    private String espeId;
     private AttendanceRecord attendanceRecord;
     private GradeRecord gradeRecord;
 
-    public Student() {
-        name = "";
-        espeId = "";
+    public Student(String espeId, String name) {
+        super(name, espeId);
         attendanceRecord = new AttendanceRecord();
         gradeRecord = new GradeRecord();
     }
 
-    public Student(String name, String espeId) {
-        this.name = name;
-        this.espeId = espeId;
-        this.attendanceRecord = new AttendanceRecord();
-        this.gradeRecord = new GradeRecord();
+    public Student(AttendanceRecord attendanceRecord, GradeRecord gradeRecord, String name, String espeId) {
+        super(name, espeId);
+        this.attendanceRecord = attendanceRecord;
+        this.gradeRecord = gradeRecord;
     }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the espeId
-     */
-    public String getEspeId() {
-        return espeId;
-    }
-
-    /**
-     * @param espeId the espeId to set
-     */
-    public void setEspeId(String espeId) {
-        this.espeId = espeId;
-    }
 
     /**
      * @return the attendanceRecord
@@ -84,9 +53,5 @@ public class Student {
         this.gradeRecord = gradeRecord;
     }
 
-    @Override
-    public String toString() {
-        return "name: " + name + ", espeId: " + espeId;
-    }
 
 }

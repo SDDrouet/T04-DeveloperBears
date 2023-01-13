@@ -12,24 +12,28 @@ import ec.edu.espe.inclass.model.Teacher;
  * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class TeacherController {
-    public static String teacherToJsonForDB(Teacher teacher) {        
-        String json;        
-        JsonObject rootObject = new JsonObject();     
-        
+
+    public static String teacherToJsonForDB(Teacher teacher) {
+        String json;
+        JsonObject rootObject = new JsonObject();
+
         rootObject.addProperty("name", teacher.getName());
         rootObject.addProperty("espeId", teacher.getEspeId());
-        
+
         json = rootObject.toString();
-                      
+
         return json;
     }
-    
+
     public static Teacher jsonToTeacher(String json) {
         Teacher teacher;
         Gson gson;
+        String name = "";
+        String espeId = "";
+
+        teacher = new Teacher(espeId, name);
         gson = new Gson();
-        teacher = new Teacher();
-        
+
         teacher = gson.fromJson(json, teacher.getClass());
 
         return teacher;

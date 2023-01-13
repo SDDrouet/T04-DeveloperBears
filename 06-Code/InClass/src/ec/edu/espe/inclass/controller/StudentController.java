@@ -15,39 +15,42 @@ import java.util.ArrayList;
  * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class StudentController {
-    public static String studentToJsonForDB(Student student, int courseNrc) {        
+
+    public static String studentToJsonForDB(Student student, int courseNrc) {
         String json;
-        Gson gson = new Gson();        
+        Gson gson = new Gson();
         JsonParser parser = new JsonParser();
-        
+
         json = gson.toJson(student);
         JsonElement jsonElement = parser.parse(json);
         JsonObject rootObject = jsonElement.getAsJsonObject();
-        
+
         rootObject.addProperty("nrc", courseNrc);
-        
+
         json = rootObject.toString();
-                      
+
         return json;
     }
-    
+
     public static ArrayList loadStudents(ArrayList<String> jsons) {
-        ArrayList<Student> students;        
+        ArrayList<Student> students;
         students = new ArrayList<>();
-        
+
         for (String json : jsons) {
             students.add(jsonToStudent(json));
         }
-        
+
         return students;
     }
-    
+
     public static Student jsonToStudent(String json) {
         Student student;
         Gson gson;
         gson = new Gson();
-        student = new Student();
-        
+        String name = "";
+        String espeId = "";
+        student = new Student(name, espeId);
+
         student = gson.fromJson(json, student.getClass());
 
         return student;

@@ -10,55 +10,44 @@ import java.util.Scanner;
  * @author Sheylee Enriquez, Developer Bears, DCCO-ESPE
  * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
-public class Teacher {
+public class Teacher extends UniversityMember{
     
-    private String name;
-    private String espeId;
+    private String password;
     private ArrayList<Course> courses;
     private ArrayList<Tutorship> tutorships;
 
-    public Teacher(String name, String id, ArrayList<Course> courses, ArrayList<Tutorship> tutorship) {
-        this.name = name;
-        this.espeId = id;
-        this.courses = courses;
-        this.tutorships = tutorship;
-    }
 
-    public Teacher() {
-        name = "";
-        espeId = "";
+    public Teacher(String password, ArrayList<Course> courses, ArrayList<Tutorship> tutorships, String name, String espeId) {
+        super(name, espeId);
+        this.password = password;
+        this.courses = courses;
+        this.tutorships = tutorships;
+    }
+    
+
+    public Teacher(String id, String name) {
+        super(name,id);
+        password="";
         courses = new ArrayList<>();
         tutorships = new ArrayList<>();
     }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
+    @Override
+    public String toString() {
+        return "Teacher{" + "password=" + password + ", espeId=" + getEspeId() + ", name=" + getName() + '}';
     }
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
+    
+    
+    public String getPassword() {
+        return password;
     }
 
-    /**
-     * @return the id
-     */
-    public String getEspeId() {
-        return espeId;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setEspeId(String id) {
-        this.espeId = id;
-    }
-
+    
     /**
      * @return the courses
      */

@@ -36,10 +36,12 @@ public class InClass {
         ArrayList<Tutorship> tutorships;
         ArrayList<Course> courses;
         ArrayList<Student> students;
+        String name = "";
+        String espeId = "";
 
         dBManager = new DBManager();
         dBManager.connect("mongodb+srv://oop22:oop22@cluster0.cd2tjad.mongodb.net/test", "InClassProject");
-        teacher = new Teacher();
+        teacher = new Teacher(espeId, name);
         teacher = TeacherController.jsonToTeacher((String) dBManager.readCollection("Teacher").get(0));
         tutorships = TutorshipController.loadTutorships(dBManager.readCollection("Tutorships"));
         courses = CourseController.loadCourses(dBManager.readCollection("Courses"));
@@ -73,13 +75,17 @@ public class InClass {
             option = askOption();
 
             switch (option) {
-                case 1 -> controlTeacherMenu();
+                case 1 ->
+                    controlTeacherMenu();
 
-                case 2 -> controlStudentMenu();
+                case 2 ->
+                    controlStudentMenu();
 
-                case 3 -> System.out.println("See you...");
+                case 3 ->
+                    System.out.println("See you...");
 
-                default -> System.out.println("Error: Invalid option try again.");
+                default ->
+                    System.out.println("Error: Invalid option try again.");
             }
         }
     }
@@ -111,7 +117,8 @@ public class InClass {
                 case 2 -> {
                 }
 
-                default -> System.out.println("Error: Invalid option try again.");
+                default ->
+                    System.out.println("Error: Invalid option try again.");
             }
         }
     }
@@ -165,7 +172,8 @@ public class InClass {
                 case 5 -> {
                 }
 
-                default -> System.out.println("Error: Invalid option try again.");
+                default ->
+                    System.out.println("Error: Invalid option try again.");
             }
         }
     }
@@ -301,7 +309,8 @@ public class InClass {
                 case 9 -> {
                 }
 
-                default -> System.out.println("Error: Invalid option try again.");
+                default ->
+                    System.out.println("Error: Invalid option try again.");
             }
         }
     }
@@ -365,7 +374,8 @@ public class InClass {
                     }
                 }
 
-                default -> System.out.println("Error: Invalid option");
+                default ->
+                    System.out.println("Error: Invalid option");
             }
 
         } else {
@@ -456,7 +466,8 @@ public class InClass {
                     case 5 -> {
                     }
 
-                    default -> System.out.println("Error: Invalid option try again.");
+                    default ->
+                        System.out.println("Error: Invalid option try again.");
                 }
             } else {
                 System.out.println("Error: The selected unit does not exist");
@@ -497,6 +508,43 @@ public class InClass {
         sc.nextLine();
 
         return option;
+    }
+
+    public static int loginTeacher(String espeId, String password) {
+
+        if (espeId.equals(teacher.getEspeId()) && password.equals(teacher.getPassword())) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
+    public static int findCourse(int courseToFind) {
+        ArrayList<Course> courses;
+        courses = teacher.getCourses();
+        boolean exists = false;
+
+        int courseNumber = 0;
+        try {
+            while (exists == false) {
+
+                if (courses.get(courseNumber).getNrc() == courseToFind) {
+                    exists = true;
+                } else {
+                    courseNumber++;
+                }
+            }
+        } catch (Exception e) {
+
+        }
+
+        if (exists == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+
     }
 
 }
