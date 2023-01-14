@@ -265,7 +265,7 @@ public class InClass {
 
                 case 4 -> {
                     System.out.println("Function for take Attendance");
-                    attendanceRecord.add(course.getStudents());
+                    //attendanceRecord.add(course.getStudents());
                     UpdateStudentsInDB(course);
                 }
 

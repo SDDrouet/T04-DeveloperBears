@@ -1,17 +1,91 @@
 package ec.edu.espe.inclass.view;
 
+import ec.edu.espe.inclass.controller.CourseController;
+import ec.edu.espe.inclass.controller.StudentController;
+import ec.edu.espe.inclass.controller.TeacherController;
+import ec.edu.espe.inclass.controller.TutorshipController;
+import ec.edu.espe.inclass.model.AttendanceRecord;
+import ec.edu.espe.inclass.model.Course;
+import ec.edu.espe.inclass.model.Student;
+import ec.edu.espe.inclass.model.Teacher;
+import ec.edu.espe.inclass.model.Tutorship;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import utils.DBManager;
+
 /**
  *
  * @author alejo
  */
 public class FrmTakeAttendance extends javax.swing.JFrame {
 
+    static DBManager dBManager;
+    static Teacher teacher;
+
     /**
      * Creates new form frmtakeattendance
      */
     public FrmTakeAttendance() {
         initComponents();
-        this.setLocationRelativeTo(this);
+        for (Student student : teacher.getCourses().get(0).getStudents()) {
+            student.setAttendanceRecord(new AttendanceRecord());
+        }
+        initCmbClasses();
+        showTableDate(0);
+
+    }
+
+    private static void connectMongoDB() {
+        ArrayList<Tutorship> tutorships;
+        ArrayList<Course> courses;
+        ArrayList<Student> students;
+
+        dBManager = new DBManager();
+        dBManager.connect("mongodb+srv://oop22:oop22@cluster0.cd2tjad.mongodb.net/test", "InClassProject");
+        teacher = TeacherController.jsonToTeacher((String) dBManager.readCollection("Teacher").get(0));
+        tutorships = TutorshipController.loadTutorships(dBManager.readCollection("Tutorships"));
+        courses = CourseController.loadCourses(dBManager.readCollection("Courses"));
+
+        for (Course course : courses) {
+            students = StudentController.loadStudents(dBManager.readCollection("Students", "nrc", course.getNrc()));
+            course.setStudents(students);
+        }
+
+        teacher.setTutorships(tutorships);
+        teacher.setCourses(courses);
+    }
+
+    private void initCmbClasses() {
+        int numClasses = teacher.getCourses().get(0).getStudents().get(0).getAttendanceRecord().getAttendance().size();
+        for (int i = 1; i <= numClasses; i++) {
+            cmbClasses.addItem(String.valueOf(i));
+        }
+    }
+
+    private void showTableDate(int classNumber) {
+        DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
+        int num = 0;
+        String name;
+        String id;
+        boolean attendance;        
+
+        emptyTable();
+
+        for (Student student : teacher.getCourses().get(0).getStudents()) {
+            num++;
+            name = student.getName();
+            id = student.getEspeId();
+            attendance = student.getAttendanceRecord().getAttendance().get(classNumber);
+            model.addRow(new Object[]{num, id, name, attendance});
+        }
+    }
+
+    private void emptyTable() {
+        DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
+        int numRows = model.getRowCount();
+        for (int i = 0; i < numRows; i++) {
+            model.removeRow(0);
+        }
     }
 
     /**
@@ -26,85 +100,208 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
+        tblAttendance = new javax.swing.JTable();
+        cmbClasses = new javax.swing.JComboBox<>();
+        btnAddClass = new javax.swing.JButton();
+        btnDeleteClass = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btnSave = new javax.swing.JButton();
+        lblAction = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
         jLabel1.setText("Take Attendance");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAttendance.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "#", "Id", "Student", "Attendace"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblAttendance.getTableHeader().setReorderingAllowed(false);
+        tblAttendance.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAttendanceMouseClicked(evt);
+            }
+        });
+        tblAttendance.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                tblAttendanceInputMethodTextChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblAttendance);
+        if (tblAttendance.getColumnModel().getColumnCount() > 0) {
+            tblAttendance.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tblAttendance.getColumnModel().getColumn(0).setMaxWidth(30);
+            tblAttendance.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tblAttendance.getColumnModel().getColumn(2).setMaxWidth(200);
+            tblAttendance.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tblAttendance.getColumnModel().getColumn(3).setMaxWidth(80);
+        }
+
+        cmbClasses.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbClassesItemStateChanged(evt);
+            }
+        });
+
+        btnAddClass.setText("Add Class");
+        btnAddClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddClassActionPerformed(evt);
+            }
+        });
+
+        btnDeleteClass.setText("Remove Final Class");
+        btnDeleteClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteClassActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Select Number of Class to Show");
+
+        btnSave.setText("Save Attendance");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        lblAction.setText("Action");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbClasses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(101, Short.MAX_VALUE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteClass, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddClass, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAction))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 188, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 117, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbClasses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAddClass)
+                        .addGap(62, 62, 62)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnDeleteClass, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblAction))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClassActionPerformed
+        int classNumber;
+        for (Student student : teacher.getCourses().get(0).getStudents()) {
+            student.getAttendanceRecord().getAttendance().add(false);
+        }
+        cmbClasses.addItem(String.valueOf(teacher.getCourses().get(0).getStudents().get(0).getAttendanceRecord().getAttendance().size()));
+        classNumber = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
+        showTableDate(classNumber);
+        lblAction.setText("Class was added");
+    }//GEN-LAST:event_btnAddClassActionPerformed
+
+    private void cmbClassesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbClassesItemStateChanged
+        int classNumber = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
+        showTableDate(classNumber);
+        lblAction.setText("");
+    }//GEN-LAST:event_cmbClassesItemStateChanged
+
+    private void tblAttendanceInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tblAttendanceInputMethodTextChanged
+    }//GEN-LAST:event_tblAttendanceInputMethodTextChanged
+
+    private void tblAttendanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAttendanceMouseClicked
+
+    }//GEN-LAST:event_tblAttendanceMouseClicked
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
+        int classNumer = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
+        boolean studentAttendance;
+        int count = 0;
+
+        for (Student student : teacher.getCourses().get(0).getStudents()) {
+            studentAttendance = (boolean) model.getValueAt(count, 3);
+            student.getAttendanceRecord().getAttendance().set(classNumer, studentAttendance);
+            count++;
+        }
+
+        lblAction.setText("Attendance was saved");
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnDeleteClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClassActionPerformed
+        if (cmbClasses.getItemCount()  > 1) {
+            for (Student student : teacher.getCourses().get(0).getStudents()) {
+                student.getAttendanceRecord().getAttendance().remove(cmbClasses.getItemCount() - 1);
+            }
+            
+            cmbClasses.removeItemAt(cmbClasses.getItemCount() - 1);
+
+            showTableDate(cmbClasses.getItemCount() - 1);
+
+            lblAction.setText("class #" + (cmbClasses.getItemCount() + 1) +  " was deleted");
+        }
+
+        
+    }//GEN-LAST:event_btnDeleteClassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,7 +330,7 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        connectMongoDB();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -143,10 +340,15 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddClass;
+    private javax.swing.JButton btnDeleteClass;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> cmbClasses;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblAction;
+    private javax.swing.JTable tblAttendance;
     // End of variables declaration//GEN-END:variables
 }

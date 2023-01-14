@@ -1,7 +1,6 @@
 package ec.edu.espe.inclass.model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -12,69 +11,32 @@ import java.util.Scanner;
  */
 public class AttendanceRecord {
 
-    private int attendanceNumber;
+    private ArrayList<Boolean> Attendance;
     private int totalClassNumber;
 
     public AttendanceRecord() {
-        attendanceNumber = 0;
-        totalClassNumber = 0;
-    }
+        this.Attendance = new ArrayList<>();
+        Attendance.add(false);
+        this.totalClassNumber = 1;
+    }        
 
-    public AttendanceRecord(int attendanceNumber, int totalClassNumber) {
-        this.attendanceNumber = attendanceNumber;
+    public AttendanceRecord(ArrayList<Boolean> Attendance, int totalClassNumber) {
+        this.Attendance = Attendance;
         this.totalClassNumber = totalClassNumber;
-    }
+    }        
 
-    public void add(ArrayList<Student> students) {
-        String isPresentString;
-        Scanner scan = new Scanner(System.in);
-
-        for (Student student : students) {
-            System.out.print("name: " + student.getName());
-
-            System.out.print("  Is present? (y/n): ");
-            isPresentString = scan.nextLine();
-
-            isPresentString = validatePresentString(isPresentString, scan);
-
-            if ("y".equals(isPresentString.toLowerCase())) {
-                student.getAttendanceRecord().addAttendance();
-                student.getAttendanceRecord().addClassNumber();
-            } else {
-                student.getAttendanceRecord().addClassNumber();
-            }
-
-        }
-    }
-
-    private String validatePresentString(String isPresentString, Scanner scan) {
-        while (!"y".equals(isPresentString.toLowerCase()) && !"n".equals(isPresentString.toLowerCase())) {
-            System.out.print("(y/n): ");
-            isPresentString = scan.nextLine();
-        }
-        return isPresentString;
-    }
-
-    public void addAttendance() {
-        attendanceNumber++;
-    }
-
-    public void addClassNumber() {
-        totalClassNumber++;
+    /**
+     * @return the Attendance
+     */
+    public ArrayList<Boolean> getAttendance() {
+        return Attendance;
     }
 
     /**
-     * @return the attendanceNumber
+     * @param Attendance the Attendance to set
      */
-    public int getAttendanceNumber() {
-        return attendanceNumber;
-    }
-
-    /**
-     * @param attendanceNumber the attendanceNumber to set
-     */
-    public void setAttendanceNumber(int attendanceNumber) {
-        this.attendanceNumber = attendanceNumber;
+    public void setAttendance(ArrayList<Boolean> Attendance) {
+        this.Attendance = Attendance;
     }
 
     /**
@@ -90,10 +52,8 @@ public class AttendanceRecord {
     public void setTotalClassNumber(int totalClassNumber) {
         this.totalClassNumber = totalClassNumber;
     }
-
-    @Override
-    public String toString() {
-        return "attendanceNumber: " + attendanceNumber + ", totalClassNumber: " + totalClassNumber;
-    }
+    
+    
+ 
 
 }
