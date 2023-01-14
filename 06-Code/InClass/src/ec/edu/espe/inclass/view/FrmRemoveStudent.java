@@ -15,6 +15,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
      */
     public FrmRemoveStudent() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**

@@ -1,5 +1,6 @@
 package ec.edu.espe.inclass.view;
 
+import static ec.edu.espe.inclass.view.InClass.teacher;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -16,8 +17,11 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     /**
      * Creates new form CourseMenu
      */
+    public static int position;
+    
     public FrmEnterCourse() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -67,6 +71,11 @@ public class FrmEnterCourse extends javax.swing.JFrame {
 
         btnEnrolled.setText("Show enrolled students");
         btnEnrolled.setEnabled(false);
+        btnEnrolled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnrolledActionPerformed(evt);
+            }
+        });
 
         btnAddGrade.setText("Add grade");
         btnAddGrade.setEnabled(false);
@@ -216,7 +225,7 @@ public class FrmEnterCourse extends javax.swing.JFrame {
 
     private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
         // TODO add your handling code here:
-                int courseToFind;
+        int courseToFind;
         int exists = 0;
 
         courseToFind = Integer.parseInt(txtCourse.getText());
@@ -253,6 +262,30 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnbackActionPerformed
 
+    private void btnEnrolledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnrolledActionPerformed
+        // TODO add your handling code here:
+        
+        position = getNrcEntered();
+        FrmShowEnrolledStudents frmShowEnrolledStudents = new FrmShowEnrolledStudents();
+        frmShowEnrolledStudents.setVisible(true);
+        FrmShowEnrolledStudents.txtNrcReceive.setText(txtCourse.getText());
+        this.setVisible(false);
+    }//GEN-LAST:event_btnEnrolledActionPerformed
+
+    private int getNrcEntered() {
+        int nrc = Integer.parseInt(txtCourse.getText());
+        int positionCourse = 0;
+
+        for (int i = 0; i < teacher.getCourses().size(); i++) {
+            if (nrc == teacher.getCourses().get(positionCourse).getNrc()) {
+                return positionCourse;
+            } else {
+                positionCourse++;
+            }
+        }
+        return -1;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -278,6 +311,102 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmEnterCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

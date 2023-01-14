@@ -30,6 +30,7 @@ public class InClass {
 
         connectMongoDB();
         controlMainMenu();
+        
     }
 
     public static void connectMongoDB() {
@@ -158,7 +159,7 @@ public class InClass {
                 case 3 -> {
                     System.out.println("Function for remove Course");
                     showCourses();
-                    removeCourse();
+                    //removeCourse();
                 }
 
                 case 4 -> {
@@ -191,16 +192,16 @@ public class InClass {
         }
     }
 
-    public static void removeCourse() {
-        int courseNumber;
-        System.out.println("Which course do you want to remove?: ");
-        courseNumber = askOption() - 1;
+    public static int removeCourse(int courseNumber) {
+
         try {
             dBManager.deleteDocument("Courses", "nrc", teacher.getCourses().get(courseNumber).getNrc());
-            teacher.getCourses().remove(courseNumber);
+            teacher.getCourses().remove(courseNumber);        
             System.out.println("The course was remove successfully");
+            return 1;
         } catch (Exception e) {
             System.out.println("The course was not remove");
+            return 0;
         }
     }
 
@@ -557,10 +558,10 @@ public class InClass {
             newCourse = new Course(name, nrc);
 
             teacher.getCourses().add(newCourse);
-            validated=1;
+            validated = 1;
 
         } catch (Exception e) {
-            validated=0;
+            validated = 0;
         }
 
         return validated;

@@ -15,6 +15,7 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
      */
     public FrmGetAttendanceRecord() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**

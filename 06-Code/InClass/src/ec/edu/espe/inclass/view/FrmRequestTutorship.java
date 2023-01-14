@@ -15,6 +15,7 @@ public class FrmRequestTutorship extends javax.swing.JFrame {
      */
     public FrmRequestTutorship() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**

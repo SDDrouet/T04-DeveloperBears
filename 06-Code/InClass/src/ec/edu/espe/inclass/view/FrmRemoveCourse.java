@@ -4,6 +4,7 @@ import static ec.edu.espe.inclass.view.InClass.connectMongoDB;
 import static ec.edu.espe.inclass.view.InClass.teacher;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 /**
  *
@@ -21,6 +22,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
         connectMongoDB();
         initComponents();
         uploadCourses();
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -146,19 +148,28 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
-        String courseToDelete;
+        String courseDeleteString;
+        int courseToDelete;
         int desicion;
+        int result;
 
-        courseToDelete = (String) cmbNrc.getSelectedItem();
+        courseToDelete = (Integer) cmbNrc.getSelectedIndex();
+        courseDeleteString = (String) cmbNrc.getSelectedItem();
 
-        desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete the course with nrc " + courseToDelete + " ?", courseToDelete, WIDTH);
+        desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete the course with nrc " + courseDeleteString + " ?", "course delete info", WIDTH);
 
         if (desicion == 0) {
-            
+            result = InClass.removeCourse(courseToDelete);
+            if(result==1){
+                JOptionPane.showMessageDialog(this, "Course successfully deleted ", "course delete info", INFORMATION_MESSAGE);
+            }
+            uploadCourses();
+        } else{
+            uploadCourses();
         }
 
     }//GEN-LAST:event_btnRemoveActionPerformed
-
+    
     private void uploadCourses() {
         String[] coursesArray;
         coursesArray = new String[teacher.getCourses().size()];
@@ -198,6 +209,30 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmRemoveCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

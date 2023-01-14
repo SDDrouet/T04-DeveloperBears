@@ -15,6 +15,7 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
      */
     public FrmGetGradeRecord() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**

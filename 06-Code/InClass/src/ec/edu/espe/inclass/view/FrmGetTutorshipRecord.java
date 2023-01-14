@@ -15,6 +15,7 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
      */
     public FrmGetTutorshipRecord() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**

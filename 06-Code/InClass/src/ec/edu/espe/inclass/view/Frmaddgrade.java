@@ -15,6 +15,7 @@ public class Frmaddgrade extends javax.swing.JFrame {
      */
     public Frmaddgrade() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**

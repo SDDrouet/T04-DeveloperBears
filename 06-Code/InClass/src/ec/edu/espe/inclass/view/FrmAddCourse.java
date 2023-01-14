@@ -22,6 +22,7 @@ public class FrmAddCourse extends javax.swing.JFrame {
      */
     public FrmAddCourse() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**
