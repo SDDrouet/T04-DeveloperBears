@@ -9,6 +9,7 @@ import ec.edu.espe.inclass.model.Course;
 import ec.edu.espe.inclass.model.Student;
 import ec.edu.espe.inclass.model.Teacher;
 import ec.edu.espe.inclass.model.Tutorship;
+import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import utils.DBManager;
@@ -26,6 +27,7 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
      * Creates new form frmtakeattendance
      */
     public FrmTakeAttendance() {
+        connectMongoDB();
         initComponents();
         for (Student student : teacher.getCourses().get(0).getStudents()) {
             student.setAttendanceRecord(new AttendanceRecord());
@@ -56,7 +58,7 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
     }
 
     private void initCmbClasses() {
-        int numClasses = teacher.getCourses().get(0).getStudents().get(0).getAttendanceRecord().getAttendance().size();
+        int numClasses = teacher.getCourses().get(position).getStudents().get(0).getAttendanceRecord().getAttendance().size();
         for (int i = 1; i <= numClasses; i++) {
             cmbClasses.addItem(String.valueOf(i));
         }
@@ -67,11 +69,11 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
         int num = 0;
         String name;
         String id;
-        boolean attendance;        
+        boolean attendance;
 
         emptyTable();
 
-        for (Student student : teacher.getCourses().get(0).getStudents()) {
+        for (Student student : teacher.getCourses().get(position).getStudents()) {
             num++;
             name = student.getName();
             id = student.getEspeId();
@@ -107,6 +109,7 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
         lblAction = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,6 +168,9 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
             }
         });
 
+        btnAddClass.setBackground(new java.awt.Color(0, 102, 204));
+        btnAddClass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAddClass.setForeground(new java.awt.Color(255, 255, 255));
         btnAddClass.setText("Add Class");
         btnAddClass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,6 +178,9 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
             }
         });
 
+        btnDeleteClass.setBackground(new java.awt.Color(255, 102, 0));
+        btnDeleteClass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDeleteClass.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteClass.setText("Remove Final Class");
         btnDeleteClass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,6 +190,9 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
 
         jLabel2.setText("Select Number of Class to Show");
 
+        btnSave.setBackground(new java.awt.Color(0, 153, 0));
+        btnSave.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setText("Save Attendance");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,6 +202,16 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
 
         lblAction.setText("Action");
 
+        btnBack.setBackground(new java.awt.Color(204, 0, 51));
+        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -197,18 +219,21 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
+                    .addComponent(btnBack)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbClasses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeleteClass, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddClass, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAction))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbClasses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDeleteClass, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAddClass, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAction))))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -223,15 +248,17 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAddClass)
-                        .addGap(62, 62, 62)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(btnDeleteClass, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddClass, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(btnDeleteClass, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblAction))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addGap(61, 61, 61))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -250,10 +277,10 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
 
     private void btnAddClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClassActionPerformed
         int classNumber;
-        for (Student student : teacher.getCourses().get(0).getStudents()) {
+        for (Student student : teacher.getCourses().get(position).getStudents()) {
             student.getAttendanceRecord().getAttendance().add(false);
         }
-        cmbClasses.addItem(String.valueOf(teacher.getCourses().get(0).getStudents().get(0).getAttendanceRecord().getAttendance().size()));
+        cmbClasses.addItem(String.valueOf(teacher.getCourses().get(position).getStudents().get(0).getAttendanceRecord().getAttendance().size()));
         classNumber = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
         showTableDate(classNumber);
         lblAction.setText("Class was added");
@@ -278,7 +305,7 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
         boolean studentAttendance;
         int count = 0;
 
-        for (Student student : teacher.getCourses().get(0).getStudents()) {
+        for (Student student : teacher.getCourses().get(position).getStudents()) {
             studentAttendance = (boolean) model.getValueAt(count, 3);
             student.getAttendanceRecord().getAttendance().set(classNumer, studentAttendance);
             count++;
@@ -288,20 +315,27 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClassActionPerformed
-        if (cmbClasses.getItemCount()  > 1) {
-            for (Student student : teacher.getCourses().get(0).getStudents()) {
+        if (cmbClasses.getItemCount() > 1) {
+            for (Student student : teacher.getCourses().get(position).getStudents()) {
                 student.getAttendanceRecord().getAttendance().remove(cmbClasses.getItemCount() - 1);
             }
-            
+
             cmbClasses.removeItemAt(cmbClasses.getItemCount() - 1);
 
             showTableDate(cmbClasses.getItemCount() - 1);
 
-            lblAction.setText("class #" + (cmbClasses.getItemCount() + 1) +  " was deleted");
+            lblAction.setText("class #" + (cmbClasses.getItemCount() + 1) + " was deleted");
         }
 
-        
+
     }//GEN-LAST:event_btnDeleteClassActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        FrmEnterCourse frmEnterCourse = new FrmEnterCourse();
+        frmEnterCourse.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,7 +364,7 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        connectMongoDB();
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -341,6 +375,7 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddClass;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDeleteClass;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cmbClasses;

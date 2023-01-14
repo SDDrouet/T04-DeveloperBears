@@ -18,8 +18,9 @@ public class FrmEnterCourse extends javax.swing.JFrame {
      * Creates new form CourseMenu
      */
     public static int position;
-    
+
     public FrmEnterCourse() {
+
         initComponents();
         this.setLocationRelativeTo(this);
     }
@@ -79,9 +80,19 @@ public class FrmEnterCourse extends javax.swing.JFrame {
 
         btnAddGrade.setText("Add grade");
         btnAddGrade.setEnabled(false);
+        btnAddGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddGradeActionPerformed(evt);
+            }
+        });
 
         btnAttendance.setText("Take attendance");
         btnAttendance.setEnabled(false);
+        btnAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAttendanceActionPerformed(evt);
+            }
+        });
 
         btnRemove.setText("Remove Student");
         btnRemove.setEnabled(false);
@@ -232,6 +243,7 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         exists = InClass.findCourse(courseToFind);
 
         if (exists == 1) {
+            txtCourse.setEnabled(false);
             JOptionPane.showMessageDialog(this, "Course successfully found", "COURSE FIND", INFORMATION_MESSAGE);
             btnManagement.setEnabled(true);
             btnEnrolled.setEnabled(true);
@@ -264,13 +276,29 @@ public class FrmEnterCourse extends javax.swing.JFrame {
 
     private void btnEnrolledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnrolledActionPerformed
         // TODO add your handling code here:
-        
+
         position = getNrcEntered();
         FrmShowEnrolledStudents frmShowEnrolledStudents = new FrmShowEnrolledStudents();
         frmShowEnrolledStudents.setVisible(true);
         FrmShowEnrolledStudents.txtNrcReceive.setText(txtCourse.getText());
         this.setVisible(false);
     }//GEN-LAST:event_btnEnrolledActionPerformed
+
+    private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
+        // TODO add your handling code here:
+        position = getNrcEntered();
+        FrmTakeAttendance frmTakeAttendance = new FrmTakeAttendance();
+        frmTakeAttendance.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAttendanceActionPerformed
+
+    private void btnAddGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddGradeActionPerformed
+        // TODO add your handling code here:
+        position = getNrcEntered();
+        FrmAddGrade frmAddGrade = new FrmAddGrade();
+        frmAddGrade.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAddGradeActionPerformed
 
     private int getNrcEntered() {
         int nrc = Integer.parseInt(txtCourse.getText());

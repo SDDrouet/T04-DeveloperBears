@@ -188,12 +188,18 @@
                 <Property name="text" type="java.lang.String" value="Add grade"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddGradeActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnAttendance">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Take attendance"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAttendanceActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnRemove">
               <Properties>
