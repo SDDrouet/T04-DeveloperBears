@@ -1,12 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.inclass.view;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import ec.edu.espe.inclass.controller.CourseController;
+import ec.edu.espe.inclass.controller.StudentController;
+import ec.edu.espe.inclass.controller.TeacherController;
+import ec.edu.espe.inclass.controller.TutorshipController;
+import ec.edu.espe.inclass.model.Course;
+import ec.edu.espe.inclass.model.Grade;
+import ec.edu.espe.inclass.model.Student;
+import ec.edu.espe.inclass.model.Tutorship;
+import static ec.edu.espe.inclass.view.FrmAddGrade.dBManager;
+import static ec.edu.espe.inclass.view.FrmAddGrade.teacher;
+import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import utils.DBManager;
 
 /**
  *
- * @author alejo
+ * @author Alejandro Cuadrado, Developer Bears, DCCO-ESPE
+ * @author Alexander Guaman, Developer Bears, DCCO-ESPE
+ * @author Sheylee Enriquez, Developer Bears, DCCO-ESPE
+ * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
 public class FrmGetGradeRecord extends javax.swing.JFrame {
 
@@ -14,8 +46,10 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
      * Creates new form frmgetgraderecord
      */
     public FrmGetGradeRecord() {
+        connectMongoDB();
         initComponents();
         this.setLocationRelativeTo(this);
+        showTableDate();
     }
 
     /**
@@ -27,25 +61,270 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlTable = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtNrcReceive = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblGrades = new javax.swing.JTable();
+        pnlButtons = new javax.swing.JPanel();
+        btnPrint = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("GRADE RECORD NRC: ");
+
+        txtNrcReceive.setEnabled(false);
+
+        tblGrades.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "#", "ID", "Student"
+            }
+        ));
+        tblGrades.setEnabled(false);
+        jScrollPane1.setViewportView(tblGrades);
+
+        javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
+        pnlTable.setLayout(pnlTableLayout);
+        pnlTableLayout.setHorizontalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNrcReceive, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(221, 221, 221))
+        );
+        pnlTableLayout.setVerticalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNrcReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        btnPrint.setBackground(new java.awt.Color(0, 102, 204));
+        btnPrint.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlButtonsLayout = new javax.swing.GroupLayout(pnlButtons);
+        pnlButtons.setLayout(pnlButtonsLayout);
+        pnlButtonsLayout.setHorizontalGroup(
+            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtonsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPrint)
+                .addGap(15, 15, 15))
+        );
+        pnlButtonsLayout.setVerticalGroup(
+            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlButtonsLayout.createSequentialGroup()
+                .addComponent(btnPrint)
+                .addGap(0, 27, Short.MAX_VALUE))
+        );
+
+        btnBack.setBackground(new java.awt.Color(153, 0, 0));
+        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 639, Short.MAX_VALUE)
+            .addComponent(pnlTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBack)
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        FrmEnterCourse frmEnterCourse = new FrmEnterCourse();
+        frmEnterCourse.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // TODO add your handling code here:
+        try {
+            String nrc;
+            nrc = String.valueOf(teacher.getCourses().get(position).getNrc());
+            FileOutputStream archive;
+            File file = new File("src/pdf/GradeRecordNrc" + nrc + ".pdf");
+            archive = new FileOutputStream(file);
+            Font fontType10 = new Font(Font.FontFamily.TIMES_ROMAN, 10);
+            Font fontType12 = new Font(Font.FontFamily.TIMES_ROMAN, 12);
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, archive);
+            doc.open();
+            Image img = Image.getInstance("src/img/espeLogo.png");
+
+            Paragraph dateParagraph = new Paragraph();
+            dateParagraph.add(Chunk.NEWLINE);
+            Date date = new Date();
+            dateParagraph.add(new Phrase("Date:\n" + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n",fontType12));
+
+            PdfPTable head = new PdfPTable(4);
+            head.setWidthPercentage(100);
+            head.getDefaultCell().setBorder(0);
+            float[] columnHead = new float[]{20F, 20F, 110F, 30F};
+            head.setWidths(columnHead);
+            head.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+            head.addCell(img);
+            head.addCell("");
+            head.addCell(new Phrase("UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPE \n\n\tGRADE RECORD NRC: "+ nrc,fontType12));
+            head.addCell(dateParagraph);
+
+            doc.add(head);
+
+            Paragraph info = new Paragraph();
+            info.add(Chunk.NEWLINE);
+            info.add(new Phrase("ASIGNATURE:  " + teacher.getCourses().get(position).getName()+"\n\n",fontType12));
+            doc.add(info);
+
+            PdfPTable gradeRecordStudents = new PdfPTable(8);
+            gradeRecordStudents.setWidthPercentage(100);
+            gradeRecordStudents.getDefaultCell().setBorder(0);
+            float[] columnGradeRecordStudents = new float[]{10F, 20F, 40F, 15F, 15F, 15F, 15F, 20F};
+            gradeRecordStudents.setWidths(columnGradeRecordStudents);
+            gradeRecordStudents.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+            PdfPCell title1 = new PdfPCell(new Phrase("#",fontType10));
+            PdfPCell title2 = new PdfPCell(new Phrase("id",fontType10));
+            PdfPCell title3 = new PdfPCell(new Phrase("Student",fontType10));
+            PdfPCell title4 = new PdfPCell(new Phrase("Unit1",fontType10));
+            PdfPCell title5 = new PdfPCell(new Phrase("Unit2",fontType10));
+            PdfPCell title6 = new PdfPCell(new Phrase("Unit3",fontType10));
+            PdfPCell title7 = new PdfPCell(new Phrase("Average",fontType10));
+            PdfPCell title8 = new PdfPCell(new Phrase("Status",fontType10));
+
+            title1.setBorder(0);
+            title2.setBorder(0);
+            title3.setBorder(0);
+            title4.setBorder(0);
+            title5.setBorder(0);
+            title6.setBorder(0);
+            title7.setBorder(0);
+            title8.setBorder(0);
+
+            title1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            title2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            title3.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            title4.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            title5.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            title6.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            title7.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            title8.setBackgroundColor(BaseColor.LIGHT_GRAY);
+
+            gradeRecordStudents.addCell(title1);
+            gradeRecordStudents.addCell(title2);
+            gradeRecordStudents.addCell(title3);
+            gradeRecordStudents.addCell(title4);
+            gradeRecordStudents.addCell(title5);
+            gradeRecordStudents.addCell(title6);
+            gradeRecordStudents.addCell(title7);
+            gradeRecordStudents.addCell(title8);
+
+            for (int i = 0; i < tblGrades.getRowCount(); i++) {
+                String num = tblGrades.getValueAt(i, 0).toString();
+                String id = tblGrades.getValueAt(i, 1).toString();
+                String name = tblGrades.getValueAt(i, 2).toString();
+                String unit1 = tblGrades.getValueAt(i, 3).toString();
+                String unit2 = tblGrades.getValueAt(i, 4).toString();
+                String unit3 = tblGrades.getValueAt(i, 5).toString();
+                String average = tblGrades.getValueAt(i, 6).toString();
+                String status = tblGrades.getValueAt(i, 7).toString();
+
+                gradeRecordStudents.addCell(new Phrase(num, fontType10));
+                gradeRecordStudents.addCell(new Phrase(id, fontType10));
+                gradeRecordStudents.addCell(new Phrase(name, fontType10));
+                gradeRecordStudents.addCell(new Phrase(unit1, fontType10));
+                gradeRecordStudents.addCell(new Phrase(unit3, fontType10));
+                gradeRecordStudents.addCell(new Phrase(unit2, fontType10));
+                gradeRecordStudents.addCell(new Phrase(average, fontType10));
+                gradeRecordStudents.addCell(new Phrase(status, fontType10));
+            }
+
+            doc.add(gradeRecordStudents);
+            doc.close();
+            archive.close();
+            JOptionPane.showMessageDialog(null, "Pdf successfully created");
+
+        } catch (DocumentException | IOException e) {
+            JOptionPane.showMessageDialog(null, "error: " + e);
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    private static void connectMongoDB() {
+        ArrayList<Tutorship> tutorships;
+        ArrayList<Course> courses;
+        ArrayList<Student> students;
+
+        dBManager = new DBManager();
+        dBManager.connect("mongodb+srv://oop22:oop22@cluster0.cd2tjad.mongodb.net/test", "InClassProject");
+        teacher = TeacherController.jsonToTeacher((String) dBManager.readCollection("Teacher").get(0));
+        tutorships = TutorshipController.loadTutorships(dBManager.readCollection("Tutorships"));
+        courses = CourseController.loadCourses(dBManager.readCollection("Courses"));
+
+        for (Course course : courses) {
+            students = StudentController.loadStudents(dBManager.readCollection("Students", "nrc", course.getNrc()));
+            course.setStudents(students);
+        }
+
+        teacher.setTutorships(tutorships);
+        teacher.setCourses(courses);
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -70,6 +349,12 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -79,6 +364,102 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
         });
     }
 
+    private void showTableDate() {
+        DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
+        ArrayList<Float> studentsGrades;
+        ArrayList<Object> studentRow;
+
+        emptyTable();
+
+        for (int i = 0; i < 3; i++) {
+            model.addColumn("Unit " + (i + 1));
+        }
+        model.addColumn("Average");
+        model.addColumn("Status");
+
+        for (Student student : teacher.getCourses().get(position).getStudents()) {
+            studentsGrades = getGradesUnit(student);
+            studentRow = buildRow(studentsGrades);
+            model.addRow(studentRow.toArray());
+
+        }
+
+    }
+
+    private ArrayList<Float> getGradesUnit(Student student) {
+        ArrayList<Float> studentsGrades;
+        studentsGrades = new ArrayList<>();
+        Grade homeworksGrades;
+        Grade workshopsGrades;
+        Grade testGrades;
+        Grade examGrades;
+
+        float unit1Grade;
+        float unit2Grade;
+        float unit3Grade;
+        float average;
+
+        homeworksGrades = student.getGradeRecord().getUnits().get(0).getHomeworks();
+        workshopsGrades = student.getGradeRecord().getUnits().get(0).getWorkshops();
+        testGrades = student.getGradeRecord().getUnits().get(0).getTests();
+        examGrades = student.getGradeRecord().getUnits().get(0).getExam();
+        unit1Grade = homeworksGrades.calculateGrade() + workshopsGrades.calculateGrade() + testGrades.calculateGrade() + examGrades.calculateGrade();
+
+        homeworksGrades = student.getGradeRecord().getUnits().get(1).getHomeworks();
+        workshopsGrades = student.getGradeRecord().getUnits().get(1).getWorkshops();
+        testGrades = student.getGradeRecord().getUnits().get(1).getTests();
+        examGrades = student.getGradeRecord().getUnits().get(1).getExam();
+        unit2Grade = homeworksGrades.calculateGrade() + workshopsGrades.calculateGrade() + testGrades.calculateGrade() + examGrades.calculateGrade();
+
+        homeworksGrades = student.getGradeRecord().getUnits().get(2).getHomeworks();
+        workshopsGrades = student.getGradeRecord().getUnits().get(2).getWorkshops();
+        testGrades = student.getGradeRecord().getUnits().get(2).getTests();
+        examGrades = student.getGradeRecord().getUnits().get(2).getExam();
+        unit3Grade = homeworksGrades.calculateGrade() + workshopsGrades.calculateGrade() + testGrades.calculateGrade() + examGrades.calculateGrade();
+
+        average = (unit1Grade + unit2Grade + unit3Grade) / 3;
+        studentsGrades.add(unit1Grade);
+        studentsGrades.add(unit2Grade);
+        studentsGrades.add(unit3Grade);
+        studentsGrades.add(average);
+
+        return studentsGrades;
+    }
+
+    private ArrayList<Object> buildRow(ArrayList<Float> studentsGrade) {
+        int num = tblGrades.getRowCount();
+        ArrayList<Object> studentRow;
+        studentRow = new ArrayList<>();
+
+        studentRow.add(String.valueOf(num + 1));
+        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getEspeId());
+        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getName());
+
+        for (Float grade : studentsGrade) {
+            studentRow.add(String.valueOf(grade));
+        }
+        if (studentsGrade.get(3) >= 14) {
+            studentRow.add("Approved");
+        } else {
+            studentRow.add("Not approved");
+        }
+
+        return studentRow;
+    }
+
+    private void emptyTable() {
+        DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
+        model.setRowCount(0);
+        model.setColumnCount(3);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnPrint;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel pnlButtons;
+    private javax.swing.JPanel pnlTable;
+    private javax.swing.JTable tblGrades;
+    public static javax.swing.JTextField txtNrcReceive;
     // End of variables declaration//GEN-END:variables
 }
