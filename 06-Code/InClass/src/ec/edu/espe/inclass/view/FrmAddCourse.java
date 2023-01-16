@@ -1,9 +1,11 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.CourseController;
+import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.model.Course;
-import static ec.edu.espe.inclass.view.InClass.connectMongoDB;
-import static ec.edu.espe.inclass.view.InClass.dBManager;
+import ec.edu.espe.inclass.view.FrmTeacherMenu;
+import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
+import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -167,27 +169,37 @@ public class FrmAddCourse extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         Course course;
-        String name;
-        int nrc;
-
-        connectMongoDB();
-
-        name = String.valueOf(txtName.getText());
-        nrc = Integer.parseInt(txtNrc.getText());
-
+        course = null;
+        
+        String name = "";
+        int nrc = -1;
+        boolean isCourseValid = true;
+        
+        name = String.valueOf(txtName.getText()).toUpperCase();
+        
+        if (name.length() < 3) {
+            isCourseValid = false;
+        }
+        
         try {
+            nrc = Integer.parseInt(txtNrc.getText());
             course = new Course(name, nrc);
         } catch (Exception e) {
-            course = null;
+            isCourseValid = false;
+        }
+        
+        if (CourseController.findCourse(teacher.getCourses(), nrc) != -1) {
+            isCourseValid = false;
         }
 
-        if (course != null) {
-            dBManager.createDocument("Courses", CourseController.courseToJsonForDB(course));
+        if (isCourseValid) {
+            dBManager.createDocument("Courses", CourseController.courseToJsonForDB(course));            
             JOptionPane.showMessageDialog(this, "Course successfully added", "COURSE add", INFORMATION_MESSAGE);
             txtName.setText("");
             txtNrc.setText("");
+            DataPersistence.updateData();
         } else {
-            JOptionPane.showMessageDialog(this, "Course not add", "COURSE add", INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Course not add, course not valid or already exists ", "COURSE add", INFORMATION_MESSAGE);
         }
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -201,17 +213,15 @@ public class FrmAddCourse extends javax.swing.JFrame {
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
         // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        if (!Character.isAlphabetic(c) && !Character.isSpaceChar(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
-            JOptionPane.showMessageDialog(this, c + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE);
-        }
     }//GEN-LAST:event_txtNameKeyTyped
 
     private void txtNrcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNrcKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
+        char c1 = (char)0;
         if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
             JOptionPane.showMessageDialog(this, c + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE);
+            evt.setKeyChar(c1);
         }
     }//GEN-LAST:event_txtNrcKeyTyped
 
@@ -240,6 +250,14 @@ public class FrmAddCourse extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmAddCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

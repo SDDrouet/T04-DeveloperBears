@@ -55,4 +55,18 @@ public class StudentController {
 
         return student;
     }
+    
+    public static int findStudent(ArrayList<Student> students, String id) {
+        int index = -1;
+        
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getEspeId().equals(id)) {
+                index = i;
+                return index;
+            }
+        }
+                
+        return index;
+    }
+    
 }

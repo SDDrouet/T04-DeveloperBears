@@ -1,5 +1,6 @@
 package ec.edu.espe.inclass.view;
 
+import ec.edu.espe.inclass.controller.DataPersistence;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
@@ -169,7 +170,6 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        InClass.connectMongoDB();
         String user;
         String password;
         int validated;
@@ -177,7 +177,7 @@ public class FrmLogin extends javax.swing.JFrame {
         user = String.valueOf(txtUser.getText());
         password = String.valueOf(txtPassword.getText());
 
-        validated = InClass.loginTeacher(user, password);
+        validated = DataPersistence.loginTeacher(user, password);
 
         if (validated == 1) {
             JOptionPane.showMessageDialog(this, "WELCOME", "LOGIN INFO", INFORMATION_MESSAGE);

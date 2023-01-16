@@ -47,4 +47,19 @@ public class CourseController {
 
         return course;
     }    
+
+    public static int findCourse(ArrayList<Course> courses, int nrc) {
+        int index = -1;
+        
+        for (int i = 0; i < courses.size(); i++) {
+            if(courses.get(i).getNrc() == nrc) {
+                index = i;
+                return index;
+            }
+        }
+        
+        return  index;
+    }
+    
+    
 }

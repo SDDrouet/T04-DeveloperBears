@@ -1,18 +1,14 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.CourseController;
-import ec.edu.espe.inclass.controller.StudentController;
-import ec.edu.espe.inclass.controller.TeacherController;
-import ec.edu.espe.inclass.controller.TutorshipController;
-import ec.edu.espe.inclass.model.Course;
+import ec.edu.espe.inclass.controller.DataPersistence;
+import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Grade;
 import ec.edu.espe.inclass.model.Student;
-import ec.edu.espe.inclass.model.Teacher;
-import ec.edu.espe.inclass.model.Tutorship;
 import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;
-import utils.DBManager;
 
 /**
  *
@@ -20,37 +16,13 @@ import utils.DBManager;
  */
 public class FrmAddGrade extends javax.swing.JFrame {
 
-    static DBManager dBManager;
-    static Teacher teacher;
-
     /**
      * Creates new form frmaddgrade
      */
     public FrmAddGrade() {
-        connectMongoDB();
         initComponents();
         showTableDate(0, 0);
-
-    }
-
-    private static void connectMongoDB() {
-        ArrayList<Tutorship> tutorships;
-        ArrayList<Course> courses;
-        ArrayList<Student> students;
-
-        dBManager = new DBManager();
-        dBManager.connect("mongodb+srv://oop22:oop22@cluster0.cd2tjad.mongodb.net/test", "InClassProject");
-        teacher = TeacherController.jsonToTeacher((String) dBManager.readCollection("Teacher").get(0));
-        tutorships = TutorshipController.loadTutorships(dBManager.readCollection("Tutorships"));
-        courses = CourseController.loadCourses(dBManager.readCollection("Courses"));
-
-        for (Course course : courses) {
-            students = StudentController.loadStudents(dBManager.readCollection("Students", "nrc", course.getNrc()));
-            course.setStudents(students);
-        }
-
-        teacher.setTutorships(tutorships);
-        teacher.setCourses(courses);
+        this.setLocationRelativeTo(this);
     }
 
     private void showTableDate(int unit, int gradeType) {
@@ -62,18 +34,22 @@ public class FrmAddGrade extends javax.swing.JFrame {
 
         emptyTable();
 
-        numberOfGrades = studentsGrades.get(0).getGradeValues().size();
+        if (!teacher.getCourses().get(position).getStudents().isEmpty()) {
 
-        for (int i = 0; i < numberOfGrades; i++) {
-            model.addColumn("Grade #" + (i + 1));
+            numberOfGrades = studentsGrades.get(0).getGradeValues().size();
+
+            for (int i = 0; i < numberOfGrades; i++) {
+                model.addColumn("Grade #" + (i + 1));
+            }
+
+            for (Grade studentsGrade : studentsGrades) {
+                studentRow = buildRow(studentsGrade.getGradeValues(), numberOfGrades);
+                model.addRow(studentRow.toArray());
+            }
+
+            model.setColumnCount(3 + numberOfGrades);
+
         }
-
-        for (Grade studentsGrade : studentsGrades) {
-            studentRow = buildRow(studentsGrade.getGradeValues(), numberOfGrades);
-            model.addRow(studentRow.toArray());
-        }
-
-        model.setColumnCount(3 + numberOfGrades);
 
     }
 
@@ -372,7 +348,10 @@ public class FrmAddGrade extends javax.swing.JFrame {
                 grades = studentsGradesValidate.get(i);
                 studentsGrades.get(i).setGradeValues(grades);
             }
-            lblAction.setText("Grades was saved");
+            
+            DataPersistence.updateStudentsInDB(teacher.getCourses().get(position));
+            
+            JOptionPane.showMessageDialog(this, "Grades was saved" , "Grades", INFORMATION_MESSAGE);
         } catch (Exception e) {
             lblAction.setText("Grades wasn´t saved, please use numbers and point(.)");
         }

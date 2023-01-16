@@ -1,5 +1,6 @@
 package ec.edu.espe.inclass.view;
 
+import ec.edu.espe.inclass.controller.DataPersistence;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -19,6 +20,7 @@ public class FrmInClassMenu extends javax.swing.JFrame {
      */
     public FrmInClassMenu() {
         initComponents();
+        DataPersistence.connectMongoDB();
         this.setLocationRelativeTo(this);
         
         setImageLabel(jLabelIcon,"src/img/LogoInClass.gif");

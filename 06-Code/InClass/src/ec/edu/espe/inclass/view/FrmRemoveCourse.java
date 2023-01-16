@@ -1,7 +1,7 @@
 package ec.edu.espe.inclass.view;
 
-import static ec.edu.espe.inclass.view.InClass.connectMongoDB;
-import static ec.edu.espe.inclass.view.InClass.teacher;
+import ec.edu.espe.inclass.controller.DataPersistence;
+import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -19,7 +19,6 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
      * Creates new form frmRemoveCourse
      */
     public FrmRemoveCourse() {
-        connectMongoDB();
         initComponents();
         uploadCourses();
         this.setLocationRelativeTo(this);
@@ -159,7 +158,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
         desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete the course with nrc " + courseDeleteString + " ?", "course delete info", WIDTH);
 
         if (desicion == 0) {
-            result = InClass.removeCourse(courseToDelete);
+            result = DataPersistence.removeCourse(courseToDelete);
             if(result==1){
                 JOptionPane.showMessageDialog(this, "Course successfully deleted ", "course delete info", INFORMATION_MESSAGE);
             }
@@ -210,38 +209,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmRemoveCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

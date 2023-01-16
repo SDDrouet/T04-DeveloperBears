@@ -1,18 +1,12 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.CourseController;
-import ec.edu.espe.inclass.controller.StudentController;
-import ec.edu.espe.inclass.controller.TeacherController;
-import ec.edu.espe.inclass.controller.TutorshipController;
-import ec.edu.espe.inclass.model.AttendanceRecord;
-import ec.edu.espe.inclass.model.Course;
+import ec.edu.espe.inclass.controller.DataPersistence;
+import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Student;
-import ec.edu.espe.inclass.model.Teacher;
-import ec.edu.espe.inclass.model.Tutorship;
 import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;
-import utils.DBManager;
 
 /**
  *
@@ -20,47 +14,24 @@ import utils.DBManager;
  */
 public class FrmTakeAttendance extends javax.swing.JFrame {
 
-    static DBManager dBManager;
-    static Teacher teacher;
-
     /**
      * Creates new form frmtakeattendance
      */
     public FrmTakeAttendance() {
-        connectMongoDB();
         initComponents();
-        for (Student student : teacher.getCourses().get(0).getStudents()) {
-            student.setAttendanceRecord(new AttendanceRecord());
-        }
-        initCmbClasses();
         showTableDate(0);
-
-    }
-
-    private static void connectMongoDB() {
-        ArrayList<Tutorship> tutorships;
-        ArrayList<Course> courses;
-        ArrayList<Student> students;
-
-        dBManager = new DBManager();
-        dBManager.connect("mongodb+srv://oop22:oop22@cluster0.cd2tjad.mongodb.net/test", "InClassProject");
-        teacher = TeacherController.jsonToTeacher((String) dBManager.readCollection("Teacher").get(0));
-        tutorships = TutorshipController.loadTutorships(dBManager.readCollection("Tutorships"));
-        courses = CourseController.loadCourses(dBManager.readCollection("Courses"));
-
-        for (Course course : courses) {
-            students = StudentController.loadStudents(dBManager.readCollection("Students", "nrc", course.getNrc()));
-            course.setStudents(students);
-        }
-
-        teacher.setTutorships(tutorships);
-        teacher.setCourses(courses);
+        initCmbClasses();
+        this.setLocationRelativeTo(this);
     }
 
     private void initCmbClasses() {
-        int numClasses = teacher.getCourses().get(position).getStudents().get(0).getAttendanceRecord().getAttendance().size();
-        for (int i = 1; i <= numClasses; i++) {
-            cmbClasses.addItem(String.valueOf(i));
+        int numClasses;
+
+        if (!teacher.getCourses().get(position).getStudents().isEmpty()) {
+            numClasses = teacher.getCourses().get(position).getStudents().get(0).getAttendanceRecord().getAttendance().size();
+            for (int i = 1; i <= numClasses; i++) {
+                cmbClasses.addItem(String.valueOf(i));
+            }
         }
     }
 
@@ -277,13 +248,16 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
 
     private void btnAddClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClassActionPerformed
         int classNumber;
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
-            student.getAttendanceRecord().getAttendance().add(false);
+        if (!teacher.getCourses().get(position).getStudents().isEmpty()) {
+            for (Student student : teacher.getCourses().get(position).getStudents()) {
+                student.getAttendanceRecord().getAttendance().add(false);
+            }
+            cmbClasses.addItem(String.valueOf(teacher.getCourses().get(position).getStudents().get(0).getAttendanceRecord().getAttendance().size()));
+            classNumber = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
+            showTableDate(classNumber);
+            lblAction.setText("Class was added");
         }
-        cmbClasses.addItem(String.valueOf(teacher.getCourses().get(position).getStudents().get(0).getAttendanceRecord().getAttendance().size()));
-        classNumber = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
-        showTableDate(classNumber);
-        lblAction.setText("Class was added");
+
     }//GEN-LAST:event_btnAddClassActionPerformed
 
     private void cmbClassesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbClassesItemStateChanged
@@ -301,17 +275,24 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
-        int classNumer = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
-        boolean studentAttendance;
-        int count = 0;
 
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
-            studentAttendance = (boolean) model.getValueAt(count, 3);
-            student.getAttendanceRecord().getAttendance().set(classNumer, studentAttendance);
-            count++;
+        if (!teacher.getCourses().get(position).getStudents().isEmpty()) {
+
+            int classNumer = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
+            boolean studentAttendance;
+            int count = 0;
+
+            for (Student student : teacher.getCourses().get(position).getStudents()) {
+                studentAttendance = (boolean) model.getValueAt(count, 3);
+                student.getAttendanceRecord().getAttendance().set(classNumer, studentAttendance);
+                student.getAttendanceRecord().setTotalClassNumber(student.getAttendanceRecord().getAttendance().size());
+                count++;
+            }
+            
+            DataPersistence.updateStudentsInDB(teacher.getCourses().get(position));
+
+            JOptionPane.showMessageDialog(this, "Attendance was saved" , "Attendance", INFORMATION_MESSAGE);
         }
-
-        lblAction.setText("Attendance was saved");
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClassActionPerformed
@@ -362,6 +343,8 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmTakeAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

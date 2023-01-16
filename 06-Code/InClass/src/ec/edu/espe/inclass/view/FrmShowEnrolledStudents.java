@@ -6,8 +6,7 @@ package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.model.Student;
 import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
-import static ec.edu.espe.inclass.view.InClass.connectMongoDB;
-import static ec.edu.espe.inclass.view.InClass.teacher;
+import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +19,7 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
      * Creates new form frmshowenrolledstudents
      */
     public FrmShowEnrolledStudents() {
-        connectMongoDB();
+        
         initComponents();
         refreshTable();
         this.setLocationRelativeTo(this);
