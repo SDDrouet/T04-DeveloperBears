@@ -34,6 +34,11 @@ public class FrmStudentMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnrequest.setText("Request a Tutorship");
+        btnrequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrequestActionPerformed(evt);
+            }
+        });
 
         btnback.setBackground(new java.awt.Color(153, 0, 0));
         btnback.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -104,6 +109,12 @@ public class FrmStudentMenu extends javax.swing.JFrame {
         frmInClassMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnbackActionPerformed
+
+    private void btnrequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrequestActionPerformed
+        FrmRequestTutorship frmRequestTutorship = new FrmRequestTutorship();
+        frmRequestTutorship.setVisible(true);
+        this.setVisible(false); 
+    }//GEN-LAST:event_btnrequestActionPerformed
 
     /**
      * @param args the command line arguments
