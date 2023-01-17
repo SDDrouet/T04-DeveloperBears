@@ -203,6 +203,7 @@
           </Properties>
           <Events>
             <EventHandler event="componentAdded" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="btnAttendanceRecordComponentAdded"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAttendanceRecordActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="brnAddStudent">

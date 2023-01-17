@@ -122,6 +122,11 @@ public class FrmEnterCourse extends javax.swing.JFrame {
                 btnAttendanceRecordComponentAdded(evt);
             }
         });
+        btnAttendanceRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAttendanceRecordActionPerformed(evt);
+            }
+        });
 
         brnAddStudent.setText("Add Student");
         brnAddStudent.setEnabled(false);
@@ -311,6 +316,13 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         FrmAddStudent frmAddStudent = new FrmAddStudent();
         frmAddStudent.setVisible(true);
     }//GEN-LAST:event_brnAddStudentActionPerformed
+
+    private void btnAttendanceRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceRecordActionPerformed
+        FrmGetAttendanceRecord frmGetAttendanceRecord = new FrmGetAttendanceRecord();        
+        frmGetAttendanceRecord.setVisible(true);
+        FrmGetAttendanceRecord.txtNrcReceive1.setText(txtCourse.getText());
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAttendanceRecordActionPerformed
 
     private int getNrcEntered() {
         int positionCourse;
