@@ -78,17 +78,10 @@ public class Unit {
     public void setExam(Grade exam) {
         this.exam = exam;
     }
-    
-    public float calculateUnitGrade() {
-        float unitGrade;
-        unitGrade = workshops.calculateGrade() + homeworks.calculateGrade() + tests.calculateGrade() + exam.calculateGrade();
-        
-        return unitGrade;
-    }
 
     @Override
     public String toString() {
-        return "workshops=" + workshops + ", homeworks=" + homeworks + ", tests=" + tests + ", exam=" + exam + " - Unit Grade: " + calculateUnitGrade();
+        return "Unit{" + "workshops=" + workshops + ", homeworks=" + homeworks + ", tests=" + tests + ", exam=" + exam + '}';
     }
 
 }

@@ -1,7 +1,6 @@
 package ec.edu.espe.inclass.model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -60,44 +59,6 @@ public class Teacher extends UniversityMember{
      */
     public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
-    }
-
-    public Course addCourse() {
-
-        Course newCourse = null;
-        String courseName;
-        int nrc;
-
-        Scanner sc = new Scanner(System.in);
-
-        try {
-            courseName = scanAssignatureName(sc);
-            nrc = scanCourseNrc(sc);
-            
-            newCourse = new Course(courseName, nrc);
-                        
-            getCourses().add(newCourse);
-            
-        } catch (Exception e) {
-            System.out.println("Error! You should verify the information entered :)");
-        }
-        
-        return  newCourse;
-    }
-
-    private int scanCourseNrc(Scanner sc) {
-        int nrc;
-        System.out.print("Enter course's NRC: ");
-        nrc = sc.nextInt();
-        sc.nextLine();
-        return nrc;
-    }
-
-    private String scanAssignatureName(Scanner sc) {
-        String courseName;
-        System.out.print("Assignature name: ");
-        courseName = sc.nextLine();
-        return courseName;
     }
 
     /**

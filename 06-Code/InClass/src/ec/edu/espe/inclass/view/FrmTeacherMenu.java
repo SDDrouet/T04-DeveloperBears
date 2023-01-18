@@ -9,9 +9,6 @@ package ec.edu.espe.inclass.view;
  */
 public class FrmTeacherMenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TeacherMenu
-     */
     public FrmTeacherMenu() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -147,29 +144,24 @@ public class FrmTeacherMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
-
         FrmInClassMenu frmInClassMenu = new FrmInClassMenu();
         frmInClassMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnenterActionPerformed
-        // TODO add your handling code here:
         FrmEnterCourse frmEnterCourse = new FrmEnterCourse();
         frmEnterCourse.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnenterActionPerformed
 
     private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
-        // TODO add your handling code here:
         FrmAddCourse frmAddCourse = new FrmAddCourse();
         frmAddCourse.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnaddActionPerformed
 
     private void btnremoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnremoveActionPerformed
-        // TODO add your handling code here:
         FrmRemoveCourse frmRemoveCourse = new FrmRemoveCourse();
         frmRemoveCourse.setVisible(true);
         this.setVisible(false);
@@ -200,37 +192,6 @@ public class FrmTeacherMenu extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmTeacherMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

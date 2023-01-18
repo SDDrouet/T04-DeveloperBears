@@ -15,9 +15,6 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
  */
 public class FrmRemoveCourse extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmRemoveCourse
-     */
     public FrmRemoveCourse() {
         initComponents();
         uploadCourses();

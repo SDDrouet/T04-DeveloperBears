@@ -3,7 +3,6 @@ package ec.edu.espe.inclass.view;
 import ec.edu.espe.inclass.controller.CourseController;
 import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.model.Course;
-import ec.edu.espe.inclass.view.FrmTeacherMenu;
 import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import java.awt.event.KeyEvent;
@@ -19,9 +18,6 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
  */
 public class FrmAddCourse extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmAddCourse
-     */
     public FrmAddCourse() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -170,30 +166,30 @@ public class FrmAddCourse extends javax.swing.JFrame {
 
         Course course;
         course = null;
-        
+
         String name = "";
         int nrc = -1;
         boolean isCourseValid = true;
-        
+
         name = String.valueOf(txtName.getText()).toUpperCase();
-        
+
         if (name.length() < 3) {
             isCourseValid = false;
         }
-        
+
         try {
             nrc = Integer.parseInt(txtNrc.getText());
             course = new Course(name, nrc);
         } catch (Exception e) {
             isCourseValid = false;
         }
-        
+
         if (CourseController.findCourse(teacher.getCourses(), nrc) != -1) {
             isCourseValid = false;
         }
 
         if (isCourseValid) {
-            dBManager.createDocument("Courses", CourseController.courseToJsonForDB(course));            
+            dBManager.createDocument("Courses", CourseController.courseToJsonForDB(course));
             JOptionPane.showMessageDialog(this, "Course successfully added", "COURSE add", INFORMATION_MESSAGE);
             txtName.setText("");
             txtNrc.setText("");
@@ -212,13 +208,11 @@ public class FrmAddCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnbackActionPerformed
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtNameKeyTyped
 
     private void txtNrcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNrcKeyTyped
-        // TODO add your handling code here:
         char c = evt.getKeyChar();
-        char c1 = (char)0;
+        char c1 = (char) 0;
         if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
             JOptionPane.showMessageDialog(this, c + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE);
             evt.setKeyChar(c1);
@@ -251,21 +245,7 @@ public class FrmAddCourse extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmAddCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

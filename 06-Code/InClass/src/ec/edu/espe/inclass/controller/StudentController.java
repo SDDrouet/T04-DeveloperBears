@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Grade;
 import ec.edu.espe.inclass.model.Student;
+import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
 import java.util.ArrayList;
 
 /**
@@ -105,19 +107,19 @@ public class StudentController {
         workshopsGrades = student.getGradeRecord().getUnits().get(0).getWorkshops();
         testGrades = student.getGradeRecord().getUnits().get(0).getTests();
         examGrades = student.getGradeRecord().getUnits().get(0).getExam();
-        unit1Grade = homeworksGrades.calculateGrade() + workshopsGrades.calculateGrade() + testGrades.calculateGrade() + examGrades.calculateGrade();
+        unit1Grade = calculateGrade(homeworksGrades) + calculateGrade(workshopsGrades) + calculateGrade(testGrades) + calculateGrade(examGrades);
 
         homeworksGrades = student.getGradeRecord().getUnits().get(1).getHomeworks();
         workshopsGrades = student.getGradeRecord().getUnits().get(1).getWorkshops();
         testGrades = student.getGradeRecord().getUnits().get(1).getTests();
         examGrades = student.getGradeRecord().getUnits().get(1).getExam();
-        unit2Grade = homeworksGrades.calculateGrade() + workshopsGrades.calculateGrade() + testGrades.calculateGrade() + examGrades.calculateGrade();
+        unit2Grade = calculateGrade(homeworksGrades) + calculateGrade(workshopsGrades) + calculateGrade(testGrades) + calculateGrade(examGrades);
 
         homeworksGrades = student.getGradeRecord().getUnits().get(2).getHomeworks();
         workshopsGrades = student.getGradeRecord().getUnits().get(2).getWorkshops();
         testGrades = student.getGradeRecord().getUnits().get(2).getTests();
         examGrades = student.getGradeRecord().getUnits().get(2).getExam();
-        unit3Grade = homeworksGrades.calculateGrade() + workshopsGrades.calculateGrade() + testGrades.calculateGrade() + examGrades.calculateGrade();
+        unit3Grade = calculateGrade(homeworksGrades) + calculateGrade(workshopsGrades) + calculateGrade(testGrades) + calculateGrade(examGrades);
 
         average = (unit1Grade + unit2Grade + unit3Grade) / 3;
         studentsGrades.add(unit1Grade);
@@ -127,15 +129,49 @@ public class StudentController {
 
         return studentsGrades;
     }
-    
+
+    private static float calculateGrade(Grade gradeType) {
+        float grade;
+        float sum = 0;
+        int gradeNumber = gradeType.getGradeValues().size();
+
+        for (Float value : gradeType.getGradeValues()) {
+            sum += value;
+        }
+
+        grade = sum / gradeNumber * gradeType.getTotalGradePercent();
+
+        return grade;
+    }
+
     public static boolean verifyAttendancePesent(float assistancePersent) {
         boolean isAproved = true;
-        
+
         if (assistancePersent < 70) {
             isAproved = false;
         }
-        
+
         return isAproved;
+    }
+
+    public static ArrayList<Grade> getGrades(int gradeType, int unit) {
+        ArrayList<Grade> studentsGrades;
+        studentsGrades = new ArrayList<>();
+        for (Student student : teacher.getCourses().get(position).getStudents()) {
+            switch (gradeType) {
+                case 0 ->
+                    studentsGrades.add(student.getGradeRecord().getUnits().get(unit).getHomeworks());
+                case 1 ->
+                    studentsGrades.add(student.getGradeRecord().getUnits().get(unit).getWorkshops());
+                case 2 ->
+                    studentsGrades.add(student.getGradeRecord().getUnits().get(unit).getTests());
+                case 3 ->
+                    studentsGrades.add(student.getGradeRecord().getUnits().get(unit).getExam());
+                default -> {
+                }
+            }
+        }
+        return studentsGrades;
     }
 
 }

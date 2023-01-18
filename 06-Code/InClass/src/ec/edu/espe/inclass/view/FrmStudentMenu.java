@@ -9,9 +9,6 @@ package ec.edu.espe.inclass.view;
  */
 public class FrmStudentMenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form StudentMenu
-     */
     public FrmStudentMenu() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -104,7 +101,6 @@ public class FrmStudentMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
-        // TODO add your handling code here:
         FrmInClassMenu frmInClassMenu = new FrmInClassMenu();
         frmInClassMenu.setVisible(true);
         this.setVisible(false);
@@ -142,13 +138,7 @@ public class FrmStudentMenu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmStudentMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

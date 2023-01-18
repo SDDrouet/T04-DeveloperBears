@@ -13,9 +13,6 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
  */
 public class FrmLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
     public FrmLogin() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -229,9 +226,6 @@ public class FrmLogin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
