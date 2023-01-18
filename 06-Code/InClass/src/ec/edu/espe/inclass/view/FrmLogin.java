@@ -1,6 +1,6 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
+import ec.edu.espe.inclass.controller.TeacherController;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
@@ -174,7 +174,7 @@ public class FrmLogin extends javax.swing.JFrame {
         user = String.valueOf(txtUser.getText());
         password = String.valueOf(txtPassword.getText());
 
-        validated = DataPersistence.loginTeacher(user, password);
+        validated = TeacherController.loginTeacher(user, password);
 
         if (validated == 1) {
             JOptionPane.showMessageDialog(this, "WELCOME", "LOGIN INFO", INFORMATION_MESSAGE);

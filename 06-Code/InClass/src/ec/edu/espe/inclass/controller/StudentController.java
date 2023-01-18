@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Grade;
 import ec.edu.espe.inclass.model.Student;
@@ -172,6 +173,17 @@ public class StudentController {
             }
         }
         return studentsGrades;
+    }
+    
+    public static int removeStudent(String espeId, int studenNumber, int nrc, int courseNumber) {
+
+        try {
+            dBManager.deleteStudentDocument(espeId, nrc);
+            teacher.getCourses().get(courseNumber).getStudents().remove(studenNumber);
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
 }

@@ -59,6 +59,11 @@ public class FrmTeacherMenu extends javax.swing.JFrame {
         });
 
         btnget.setText("Get Tutorship Record");
+        btnget.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btngetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,6 +171,12 @@ public class FrmTeacherMenu extends javax.swing.JFrame {
         frmRemoveCourse.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnremoveActionPerformed
+
+    private void btngetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngetActionPerformed
+        FrmGetTutorshipRecord frmGetTutorshipRecord = new FrmGetTutorshipRecord();
+        frmGetTutorshipRecord.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btngetActionPerformed
 
     /**
      * @param args the command line arguments

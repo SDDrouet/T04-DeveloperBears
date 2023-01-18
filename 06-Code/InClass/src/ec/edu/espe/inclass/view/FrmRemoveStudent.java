@@ -1,8 +1,8 @@
 
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
+import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Student;
 import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
 import java.awt.HeadlessException;
@@ -224,7 +224,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
                 desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete this student: " + name + " (" + espeId + ")" + " ?", "course delete info", WIDTH);
 
                 if (desicion == 0) {
-                    result = DataPersistence.removeStudent(espeId, studentNumber, nrc, position);
+                    result = StudentController.removeStudent(espeId, studentNumber, nrc, position);
                     if (result == 1) {
                         JOptionPane.showMessageDialog(this, "Student " + name + " (" + espeId + ")" + " was successfully eliminated", "Student delete information", INFORMATION_MESSAGE);
                         txtNStudent.setText("");
@@ -271,37 +271,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmRemoveStudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

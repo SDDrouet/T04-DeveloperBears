@@ -2,6 +2,7 @@ package ec.edu.espe.inclass.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Teacher;
 
 /**
@@ -37,5 +38,14 @@ public class TeacherController {
         teacher = gson.fromJson(json, teacher.getClass());
 
         return teacher;
+    }
+    
+        public static int loginTeacher(String espeId, String password) {
+
+        if (espeId.equals(teacher.getEspeId()) && password.equals(teacher.getPassword())) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

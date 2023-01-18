@@ -1,6 +1,6 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
+import ec.edu.espe.inclass.controller.CourseController;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -155,7 +155,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
         desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete the course with nrc " + courseDeleteString + " ?", "course delete info", WIDTH);
 
         if (desicion == 0) {
-            result = DataPersistence.removeCourse(courseToDelete);
+            result = CourseController.removeCourse(courseToDelete);
             if(result==1){
                 JOptionPane.showMessageDialog(this, "Course successfully deleted ", "course delete info", INFORMATION_MESSAGE);
             }
