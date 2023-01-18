@@ -1,7 +1,6 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.CourseController;
-import ec.edu.espe.inclass.controller.DataPersistence;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -106,6 +105,11 @@ public class FrmEnterCourse extends javax.swing.JFrame {
 
         btnRemove.setText("Remove Student");
         btnRemove.setEnabled(false);
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
 
         btnRecord.setText("Get grade record");
         btnRecord.setEnabled(false);
@@ -252,7 +256,7 @@ public class FrmEnterCourse extends javax.swing.JFrame {
             position = getNrcEntered();
         } catch (Exception e) {
             position = -1;
-        }                        
+        }
 
         if (position != -1) {
             txtCourse.setEnabled(false);
@@ -315,19 +319,28 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     private void brnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAddStudentActionPerformed
         FrmAddStudent frmAddStudent = new FrmAddStudent();
         frmAddStudent.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_brnAddStudentActionPerformed
 
     private void btnAttendanceRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceRecordActionPerformed
-        FrmGetAttendanceRecord frmGetAttendanceRecord = new FrmGetAttendanceRecord();        
+        FrmGetAttendanceRecord frmGetAttendanceRecord = new FrmGetAttendanceRecord();
         frmGetAttendanceRecord.setVisible(true);
         FrmGetAttendanceRecord.txtNrcReceive1.setText(txtCourse.getText());
         this.setVisible(false);
     }//GEN-LAST:event_btnAttendanceRecordActionPerformed
 
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        // TODO add your handling code here:
+        FrmRemoveStudent frmRemoveStudent = new FrmRemoveStudent();
+        frmRemoveStudent.setVisible(true);
+        FrmRemoveStudent.txtNrcReceive.setText(txtCourse.getText());
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
     private int getNrcEntered() {
         int positionCourse;
         positionCourse = CourseController.findCourse(teacher.getCourses(), Integer.parseInt(txtCourse.getText()));
-        return  positionCourse;
+        return positionCourse;
     }
 
     /**
@@ -356,7 +369,10 @@ public class FrmEnterCourse extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmEnterCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
