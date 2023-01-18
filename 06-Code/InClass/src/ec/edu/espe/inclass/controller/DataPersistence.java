@@ -1,6 +1,5 @@
 package ec.edu.espe.inclass.controller;
 
-
 import ec.edu.espe.inclass.model.Course;
 import ec.edu.espe.inclass.model.Student;
 import ec.edu.espe.inclass.model.Teacher;
@@ -42,7 +41,7 @@ public class DataPersistence {
         teacher.setTutorships(tutorships);
         teacher.setCourses(courses);
     }
-    
+
     public static void updateData() {
         ArrayList<Tutorship> tutorships;
         ArrayList<Course> courses;
@@ -63,7 +62,7 @@ public class DataPersistence {
         teacher.setTutorships(tutorships);
         teacher.setCourses(courses);
     }
-    
+
     public static void updateStudentsInDB(Course course) {
         for (Student student : course.getStudents()) {
             dBManager.updateDocument("Students", student.getEspeId(), course.getNrc(),
@@ -75,7 +74,7 @@ public class DataPersistence {
 
         try {
             dBManager.deleteDocument("Courses", "nrc", teacher.getCourses().get(courseNumber).getNrc());
-            teacher.getCourses().remove(courseNumber);        
+            teacher.getCourses().remove(courseNumber);
             System.out.println("The course was remove successfully");
             return 1;
         } catch (Exception e) {
@@ -84,6 +83,16 @@ public class DataPersistence {
         }
     }
 
+    public static int removeStudent(String espeId, int studenNumber, int nrc, int courseNumber) {
+
+        try {
+            dBManager.deleteStudentDocument(espeId, nrc);
+            teacher.getCourses().get(courseNumber).getStudents().remove(studenNumber);
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 
     public static int loginTeacher(String espeId, String password) {
 
