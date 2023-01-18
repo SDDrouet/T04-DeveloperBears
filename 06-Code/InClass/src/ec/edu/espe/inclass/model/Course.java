@@ -1,7 +1,6 @@
 package ec.edu.espe.inclass.model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -55,30 +54,6 @@ public class Course {
 
     public void setStudents(ArrayList<Student> students) {
         this.students = students;
-    }
-
-    public Student addStudent() {
-
-        Student newStudent = null;
-
-        String name;
-        String espeId;
-
-        Scanner sc = new Scanner(System.in);
-
-        try {
-            System.out.print("Student name: ");
-            name = sc.nextLine();
-            System.out.print("Student ID: ");
-            espeId = sc.nextLine();
-
-            newStudent = new Student(name, espeId);
-            students.add(newStudent);
-        } catch (Exception e) {
-            System.out.println("Error! You should verify the information entered");
-        }
-
-        return newStudent;
     }
 
 }

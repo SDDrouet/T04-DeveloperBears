@@ -1,7 +1,6 @@
 package ec.edu.espe.inclass.model;
 
 import java.util.Date;
-import java.util.Scanner;
 
 /**
  *
@@ -24,6 +23,7 @@ public class Tutorship{
         courseName = "";
         career = "";
     }
+    
     public Tutorship(Date date, String id, String name, String career, String courseName) {
         this.date = date;
         this.id = id;
@@ -106,32 +106,9 @@ public class Tutorship{
         this.courseName = courseName;
     }
 
-    public void requestTutorship() {
-        date = new Date();
-        //Using data from Keyboard
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Enter student id: ");
-        id= scan.nextLine();
-        System.out.print("student career:");
-        career = scan.nextLine();
-        System.out.print("Name student: ");
-        name = scan.nextLine();
-        System.out.print("Course Name: ");
-        courseName = scan.nextLine();
-        System.out.println(date);
-        printRequestTutorship();
-    }
-    
-    public void printRequestTutorship() {
-        System.out.println("I, " + getName() + ", with ID: " + getId() + ", student of the Career: " + getCareer()
-                + " of Universidad de las Fuerzas Armadas -- ESPE Matriz Sangolqui , I request you, Mr.Director Career, it is designated to enter and register"
-                        + " in the database the request for a tutoring of the: " + getCourseName() + "For the attention to the request, receive my thanks.");
-    }
-
     @Override
     public String toString() {
         return  "Date=" + date + ", id=" + id + ", name=" + name + ", career=" + career + ", courseName=" + courseName;
     }
-    
     
 }

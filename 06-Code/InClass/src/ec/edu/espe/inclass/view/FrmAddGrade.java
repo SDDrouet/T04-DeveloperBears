@@ -2,8 +2,8 @@ package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.DataPersistence;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
+import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Grade;
-import ec.edu.espe.inclass.model.Student;
 import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -16,9 +16,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmAddGrade extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmaddgrade
-     */
     public FrmAddGrade() {
         initComponents();
         showTableDate(0, 0);
@@ -30,7 +27,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
         int numberOfGrades;
         ArrayList<Grade> studentsGrades;
         ArrayList<Object> studentRow;
-        studentsGrades = getGrades(gradeType, unit);
+        studentsGrades = StudentController.getGrades(gradeType, unit);
 
         emptyTable();
 
@@ -48,29 +45,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
             }
 
             model.setColumnCount(3 + numberOfGrades);
-
         }
-
-    }
-
-    private ArrayList<Grade> getGrades(int gradeType, int unit) {
-        ArrayList<Grade> studentsGrades;
-        studentsGrades = new ArrayList<>();
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
-            switch (gradeType) {
-                case 0 ->
-                    studentsGrades.add(student.getGradeRecord().getUnits().get(unit).getHomeworks());
-                case 1 ->
-                    studentsGrades.add(student.getGradeRecord().getUnits().get(unit).getWorkshops());
-                case 2 ->
-                    studentsGrades.add(student.getGradeRecord().getUnits().get(unit).getTests());
-                case 3 ->
-                    studentsGrades.add(student.getGradeRecord().getUnits().get(unit).getExam());
-                default -> {
-                }
-            }
-        }
-        return studentsGrades;
     }
 
     private ArrayList<Object> buildRow(ArrayList<Float> studentsGrade, int numberOfGrades) {
@@ -332,7 +307,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
         ArrayList<Float> grades;
         ArrayList<ArrayList> studentsGradesValidate;
         ArrayList<Grade> studentsGrades;
-        studentsGrades = getGrades(gradeType, unitNumber);
+        studentsGrades = StudentController.getGrades(gradeType, unitNumber);
         studentsGradesValidate = new ArrayList<>();
 
         try {
@@ -348,10 +323,10 @@ public class FrmAddGrade extends javax.swing.JFrame {
                 grades = studentsGradesValidate.get(i);
                 studentsGrades.get(i).setGradeValues(grades);
             }
-            
+
             DataPersistence.updateStudentsInDB(teacher.getCourses().get(position));
-            
-            JOptionPane.showMessageDialog(this, "Grades was saved" , "Grades", INFORMATION_MESSAGE);
+
+            JOptionPane.showMessageDialog(this, "Grades was saved", "Grades", INFORMATION_MESSAGE);
         } catch (Exception e) {
             lblAction.setText("Grades wasn´t saved, please use numbers and point(.)");
         }
@@ -364,7 +339,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
         int gradeType = cmbGradeType.getSelectedIndex();
         int numberOfGrades = tblGrades.getColumnCount() - 3;
         ArrayList<Grade> studentsGrades;
-        studentsGrades = getGrades(gradeType, unitNumber);
+        studentsGrades = StudentController.getGrades(gradeType, unitNumber);
         model.addColumn("Grade #" + (numberOfGrades + 1));
 
         for (Grade studentGrades : studentsGrades) {
@@ -381,24 +356,26 @@ public class FrmAddGrade extends javax.swing.JFrame {
         int numberOfGrades = tblGrades.getColumnCount() - 3;
         ArrayList<Grade> studentsGrades;
 
-        if (numberOfGrades > 0) {
-            lblAction.setText("Grades was deleted");
-            studentsGrades = getGrades(gradeType, unitNumber);
+        int desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete the last grade?", "Grade delete info", WIDTH);
 
-            model.setColumnCount(2 + numberOfGrades);
+        if (desicion == 0) {
+            if (numberOfGrades > 0) {
+                lblAction.setText("Grades was deleted");
+                studentsGrades = StudentController.getGrades(gradeType, unitNumber);
 
-            for (Grade studentGrades : studentsGrades) {
-                studentGrades.getGradeValues().remove(numberOfGrades - 1);
+                model.setColumnCount(2 + numberOfGrades);
+
+                for (Grade studentGrades : studentsGrades) {
+                    studentGrades.getGradeValues().remove(numberOfGrades - 1);
+                }
+
+            } else {
+                lblAction.setText("No grades to remove");
             }
-
-        } else {
-            lblAction.setText("No grades to remove");
         }
-
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
         FrmEnterCourse frmEnterCourse = new FrmEnterCourse();
         frmEnterCourse.setVisible(true);
         this.setVisible(false);

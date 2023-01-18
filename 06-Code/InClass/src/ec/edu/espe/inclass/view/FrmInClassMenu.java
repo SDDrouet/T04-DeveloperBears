@@ -15,9 +15,6 @@ import javax.swing.JLabel;
  */
 public class FrmInClassMenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InClassMenu
-     */
     public FrmInClassMenu() {
         initComponents();
         DataPersistence.connectMongoDB();
@@ -153,19 +150,16 @@ public class FrmInClassMenu extends javax.swing.JFrame {
         this.repaint();
     }
     private void btnexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexitActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnexitActionPerformed
 
     private void btnteacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnteacherActionPerformed
-        // TODO add your handling code here:
         FrmLogin frmLogin = new FrmLogin();
         frmLogin.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnteacherActionPerformed
 
     private void btnstudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnstudentActionPerformed
-        // TODO add your handling code here:
         FrmStudentMenu frmStudentMenu = new FrmStudentMenu();
         frmStudentMenu.setVisible(true);
         this.setVisible(false);
@@ -197,37 +191,7 @@ public class FrmInClassMenu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmInClassMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

@@ -53,7 +53,4 @@ public class AttendanceRecord {
         this.totalClassNumber = totalClassNumber;
     }
     
-    
- 
-
-}
+ }

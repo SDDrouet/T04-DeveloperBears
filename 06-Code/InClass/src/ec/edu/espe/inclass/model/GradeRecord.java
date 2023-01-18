@@ -34,27 +34,9 @@ public class GradeRecord {
         this.units = units;
     }
 
-    public float calculateFinalGrade() {
-        float finalGrade;
-        float sum = 0;
-        int numberOfUnits = units.size();
-
-        for (Unit unit : units) {
-            sum += unit.calculateUnitGrade();
-        }
-
-        finalGrade = sum / numberOfUnits;
-
-        return finalGrade;
-    }
-
     @Override
     public String toString() {
-        return "    - Unit1: " + units.get(0)
-                + "\n    - Unit2: " + units.get(1)
-                + "\n    - Unit3: " + units.get(2)
-                + "\n    - FinalGrade: " + calculateFinalGrade();
-
+        return "GradeRecord{" + "units=" + units + '}';
     }
 
 }

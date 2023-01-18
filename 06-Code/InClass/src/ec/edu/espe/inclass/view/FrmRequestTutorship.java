@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.inclass.view;
 
 import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
@@ -17,9 +13,6 @@ import utils.DBManager;
  */
 public class FrmRequestTutorship extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmRequestTutorship
-     */
     public FrmRequestTutorship() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -186,7 +179,6 @@ public class FrmRequestTutorship extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNRCActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtNRCActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -202,14 +194,17 @@ public class FrmRequestTutorship extends javax.swing.JFrame {
         String name;
         String career;
         String courseName;
-        date = new Date();
-        id = txtID.getText();
-        name = txtName.getText();
-        career = txtCarrer.getText();
-        courseName = txtNRC.getText();
-        tutorship = new Tutorship(date, id, name, career, courseName);
+
         try {
+            date = new Date();
+            id = txtID.getText();
+            name = txtName.getText();
+            career = txtCarrer.getText();
+            courseName = txtNRC.getText();
+
+            tutorship = new Tutorship(date, id, name, career, courseName);
             dBManager.createDocument("Tutorships", DBManager.toJson(tutorship));
+            
             JOptionPane.showMessageDialog(this, "Tutorship was Requested", "Tutorship", INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error not requested", "Tutorship", INFORMATION_MESSAGE);
@@ -218,7 +213,6 @@ public class FrmRequestTutorship extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRequestActionPerformed
 
     private void txtCarrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarrerActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtCarrerActionPerformed
 
     /**

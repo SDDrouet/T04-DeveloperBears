@@ -16,7 +16,6 @@ public abstract class UniversityMember {
         this.name = name;
         this.espeId = espeId;
     }
-
     
     /**
      * @return the name

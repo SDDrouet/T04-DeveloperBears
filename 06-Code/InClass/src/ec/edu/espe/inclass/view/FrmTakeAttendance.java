@@ -14,9 +14,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmTakeAttendance extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmtakeattendance
-     */
     public FrmTakeAttendance() {
         initComponents();
         showTableDate(0);
@@ -312,7 +309,6 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteClassActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
         FrmEnterCourse frmEnterCourse = new FrmEnterCourse();
         frmEnterCourse.setVisible(true);
         this.setVisible(false);
@@ -344,9 +340,7 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmTakeAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

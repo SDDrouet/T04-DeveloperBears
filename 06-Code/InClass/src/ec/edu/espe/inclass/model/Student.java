@@ -24,7 +24,6 @@ public class Student extends UniversityMember {
         this.gradeRecord = gradeRecord;
     }
 
-
     /**
      * @return the attendanceRecord
      */
@@ -52,6 +51,5 @@ public class Student extends UniversityMember {
     public void setGradeRecord(GradeRecord gradeRecord) {
         this.gradeRecord = gradeRecord;
     }
-
 
 }

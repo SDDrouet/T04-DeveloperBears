@@ -59,23 +59,11 @@ public class Grade {
     public void modify(int index, Float value) {
         gradeValues.set(index, value);
     }
-    
-    public float calculateGrade() {
-        float grade;
-        float sum = 0;
-        int gradeNumber = gradeValues.size();
-        
-        for (Float value : gradeValues) {
-            sum += value;
-        }
-        
-        grade = sum / gradeNumber * totalGradePercent;        
-        
-        return grade;
-    }
 
     @Override
     public String toString() {
-        return gradeValues.toString();
+        return "Grade{" + "gradeValues=" + gradeValues + ", totalGradePercent=" + totalGradePercent + '}';
     }
+
+    
 }

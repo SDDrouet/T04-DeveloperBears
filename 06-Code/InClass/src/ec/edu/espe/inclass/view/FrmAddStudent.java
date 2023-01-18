@@ -18,9 +18,6 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
  */
 public class FrmAddStudent extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmAddStudent
-     */
     public FrmAddStudent() {
         initComponents();
         this.setLocationRelativeTo(this);

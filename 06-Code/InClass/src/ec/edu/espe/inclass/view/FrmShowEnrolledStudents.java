@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.model.Student;
@@ -15,11 +11,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmshowenrolledstudents
-     */
     public FrmShowEnrolledStudents() {
-        
         initComponents();
         refreshTable();
         this.setLocationRelativeTo(this);
@@ -186,12 +178,7 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
