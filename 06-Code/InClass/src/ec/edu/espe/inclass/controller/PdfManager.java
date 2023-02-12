@@ -62,48 +62,15 @@ public class PdfManager {
                 FileOutputStream archive;
                 File file = new File(directory + "/GradeRecordNrc" + nrc + ".pdf");
                 archive = new FileOutputStream(file);
-                Font fontType12 = new Font(Font.FontFamily.TIMES_ROMAN, 12);
                 Document doc = new Document();
                 PdfWriter.getInstance(doc, archive);
-                doc.open();
-                Image img = Image.getInstance("src/img/espeLogo.png");
-
-                Paragraph dateParagraph = new Paragraph();
-                dateParagraph.add(Chunk.NEWLINE);
-                Date date = new Date();
-                dateParagraph.add(new Phrase("Date:\n" + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n", fontType12));
-
-                PdfPTable head = new PdfPTable(4);
-                head.setWidthPercentage(100);
-                head.getDefaultCell().setBorder(0);
-                float[] columnHead = new float[]{20F, 20F, 110F, 30F};
-                head.setWidths(columnHead);
-                head.setHorizontalAlignment(Element.ALIGN_LEFT);
-
-                head.addCell(img);
-                head.addCell("");
-                head.addCell(new Phrase("UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPE \n\n\tGRADE RECORD NRC: " + nrc, fontType12));
-                head.addCell(dateParagraph);
-
-                doc.add(head);
-
-                Paragraph info = new Paragraph();
-                info.add(Chunk.NEWLINE);
-                info.add(new Phrase("ASIGNATURE:  " + teacher.getCourses().get(position).getName() + "\n\n", fontType12));
-                doc.add(info);
-
-                PdfPTable gradeRecordStudents = new PdfPTable(8);
-                gradeRecordStudents.setWidthPercentage(100);
-                gradeRecordStudents.getDefaultCell().setBorder(0);
                 float[] columnGradeRecordStudents = new float[]{10F, 20F, 40F, 15F, 15F, 15F, 15F, 20F};
-                gradeRecordStudents.setWidths(columnGradeRecordStudents);
-                gradeRecordStudents.setHorizontalAlignment(Element.ALIGN_LEFT);
-
                 String texts[] = {"#", "id", "Students", "Unit1", "Unit2", "Unit3", "Average", "Status"};
 
-                putInformation(texts, gradeRecordStudents, table);
-
-                doc.add(gradeRecordStudents);
+                doc.open();
+                doc.add(generateHead(nrc, "GRADE RECORD"));
+                doc.add(generateInfo());
+                doc.add(generateRecord(columnGradeRecordStudents, texts, table));
                 doc.close();
                 archive.close();
                 JOptionPane.showMessageDialog(null, "Pdf successfully created");
@@ -112,7 +79,7 @@ public class PdfManager {
                 JOptionPane.showMessageDialog(null, "error: " + e);
             }
         }
-    }   
+    }
 
     public static void createAttendaceRecord(Component parent, JTable table) {
 
@@ -128,48 +95,16 @@ public class PdfManager {
                 FileOutputStream archive;
                 File file = new File(directory + "/AttendanceRecordNrc" + nrc + ".pdf");
                 archive = new FileOutputStream(file);
-                Font fontType12 = new Font(Font.FontFamily.TIMES_ROMAN, 12);
                 Document doc = new Document();
                 PdfWriter.getInstance(doc, archive);
-                doc.open();
-                Image img = Image.getInstance("src/img/espeLogo.png");
 
-                Paragraph dateParagraph = new Paragraph();
-                dateParagraph.add(Chunk.NEWLINE);
-                Date date = new Date();
-                dateParagraph.add(new Phrase("Date:\n" + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n", fontType12));
-
-                PdfPTable head = new PdfPTable(4);
-                head.setWidthPercentage(100);
-                head.getDefaultCell().setBorder(0);
-                float[] columnHead = new float[]{20F, 20F, 110F, 30F};
-                head.setWidths(columnHead);
-                head.setHorizontalAlignment(Element.ALIGN_LEFT);
-
-                head.addCell(img);
-                head.addCell("");
-                head.addCell(new Phrase("UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPE \n\n\tATTENDANCE RECORD NRC: " + nrc, fontType12));
-                head.addCell(dateParagraph);
-
-                doc.add(head);
-
-                Paragraph info = new Paragraph();
-                info.add(Chunk.NEWLINE);
-                info.add(new Phrase("ASIGNATURE:  " + teacher.getCourses().get(position).getName() + "\n\n", fontType12));
-                doc.add(info);
-
-                PdfPTable attendanceRecord = new PdfPTable(5);
-                attendanceRecord.setWidthPercentage(100);
-                attendanceRecord.getDefaultCell().setBorder(0);
                 float[] columnAttendanceRecord = new float[]{10F, 20F, 30F, 20F, 20F};
-                attendanceRecord.setWidths(columnAttendanceRecord);
-                attendanceRecord.setHorizontalAlignment(Element.ALIGN_LEFT);
-
                 String texts[] = {"#", "id", "Students", "Assistance Persent", "Status"};
 
-                putInformation(texts, attendanceRecord, table);
-
-                doc.add(attendanceRecord);
+                doc.open();
+                doc.add(generateHead(nrc, "ATTENDANCE RECORD"));
+                doc.add(generateInfo());
+                doc.add(generateRecord(columnAttendanceRecord, texts, table));
                 doc.close();
                 archive.close();
                 JOptionPane.showMessageDialog(null, "Pdf successfully created");
@@ -192,48 +127,16 @@ public class PdfManager {
                 FileOutputStream archive;
                 File file = new File(directory + "/TutorshipRecordNrc" + ".pdf");
                 archive = new FileOutputStream(file);
-                Font fontType12 = new Font(Font.FontFamily.TIMES_ROMAN, 12);
                 Document doc = new Document();
                 PdfWriter.getInstance(doc, archive);
-                doc.open();
-                Image img = Image.getInstance("src/img/espeLogo.png");
 
-                Paragraph dateParagraph = new Paragraph();
-                dateParagraph.add(Chunk.NEWLINE);
-                Date date = new Date();
-                dateParagraph.add(new Phrase("Date:\n" + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n", fontType12));
-
-                PdfPTable head = new PdfPTable(4);
-                head.setWidthPercentage(100);
-                head.getDefaultCell().setBorder(0);
-                float[] columnHead = new float[]{20F, 20F, 110F, 30F};
-                head.setWidths(columnHead);
-                head.setHorizontalAlignment(Element.ALIGN_LEFT);
-
-                head.addCell(img);
-                head.addCell("");
-                head.addCell(new Phrase("UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPE \n\n\tTUTORSHIPS RECORD NRC: ", fontType12));
-                head.addCell(dateParagraph);
-
-                doc.add(head);
-
-                Paragraph info = new Paragraph();
-                info.add(Chunk.NEWLINE);
-                info.add(Chunk.NEWLINE);
-                doc.add(info);
-
-                PdfPTable tutorshipRecord = new PdfPTable(6);
-                tutorshipRecord.setWidthPercentage(100);
-                tutorshipRecord.getDefaultCell().setBorder(0);
                 float[] columnTutorshipRecord = new float[]{10F, 20F, 30F, 20F, 20F, 30F};
-                tutorshipRecord.setWidths(columnTutorshipRecord);
-                tutorshipRecord.setHorizontalAlignment(Element.ALIGN_LEFT);
-
                 String texts[] = {"#", "id", "Students", "Career", "Course Name", "Date"};
 
-                putInformation(texts, tutorshipRecord, table);
-
-                doc.add(tutorshipRecord);
+                doc.open();
+                doc.add(generateHead("GENERAL", "TUTORSHIP RECORD"));
+                doc.add(generateInfo());
+                doc.add(generateRecord(columnTutorshipRecord, texts, table));
                 doc.close();
                 archive.close();
                 JOptionPane.showMessageDialog(null, "Pdf successfully created");
@@ -243,7 +146,54 @@ public class PdfManager {
             }
         }
     }
-    
+
+    private static PdfPTable generateRecord(float[] columnsSize, String[] texts, JTable table) throws DocumentException {
+        PdfPTable record = new PdfPTable(columnsSize.length);
+        record.setWidthPercentage(100);
+        record.getDefaultCell().setBorder(0);
+        record.setWidths(columnsSize);
+        record.setHorizontalAlignment(Element.ALIGN_LEFT);
+        putInformation(texts, record, table);
+        return record;
+    }
+
+    private static Paragraph generateInfo() {
+        Font fontType12 = new Font(Font.FontFamily.TIMES_ROMAN, 12);
+        Paragraph info = new Paragraph();
+        info.add(Chunk.NEWLINE);
+        info.add(new Phrase("ASIGNATURE:  " + teacher.getCourses().get(position).getName() + "\n\n", fontType12));
+        return info;
+    }
+
+    private static PdfPTable generateHead(String nrc, String recordType) throws DocumentException {
+        Font fontType12 = new Font(Font.FontFamily.TIMES_ROMAN, 12);
+        Image img = null;
+        try {
+            img = Image.getInstance("src/img/espeLogo.png");
+        } catch (Exception e) {
+            System.out.println("espeLogo.png no founded");
+        }
+
+        Paragraph dateParagraph = new Paragraph();
+        dateParagraph.add(Chunk.NEWLINE);
+        Date date = new Date();
+        dateParagraph.add(new Phrase("Date:\n" + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n", fontType12));
+
+        PdfPTable head = new PdfPTable(4);
+        head.setWidthPercentage(100);
+        head.getDefaultCell().setBorder(0);
+        float[] columnHead = new float[]{20F, 20F, 110F, 30F};
+        head.setWidths(columnHead);
+        head.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+        head.addCell(img);
+        head.addCell("");
+        head.addCell(new Phrase("UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPE \n\n\t" + recordType + " NRC: " + nrc, fontType12));
+        head.addCell(dateParagraph);
+
+        return head;
+    }
+
     private static void putInformation(String[] texts, PdfPTable Record, JTable table) {
         ArrayList<PdfPCell> titles = new ArrayList<>();
         Font fontType10 = new Font(Font.FontFamily.TIMES_ROMAN, 10);
