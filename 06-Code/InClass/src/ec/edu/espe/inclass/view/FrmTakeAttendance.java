@@ -3,7 +3,7 @@ package ec.edu.espe.inclass.view;
 import ec.edu.espe.inclass.controller.DataPersistence;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
+import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;

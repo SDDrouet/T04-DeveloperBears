@@ -8,7 +8,7 @@ import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Grade;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
+import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import java.util.ArrayList;
 
 /**
@@ -175,11 +175,10 @@ public class StudentController {
         return studentsGrades;
     }
     
-    public static int removeStudent(String espeId, int studenNumber, int nrc, int courseNumber) {
+    public static int removeStudent(String espeId, int nrc) {
 
         try {
             dBManager.deleteStudentDocument(espeId, nrc);
-            teacher.getCourses().get(courseNumber).getStudents().remove(studenNumber);
             return 1;
         } catch (Exception e) {
             return 0;

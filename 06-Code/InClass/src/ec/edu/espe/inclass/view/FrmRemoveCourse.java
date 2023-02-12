@@ -1,6 +1,7 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.CourseController;
+import ec.edu.espe.inclass.controller.DataPersistence;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -31,7 +32,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        titile = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cmbNrc = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
@@ -40,8 +41,8 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
-        jLabel1.setText("Remove Course");
+        titile.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
+        titile.setText("Remove Course");
 
         jLabel2.setText("Select the course's nrc do you want to remove");
 
@@ -55,7 +56,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(87, 87, 87)
-                        .addComponent(jLabel1))
+                        .addComponent(titile))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -66,7 +67,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addComponent(titile)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -136,14 +137,12 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
         FrmTeacherMenu frmTeacherMenu = new FrmTeacherMenu();
         frmTeacherMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        // TODO add your handling code here:
         String courseDeleteString;
         int courseToDelete;
         int desicion;
@@ -152,12 +151,13 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
         courseToDelete = (Integer) cmbNrc.getSelectedIndex();
         courseDeleteString = (String) cmbNrc.getSelectedItem();
 
-        desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete the course with nrc " + courseDeleteString + " ?", "course delete info", WIDTH);
+        desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete course: " + courseDeleteString + " ?", "course delete info", WIDTH);
 
         if (desicion == 0) {
             result = CourseController.removeCourse(courseToDelete);
             if(result==1){
                 JOptionPane.showMessageDialog(this, "Course successfully deleted ", "course delete info", INFORMATION_MESSAGE);
+                DataPersistence.updateData();
             }
             uploadCourses();
         } else{
@@ -173,7 +173,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
 
         for (int i = 0; i < teacher.getCourses().size(); i++) {
 
-            coursesString = String.valueOf(teacher.getCourses().get(i).getNrc());
+            coursesString = teacher.getCourses().get(i).getName() + " - nrc: " + String.valueOf(teacher.getCourses().get(i).getNrc());
             coursesArray[i] = coursesString;
         }
 
@@ -219,9 +219,9 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnRemove;
     private javax.swing.JComboBox<String> cmbNrc;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel titile;
     // End of variables declaration//GEN-END:variables
 }

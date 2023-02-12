@@ -1,10 +1,10 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.CourseController;
+import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import javax.swing.DefaultComboBoxModel;
+
 
 /**
  *
@@ -18,12 +18,33 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     /**
      * Creates new form CourseMenu
      */
-    public static int position;
 
     public FrmEnterCourse() {
 
         initComponents();
+        uploadCourses();
         this.setLocationRelativeTo(this);
+    }
+    
+    private void uploadCourses() {
+        String[] coursesArray;
+        coursesArray = new String[teacher.getCourses().size()];
+        String coursesString;
+
+        for (int i = 0; i < teacher.getCourses().size(); i++) {
+
+            coursesString = teacher.getCourses().get(i).getName() + " - nrc: " + String.valueOf(teacher.getCourses().get(i).getNrc());
+            coursesArray[i] = coursesString;
+        }
+
+        cmbNrc.setModel(new DefaultComboBoxModel<>(coursesArray));
+        cmbNrc.setSelectedIndex(position);
+    }
+    
+    public String getPositionNrc() {
+        String nrc;
+        nrc = String.valueOf(teacher.getCourses().get(position).getNrc());
+        return nrc;
     }
 
     /**
@@ -39,8 +60,6 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         pnlMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtCourse = new javax.swing.JTextField();
-        btnfind = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btnEnrolled = new javax.swing.JButton();
         btnAddGrade = new javax.swing.JButton();
@@ -49,8 +68,9 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         btnRecord = new javax.swing.JButton();
         btnAttendanceRecord = new javax.swing.JButton();
         brnAddStudent = new javax.swing.JButton();
+        cmbNrc = new javax.swing.JComboBox<>();
         pnlButtons = new javax.swing.JPanel();
-        btnback = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,19 +88,11 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
         jLabel1.setText("Enter a Course");
 
-        jLabel2.setText("In which course do you want to enter?");
-
-        btnfind.setText("Find");
-        btnfind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnfindActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("Select a Course");
 
         jLabel3.setText("Menu:");
 
         btnEnrolled.setText("Show enrolled students");
-        btnEnrolled.setEnabled(false);
         btnEnrolled.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnrolledActionPerformed(evt);
@@ -88,7 +100,6 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         });
 
         btnAddGrade.setText("Add grade");
-        btnAddGrade.setEnabled(false);
         btnAddGrade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddGradeActionPerformed(evt);
@@ -96,7 +107,6 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         });
 
         btnAttendance.setText("Take attendance");
-        btnAttendance.setEnabled(false);
         btnAttendance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAttendanceActionPerformed(evt);
@@ -104,7 +114,6 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         });
 
         btnRemove.setText("Remove Student");
-        btnRemove.setEnabled(false);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
@@ -112,7 +121,6 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         });
 
         btnRecord.setText("Get grade record");
-        btnRecord.setEnabled(false);
         btnRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecordActionPerformed(evt);
@@ -120,7 +128,6 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         });
 
         btnAttendanceRecord.setText("Get attendance record");
-        btnAttendanceRecord.setEnabled(false);
         btnAttendanceRecord.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
                 btnAttendanceRecordComponentAdded(evt);
@@ -133,10 +140,16 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         });
 
         brnAddStudent.setText("Add Student");
-        brnAddStudent.setEnabled(false);
         brnAddStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 brnAddStudentActionPerformed(evt);
+            }
+        });
+
+        cmbNrc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbNrc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbNrcItemStateChanged(evt);
             }
         });
 
@@ -147,15 +160,12 @@ public class FrmEnterCourse extends javax.swing.JFrame {
             .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addComponent(txtCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(btnfind))
                     .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1))
                     .addComponent(jLabel3)
                     .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cmbNrc, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(brnAddStudent, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRecord, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRemove, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -163,7 +173,7 @@ public class FrmEnterCourse extends javax.swing.JFrame {
                         .addComponent(btnEnrolled, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAttendance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAttendanceRecord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         pnlMenuLayout.setVerticalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,11 +182,9 @@ public class FrmEnterCourse extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnfind))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbNrc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(btnEnrolled)
@@ -195,10 +203,10 @@ public class FrmEnterCourse extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        btnback.setText("Back");
-        btnback.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbackActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -208,14 +216,14 @@ public class FrmEnterCourse extends javax.swing.JFrame {
             pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtonsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnback)
+                .addComponent(btnBack)
                 .addGap(23, 23, 23))
         );
         pnlButtonsLayout.setVerticalGroup(
             pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtonsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnback)
+                .addComponent(btnBack)
                 .addGap(18, 18, 18))
         );
 
@@ -247,53 +255,16 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAttendanceRecordComponentAdded
 
-    private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
-        // TODO add your handling code here:
-        int courseToFind = 0;
-
-        try {
-            courseToFind = Integer.parseInt(txtCourse.getText());
-            position = getNrcEntered();
-        } catch (Exception e) {
-            position = -1;
-        }
-
-        if (position != -1) {
-            txtCourse.setEnabled(false);
-            JOptionPane.showMessageDialog(this, "Course successfully found", "COURSE FIND", INFORMATION_MESSAGE);
-            btnEnrolled.setEnabled(true);
-            btnAddGrade.setEnabled(true);
-            btnAttendance.setEnabled(true);
-            brnAddStudent.setEnabled(true);
-            btnRemove.setEnabled(true);
-            btnRecord.setEnabled(true);
-            btnAttendanceRecord.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Course not exists, try again", "COURSE FIND", ERROR_MESSAGE);
-            btnEnrolled.setEnabled(false);
-            btnAddGrade.setEnabled(false);
-            btnAttendance.setEnabled(false);
-            brnAddStudent.setEnabled(false);
-            btnRemove.setEnabled(false);
-            btnRecord.setEnabled(false);
-            btnAttendanceRecord.setEnabled(false);
-            txtCourse.setText("");
-        }
-
-
-    }//GEN-LAST:event_btnfindActionPerformed
-
-    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
-        // TODO add your handling code here:
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         FrmTeacherMenu frmTeacherMenu = new FrmTeacherMenu();
         frmTeacherMenu.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnbackActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnEnrolledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnrolledActionPerformed
         FrmShowEnrolledStudents frmShowEnrolledStudents = new FrmShowEnrolledStudents();
         frmShowEnrolledStudents.setVisible(true);
-        FrmShowEnrolledStudents.txtNrcReceive.setText(txtCourse.getText());
+        FrmShowEnrolledStudents.txtNrcReceive.setText(getPositionNrc());
         this.setVisible(false);
     }//GEN-LAST:event_btnEnrolledActionPerformed
 
@@ -312,7 +283,7 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     private void btnRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordActionPerformed
         FrmGetGradeRecord frmGetGradeRecord = new FrmGetGradeRecord();
         frmGetGradeRecord.setVisible(true);
-        FrmGetGradeRecord.txtNrcReceive.setText(txtCourse.getText());
+        FrmGetGradeRecord.txtNrcReceive.setText(getPositionNrc());
         this.setVisible(false);
     }//GEN-LAST:event_btnRecordActionPerformed
 
@@ -325,23 +296,20 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     private void btnAttendanceRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceRecordActionPerformed
         FrmGetAttendanceRecord frmGetAttendanceRecord = new FrmGetAttendanceRecord();
         frmGetAttendanceRecord.setVisible(true);
-        FrmGetAttendanceRecord.txtNrcReceive1.setText(txtCourse.getText());
+        FrmGetAttendanceRecord.txtNrcReceive.setText(getPositionNrc());
         this.setVisible(false);
     }//GEN-LAST:event_btnAttendanceRecordActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        // TODO add your handling code here:
         FrmRemoveStudent frmRemoveStudent = new FrmRemoveStudent();
         frmRemoveStudent.setVisible(true);
-        FrmRemoveStudent.txtNrcReceive.setText(txtCourse.getText());
+        FrmRemoveStudent.txtNrcReceive.setText(getPositionNrc());
         this.setVisible(false);
     }//GEN-LAST:event_btnRemoveActionPerformed
 
-    private int getNrcEntered() {
-        int positionCourse;
-        positionCourse = CourseController.findCourse(teacher.getCourses(), Integer.parseInt(txtCourse.getText()));
-        return positionCourse;
-    }
+    private void cmbNrcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbNrcItemStateChanged
+        position = (Integer) cmbNrc.getSelectedIndex();
+    }//GEN-LAST:event_cmbNrcItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -387,17 +355,16 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     private javax.swing.JButton btnAddGrade;
     private javax.swing.JButton btnAttendance;
     private javax.swing.JButton btnAttendanceRecord;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnEnrolled;
     private javax.swing.JButton btnRecord;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JButton btnback;
-    private javax.swing.JButton btnfind;
+    private javax.swing.JComboBox<String> cmbNrc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel pnlButtons;
     private javax.swing.JPanel pnlMenu;
-    private javax.swing.JTextField txtCourse;
     // End of variables declaration//GEN-END:variables
 }

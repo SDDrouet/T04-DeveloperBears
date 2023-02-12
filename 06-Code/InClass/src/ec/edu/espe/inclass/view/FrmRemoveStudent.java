@@ -1,10 +1,11 @@
 
 package ec.edu.espe.inclass.view;
 
+import ec.edu.espe.inclass.controller.DataPersistence;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
+import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import static java.awt.image.ImageObserver.WIDTH;
@@ -44,7 +45,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
         txtNStudent = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtNrcReceive = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
 
@@ -83,13 +84,13 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
 
         txtNrcReceive.setEnabled(false);
 
-        jButton1.setBackground(new java.awt.Color(153, 0, 0));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Delete");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setBackground(new java.awt.Color(153, 0, 0));
+        btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -108,7 +109,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtNStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)))
+                                .addComponent(btnDelete)))
                         .addContainerGap(60, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -132,7 +133,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnDelete))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -205,8 +206,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNStudentActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String espeId;
         String name;
         int studentNumber;
@@ -224,7 +224,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
                 desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete this student: " + name + " (" + espeId + ")" + " ?", "course delete info", WIDTH);
 
                 if (desicion == 0) {
-                    result = StudentController.removeStudent(espeId, studentNumber, nrc, position);
+                    result = StudentController.removeStudent(espeId, nrc);
                     if (result == 1) {
                         JOptionPane.showMessageDialog(this, "Student " + name + " (" + espeId + ")" + " was successfully eliminated", "Student delete information", INFORMATION_MESSAGE);
                         txtNStudent.setText("");
@@ -238,12 +238,12 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
                 txtNStudent.setText("");
             }
 
+            DataPersistence.updateData();
+            refreshTable();
         } catch (HeadlessException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Can't delete that student\n Error: " + e);
-        }
-
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+        }        
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,7 +298,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

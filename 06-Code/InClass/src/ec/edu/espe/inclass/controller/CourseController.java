@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
 import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Course;
+import ec.edu.espe.inclass.model.Student;
 import java.util.ArrayList;
 
 /**
@@ -65,9 +66,15 @@ public class CourseController {
 
     public static int removeCourse(int courseNumber) {
 
+        int nrc = teacher.getCourses().get(courseNumber).getNrc();
+
         try {
             dBManager.deleteDocument("Courses", "nrc", teacher.getCourses().get(courseNumber).getNrc());
-            teacher.getCourses().remove(courseNumber);
+
+            for (Student student : teacher.getCourses().get(courseNumber).getStudents()) {
+                StudentController.removeStudent(student.getEspeId(), nrc);
+            }
+
             System.out.println("The course was remove successfully");
             return 1;
         } catch (Exception e) {

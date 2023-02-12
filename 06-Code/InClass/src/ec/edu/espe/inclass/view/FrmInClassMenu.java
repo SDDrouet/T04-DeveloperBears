@@ -20,7 +20,7 @@ public class FrmInClassMenu extends javax.swing.JFrame {
         DataPersistence.connectMongoDB();
         this.setLocationRelativeTo(this);
         
-        setImageLabel(jLabelIcon,"src/img/LogoInClass.gif");
+        setImageLabel(lblIcon,"src/img/LogoInClass.gif");
     }
 
     /**
@@ -33,31 +33,30 @@ public class FrmInClassMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabelIcon = new javax.swing.JLabel();
-        btnteacher = new javax.swing.JButton();
-        btnstudent = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        btnexit = new javax.swing.JButton();
+        lblIcon = new javax.swing.JLabel();
+        btnTeacher = new javax.swing.JButton();
+        btnStudent = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnteacher.setBackground(new java.awt.Color(0, 153, 0));
-        btnteacher.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnteacher.setForeground(new java.awt.Color(255, 255, 255));
-        btnteacher.setText("Teacher Menu");
-        btnteacher.addActionListener(new java.awt.event.ActionListener() {
+        btnTeacher.setBackground(new java.awt.Color(0, 153, 0));
+        btnTeacher.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTeacher.setForeground(new java.awt.Color(255, 255, 255));
+        btnTeacher.setText("Teacher Menu");
+        btnTeacher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnteacherActionPerformed(evt);
+                btnTeacherActionPerformed(evt);
             }
         });
 
-        btnstudent.setBackground(new java.awt.Color(0, 102, 102));
-        btnstudent.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnstudent.setForeground(new java.awt.Color(255, 255, 255));
-        btnstudent.setText("Student Menu");
-        btnstudent.addActionListener(new java.awt.event.ActionListener() {
+        btnStudent.setBackground(new java.awt.Color(0, 102, 102));
+        btnStudent.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnStudent.setForeground(new java.awt.Color(255, 255, 255));
+        btnStudent.setText("Student Menu");
+        btnStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnstudentActionPerformed(evt);
+                btnStudentActionPerformed(evt);
             }
         });
 
@@ -67,45 +66,34 @@ public class FrmInClassMenu extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(btnteacher, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnstudent, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addComponent(btnStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(71, 71, 71)
-                .addComponent(jLabelIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnteacher)
-                    .addComponent(btnstudent))
+                    .addComponent(btnTeacher)
+                    .addComponent(btnStudent))
                 .addGap(19, 19, 19))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-        );
-
-        btnexit.setBackground(new java.awt.Color(153, 0, 0));
-        btnexit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnexit.setForeground(new java.awt.Color(255, 255, 255));
-        btnexit.setText("Exit");
-        btnexit.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.setBackground(new java.awt.Color(153, 0, 0));
+        btnExit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnExit.setForeground(new java.awt.Color(255, 255, 255));
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnexitActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
 
@@ -118,9 +106,8 @@ public class FrmInClassMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnexit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)))
                 .addContainerGap())
         );
@@ -129,15 +116,9 @@ public class FrmInClassMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(btnexit)
-                        .addGap(22, 22, 22))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(btnExit)
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -149,21 +130,21 @@ public class FrmInClassMenu extends javax.swing.JFrame {
         labelName.setIcon(icon);
         this.repaint();
     }
-    private void btnexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexitActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnexitActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
-    private void btnteacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnteacherActionPerformed
+    private void btnTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTeacherActionPerformed
         FrmLogin frmLogin = new FrmLogin();
         frmLogin.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnteacherActionPerformed
+    }//GEN-LAST:event_btnTeacherActionPerformed
 
-    private void btnstudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnstudentActionPerformed
+    private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentActionPerformed
         FrmStudentMenu frmStudentMenu = new FrmStudentMenu();
         frmStudentMenu.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnstudentActionPerformed
+    }//GEN-LAST:event_btnStudentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,11 +183,10 @@ public class FrmInClassMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnexit;
-    private javax.swing.JButton btnstudent;
-    private javax.swing.JButton btnteacher;
-    private javax.swing.JLabel jLabelIcon;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnStudent;
+    private javax.swing.JButton btnTeacher;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblIcon;
     // End of variables declaration//GEN-END:variables
 }

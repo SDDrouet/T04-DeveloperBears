@@ -18,6 +18,7 @@ public class DataPersistence {
 
     public static Teacher teacher;
     public static DBManager dBManager;
+    public static int position = 0;
 
     public static void connectMongoDB() {
         ArrayList<Tutorship> tutorships;
