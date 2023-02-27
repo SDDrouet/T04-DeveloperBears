@@ -3,8 +3,6 @@ package ec.edu.espe.inclass.view;
 import ec.edu.espe.inclass.controller.CourseController;
 import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.model.Course;
-import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -163,7 +161,8 @@ public class FrmAddCourse extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         Course course;
         course = null;
 
@@ -184,16 +183,16 @@ public class FrmAddCourse extends javax.swing.JFrame {
             isCourseValid = false;
         }
 
-        if (CourseController.findCourse(teacher.getCourses(), nrc) != -1) {
+        if (CourseController.findCourse(dataPersistence.getTeacher().getCourses(), nrc) != -1) {
             isCourseValid = false;
         }
 
         if (isCourseValid) {
-            dBManager.createDocument("Courses", CourseController.courseToJsonForDB(course));
+            dataPersistence.getdBManager().createDocument("Courses", CourseController.courseToJsonForDB(course));
             JOptionPane.showMessageDialog(this, "Course successfully added", "COURSE add", INFORMATION_MESSAGE);
             txtName.setText("");
             txtNrc.setText("");
-            DataPersistence.updateData();
+            dataPersistence.updateData();
         } else {
             JOptionPane.showMessageDialog(this, "Course not add, course not valid or already exists ", "COURSE add", INFORMATION_MESSAGE);
         }

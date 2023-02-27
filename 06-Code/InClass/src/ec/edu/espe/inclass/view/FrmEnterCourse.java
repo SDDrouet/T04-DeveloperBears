@@ -1,8 +1,6 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.CourseController;
-import static ec.edu.espe.inclass.controller.DataPersistence.position;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
+import ec.edu.espe.inclass.controller.DataPersistence;
 import javax.swing.DefaultComboBoxModel;
 
 
@@ -27,23 +25,27 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     }
     
     private void uploadCourses() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance(); 
         String[] coursesArray;
-        coursesArray = new String[teacher.getCourses().size()];
+        coursesArray = new String[dataPersistence.getTeacher().getCourses().size()];
         String coursesString;
 
-        for (int i = 0; i < teacher.getCourses().size(); i++) {
+        for (int i = 0; i < dataPersistence.getTeacher().getCourses().size(); i++) {
 
-            coursesString = teacher.getCourses().get(i).getName() + " - nrc: " + String.valueOf(teacher.getCourses().get(i).getNrc());
+            coursesString = dataPersistence.getTeacher().getCourses().get(i).getName() + " - nrc: " + String.valueOf(dataPersistence.getTeacher().getCourses().get(i).getNrc());
             coursesArray[i] = coursesString;
         }
 
         cmbNrc.setModel(new DefaultComboBoxModel<>(coursesArray));
-        cmbNrc.setSelectedIndex(position);
+        cmbNrc.setSelectedIndex(dataPersistence.getPosition());
     }
     
     public String getPositionNrc() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance(); 
         String nrc;
-        nrc = String.valueOf(teacher.getCourses().get(position).getNrc());
+        nrc = String.valueOf(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getNrc());
         return nrc;
     }
 
@@ -308,7 +310,11 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void cmbNrcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbNrcItemStateChanged
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
+        int position;        
         position = (Integer) cmbNrc.getSelectedIndex();
+        dataPersistence.setPosition(position);
     }//GEN-LAST:event_cmbNrcItemStateChanged
 
     /**

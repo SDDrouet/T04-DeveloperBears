@@ -1,6 +1,6 @@
 package ec.edu.espe.inclass.view;
 
-import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
+import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.model.Tutorship;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -172,6 +172,8 @@ public class FrmRequestTutorship extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         Tutorship tutorship;
         Date date;
         String id;
@@ -187,7 +189,7 @@ public class FrmRequestTutorship extends javax.swing.JFrame {
             courseName = txtNRC.getText();
 
             tutorship = new Tutorship(date, id, name, career, courseName);
-            dBManager.createDocument("Tutorships", DBManager.toJson(tutorship));
+            dataPersistence.getdBManager().createDocument("Tutorships", DBManager.toJson(tutorship));
             
             JOptionPane.showMessageDialog(this, "Tutorship was Requested", "Tutorship", INFORMATION_MESSAGE);
         } catch (Exception e) {

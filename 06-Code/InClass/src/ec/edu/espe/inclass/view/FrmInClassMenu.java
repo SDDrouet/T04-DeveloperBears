@@ -17,7 +17,9 @@ public class FrmInClassMenu extends javax.swing.JFrame {
 
     public FrmInClassMenu() {
         initComponents();
-        DataPersistence.connectMongoDB();
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
+        dataPersistence.connectMongoDB();
         this.setLocationRelativeTo(this);
         this.setResizable(false);
         

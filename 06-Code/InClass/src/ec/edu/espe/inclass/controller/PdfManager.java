@@ -12,8 +12,6 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
-import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import java.awt.Component;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -49,7 +47,8 @@ public class PdfManager {
     }
 
     public static void createGradeRecord(Component parent, JTable table) {
-
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         String directory;
 
         directory = askDirectory(parent);
@@ -58,7 +57,7 @@ public class PdfManager {
 
             try {
                 String nrc;
-                nrc = String.valueOf(teacher.getCourses().get(position).getNrc());
+                nrc = String.valueOf(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getNrc());
                 FileOutputStream archive;
                 File file = new File(directory + "/GradeRecordNrc" + nrc + ".pdf");
                 archive = new FileOutputStream(file);
@@ -82,7 +81,8 @@ public class PdfManager {
     }
 
     public static void createAttendaceRecord(Component parent, JTable table) {
-
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         String directory;
 
         directory = askDirectory(parent);
@@ -91,7 +91,7 @@ public class PdfManager {
 
             try {
                 String nrc;
-                nrc = String.valueOf(teacher.getCourses().get(position).getNrc());
+                nrc = String.valueOf(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getNrc());
                 FileOutputStream archive;
                 File file = new File(directory + "/AttendanceRecordNrc" + nrc + ".pdf");
                 archive = new FileOutputStream(file);
@@ -158,10 +158,12 @@ public class PdfManager {
     }
 
     private static Paragraph generateInfo() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         Font fontType12 = new Font(Font.FontFamily.TIMES_ROMAN, 12);
         Paragraph info = new Paragraph();
         info.add(Chunk.NEWLINE);
-        info.add(new Phrase("ASIGNATURE:  " + teacher.getCourses().get(position).getName() + "\n\n", fontType12));
+        info.add(new Phrase("ASIGNATURE:  " + dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getName() + "\n\n", fontType12));
         return info;
     }
 

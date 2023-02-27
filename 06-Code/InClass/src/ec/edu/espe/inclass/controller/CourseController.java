@@ -2,8 +2,6 @@ package ec.edu.espe.inclass.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Course;
 import ec.edu.espe.inclass.model.Student;
 import java.util.ArrayList;
@@ -18,6 +16,10 @@ import java.util.ArrayList;
 public class CourseController {
 
     public static String courseToJsonForDB(Course course) {
+        if (course == null) {
+            return "";
+        }
+
         String json;
         JsonObject rootObject = new JsonObject();
 
@@ -41,18 +43,27 @@ public class CourseController {
     }
 
     public static Course jsonToCourse(String json) {
-        Course course;
-        Gson gson;
-        gson = new Gson();
-        course = new Course();
+        try {
+            Course course;
+            Gson gson;
+            gson = new Gson();
+            course = new Course();
 
-        course = gson.fromJson(json, course.getClass());
+            course = gson.fromJson(json, course.getClass());
 
-        return course;
+            return course;
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     public static int findCourse(ArrayList<Course> courses, int nrc) {
         int index = -1;
+        
+        if (courses == null) {
+            return -1;
+        }
 
         for (int i = 0; i < courses.size(); i++) {
             if (courses.get(i).getNrc() == nrc) {
@@ -65,13 +76,16 @@ public class CourseController {
     }
 
     public static int removeCourse(int courseNumber) {
+        DataPersistence dataPersistence;
+        int nrc;
 
-        int nrc = teacher.getCourses().get(courseNumber).getNrc();
-
+        dataPersistence = DataPersistence.getInstance();
+       
         try {
-            dBManager.deleteDocument("Courses", "nrc", teacher.getCourses().get(courseNumber).getNrc());
+            nrc = dataPersistence.getTeacher().getCourses().get(courseNumber).getNrc();
+            dataPersistence.getdBManager().deleteDocument("Courses", "nrc", dataPersistence.getTeacher().getCourses().get(courseNumber).getNrc());
 
-            for (Student student : teacher.getCourses().get(courseNumber).getStudents()) {
+            for (Student student : dataPersistence.getTeacher().getCourses().get(courseNumber).getStudents()) {
                 StudentController.removeStudent(student.getEspeId(), nrc);
             }
 

@@ -2,7 +2,6 @@ package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.CourseController;
 import ec.edu.espe.inclass.controller.DataPersistence;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -143,7 +142,9 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        String courseDeleteString;
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
+        String courseDeleteString;        
         int courseToDelete;
         int desicion;
         int result;
@@ -157,7 +158,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
             result = CourseController.removeCourse(courseToDelete);
             if(result==1){
                 JOptionPane.showMessageDialog(this, "Course successfully deleted ", "course delete info", INFORMATION_MESSAGE);
-                DataPersistence.updateData();
+                dataPersistence.updateData();
             }
             uploadCourses();
         } else{
@@ -167,13 +168,15 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveActionPerformed
     
     private void uploadCourses() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         String[] coursesArray;
-        coursesArray = new String[teacher.getCourses().size()];
+        coursesArray = new String[dataPersistence.getTeacher().getCourses().size()];
         String coursesString;
 
-        for (int i = 0; i < teacher.getCourses().size(); i++) {
+        for (int i = 0; i < dataPersistence.getTeacher().getCourses().size(); i++) {
 
-            coursesString = teacher.getCourses().get(i).getName() + " - nrc: " + String.valueOf(teacher.getCourses().get(i).getNrc());
+            coursesString = dataPersistence.getTeacher().getCourses().get(i).getName() + " - nrc: " + String.valueOf(dataPersistence.getTeacher().getCourses().get(i).getNrc());
             coursesArray[i] = coursesString;
         }
 

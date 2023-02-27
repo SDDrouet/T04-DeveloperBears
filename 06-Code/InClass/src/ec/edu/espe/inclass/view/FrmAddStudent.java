@@ -1,13 +1,10 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.DataPersistence;
-import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
 import ec.edu.espe.inclass.model.Student;
 import java.awt.event.KeyEvent;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Course;
-import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
@@ -149,6 +146,8 @@ public class FrmAddStudent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();        
         boolean isValid = true;
         Student student;
         Course course;
@@ -157,7 +156,7 @@ public class FrmAddStudent extends javax.swing.JFrame {
         String id;
         int nrc;        
         
-        course = teacher.getCourses().get(position);
+        course = dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition());
         nrc = course.getNrc();
         name = String.valueOf(txtName.getText()).toUpperCase();
         id = String.valueOf(txtId.getText());
@@ -184,9 +183,9 @@ public class FrmAddStudent extends javax.swing.JFrame {
         }
 
         if (student != null && isValid) {
-            dBManager.createDocument("Students", StudentController.studentToJsonForDB(student, nrc));
+            dataPersistence.getdBManager().createDocument("Students", StudentController.studentToJsonForDB(student, nrc));
             JOptionPane.showMessageDialog(this, "Student successfully added to course's nrc: " + nrc , "Student add", INFORMATION_MESSAGE);
-            DataPersistence.updateData();
+            dataPersistence.updateData();
             txtName.setText("");
             txtId.setText("L");
         } else {

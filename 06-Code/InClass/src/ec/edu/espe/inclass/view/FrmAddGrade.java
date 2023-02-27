@@ -1,10 +1,8 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.DataPersistence;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Grade;
-import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -24,6 +22,8 @@ public class FrmAddGrade extends javax.swing.JFrame {
     }
 
     private void showTableDate(int unit, int gradeType) {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
         int numberOfGrades;
         ArrayList<Grade> studentsGrades;
@@ -32,7 +32,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
 
         emptyTable();
 
-        if (!teacher.getCourses().get(position).getStudents().isEmpty()) {
+        if (!dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().isEmpty()) {
 
             numberOfGrades = studentsGrades.get(0).getGradeValues().size();
 
@@ -51,6 +51,8 @@ public class FrmAddGrade extends javax.swing.JFrame {
 
     private ArrayList<Object> buildRow(ArrayList<Float> studentsGrade, int numberOfGrades) {
         int num = tblGrades.getRowCount();
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         ArrayList<Object> studentRow;
         studentRow = new ArrayList<>();
 
@@ -59,8 +61,8 @@ public class FrmAddGrade extends javax.swing.JFrame {
         }
 
         studentRow.add(String.valueOf(num + 1));
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getEspeId());
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getName());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getEspeId());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getName());
 
         for (Float grade : studentsGrade) {
             studentRow.add(String.valueOf(grade));
@@ -307,6 +309,8 @@ public class FrmAddGrade extends javax.swing.JFrame {
         int numberOfStudents = tblGrades.getRowCount();
         int unitNumber = cmbUnit.getSelectedIndex();
         int gradeType = cmbGradeType.getSelectedIndex();
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
 
         tblGrades.selectAll();
 
@@ -330,7 +334,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
                 studentsGrades.get(i).setGradeValues(grades);
             }
 
-            DataPersistence.updateStudentsInDB(teacher.getCourses().get(position));
+            dataPersistence.updateStudentsInDB(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()));
 
             JOptionPane.showMessageDialog(this, "Grades was saved", "Grades", INFORMATION_MESSAGE);
         } catch (Exception e) {
