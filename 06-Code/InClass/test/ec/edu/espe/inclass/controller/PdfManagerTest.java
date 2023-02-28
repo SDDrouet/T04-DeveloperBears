@@ -42,8 +42,6 @@ public class PdfManagerTest {
         Component parent = null;
         JTable table = null;
         PdfManager.createGradeRecord(parent, table);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -55,8 +53,6 @@ public class PdfManagerTest {
         Component parent = null;
         JTable table = null;
         PdfManager.createAttendaceRecord(parent, table);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -68,8 +64,6 @@ public class PdfManagerTest {
         Component parent = null;
         JTable table = null;
         PdfManager.createTutorshipRecord(parent, table);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
