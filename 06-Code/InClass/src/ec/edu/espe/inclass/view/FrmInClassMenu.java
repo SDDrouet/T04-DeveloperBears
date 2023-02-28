@@ -112,9 +112,9 @@ public class FrmInClassMenu extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(17, 153, 158));
 
-        btnExit.setBackground(new java.awt.Color(228, 249, 245));
+        btnExit.setBackground(new java.awt.Color(64, 81, 78));
         btnExit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnExit.setForeground(new java.awt.Color(64, 81, 78));
+        btnExit.setForeground(new java.awt.Color(228, 249, 245));
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,7 +136,7 @@ public class FrmInClassMenu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(btnExit)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
