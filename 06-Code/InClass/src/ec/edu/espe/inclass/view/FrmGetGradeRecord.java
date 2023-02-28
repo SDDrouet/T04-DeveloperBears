@@ -1,10 +1,9 @@
 package ec.edu.espe.inclass.view;
 
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
+import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.controller.PdfManager;
 import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -165,6 +164,8 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void showTableDate() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
         ArrayList<Float> studentsGrades;
         ArrayList<Object> studentRow;
@@ -177,7 +178,7 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
         model.addColumn("Average");
         model.addColumn("Status");
 
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
+        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
             studentsGrades = StudentController.getGradesUnit(student);
             studentRow = buildRow(studentsGrades);
             model.addRow(studentRow.toArray());
@@ -187,13 +188,15 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
     }
 
     private ArrayList<Object> buildRow(ArrayList<Float> studentsGrade) {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         int num = tblGrades.getRowCount();
         ArrayList<Object> studentRow;
         studentRow = new ArrayList<>();
 
         studentRow.add(String.valueOf(num + 1));
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getEspeId());
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getName());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getEspeId());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getName());
 
         for (Float grade : studentsGrade) {
             studentRow.add(String.valueOf(grade));

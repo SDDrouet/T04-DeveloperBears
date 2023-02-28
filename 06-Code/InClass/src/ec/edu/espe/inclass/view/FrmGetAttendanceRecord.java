@@ -1,10 +1,9 @@
 package ec.edu.espe.inclass.view;
 
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
+import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.controller.PdfManager;
 import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -159,7 +158,9 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void showTableDate() {
+    private void showTableDate() {                                       
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
         Float studentAttendace;
         ArrayList<Object> studentRow;
@@ -169,7 +170,7 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
         model.addColumn("Assistance Persent");
         model.addColumn("Status");
 
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
+        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
             studentAttendace = StudentController.calculateAssistancePersetn(student);
             studentRow = buildRow(studentAttendace);
             model.addRow(studentRow.toArray());
@@ -177,13 +178,15 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
     }
 
     private ArrayList<Object> buildRow(Float studentAttendace) {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         int num = tblAttendance.getRowCount();
         ArrayList<Object> studentRow;
         studentRow = new ArrayList<>();
 
         studentRow.add(String.valueOf(num + 1));
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getEspeId());
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getName());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getEspeId());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getName());
         studentRow.add(studentAttendace);
         
 

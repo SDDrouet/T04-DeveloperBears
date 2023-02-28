@@ -1,6 +1,6 @@
 package ec.edu.espe.inclass.view;
 
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
+import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.controller.PdfManager;
 import ec.edu.espe.inclass.model.Tutorship;
 import java.util.ArrayList;
@@ -164,6 +164,8 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
         private void showTableDate() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = (DefaultTableModel) tblTutorships.getModel();
         ArrayList<Object> studentRow;
         
@@ -173,7 +175,7 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
         model.addColumn("Course Name");
         model.addColumn("date");
 
-        for (Tutorship tutorship : teacher.getTutorships()) {
+        for (Tutorship tutorship : dataPersistence.getTeacher().getTutorships()) {
             studentRow = buildRow(tutorship);
             model.addRow(studentRow.toArray());
         }

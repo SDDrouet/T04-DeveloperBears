@@ -2,10 +2,8 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.DataPersistence;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import static java.awt.image.ImageObserver.WIDTH;
@@ -207,6 +205,8 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNStudentActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         String espeId;
         String name;
         int studentNumber;
@@ -216,11 +216,11 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
 
         try {
             studentNumber = Integer.parseInt(txtNStudent.getText()) - 1;
-            int totalStudents = teacher.getCourses().get(position).getStudents().size();
-            nrc = teacher.getCourses().get(position).getNrc();
+            int totalStudents = dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().size();
+            nrc = dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getNrc();
             if (studentNumber < totalStudents) {
-                espeId = String.valueOf(teacher.getCourses().get(position).getStudents().get(studentNumber).getEspeId());
-                name = String.valueOf(teacher.getCourses().get(position).getStudents().get(studentNumber).getName());
+                espeId = String.valueOf(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(studentNumber).getEspeId());
+                name = String.valueOf(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(studentNumber).getName());
                 desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete this student: " + name + " (" + espeId + ")" + " ?", "course delete info", WIDTH);
 
                 if (desicion == 0) {
@@ -238,7 +238,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
                 txtNStudent.setText("");
             }
 
-            DataPersistence.updateData();
+            dataPersistence.updateData();
             refreshTable();
         } catch (HeadlessException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Can't delete that student\n Error: " + e);
@@ -283,13 +283,14 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
 
     public final void refreshTable() {
         DefaultTableModel model = new DefaultTableModel();
-
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         model.addColumn("#");
         model.addColumn("Name");
         model.addColumn("Espe Id");
 
         int i = 1;
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
+        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
             model.addRow(new Object[]{i, student.getName(), student.getEspeId()});
             i++;
         }

@@ -1,6 +1,6 @@
 package ec.edu.espe.inclass.view;
 
-import static ec.edu.espe.inclass.controller.DataPersistence.position;
+import ec.edu.espe.inclass.controller.DataPersistence;
 
 /**
  *
@@ -11,9 +11,12 @@ import static ec.edu.espe.inclass.controller.DataPersistence.position;
  */
 public class FrmTeacherMenu extends javax.swing.JFrame {
 
-    public FrmTeacherMenu() {
+    public FrmTeacherMenu() {        
         initComponents();
-        position = 0;
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
+        int position = 0;
+        dataPersistence.setPosition(position);
         this.setLocationRelativeTo(this);
         this.setResizable(false);
     }

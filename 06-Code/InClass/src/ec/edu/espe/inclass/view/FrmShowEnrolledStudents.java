@@ -1,8 +1,7 @@
 package ec.edu.espe.inclass.view;
 
+import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.controller.DataPersistence.position;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -189,6 +188,8 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
     }
 
     public final void refreshTable() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = new DefaultTableModel();
 
         model.addColumn("#");
@@ -196,7 +197,7 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
         model.addColumn("Espe Id");
 
         int i = 1;
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
+        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
             model.addRow(new Object[]{i, student.getName(), student.getEspeId()});
             i++;
         }

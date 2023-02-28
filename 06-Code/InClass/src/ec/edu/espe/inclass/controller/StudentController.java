@@ -4,11 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Grade;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.controller.DataPersistence.position;
 import java.util.ArrayList;
 
 /**
@@ -156,9 +153,11 @@ public class StudentController {
     }
 
     public static ArrayList<Grade> getGrades(int gradeType, int unit) {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         ArrayList<Grade> studentsGrades;
         studentsGrades = new ArrayList<>();
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
+        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
             switch (gradeType) {
                 case 0 ->
                     studentsGrades.add(student.getGradeRecord().getUnits().get(unit).getHomeworks());
@@ -176,9 +175,10 @@ public class StudentController {
     }
     
     public static int removeStudent(String espeId, int nrc) {
-
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         try {
-            dBManager.deleteStudentDocument(espeId, nrc);
+            dataPersistence.getdBManager().deleteStudentDocument(espeId, nrc);
             return 1;
         } catch (Exception e) {
             return 0;
