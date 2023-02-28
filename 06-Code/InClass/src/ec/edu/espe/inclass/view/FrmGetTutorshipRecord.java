@@ -1,6 +1,6 @@
 package ec.edu.espe.inclass.view;
 
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
+import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.controller.PdfManager;
 import ec.edu.espe.inclass.model.Tutorship;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
     public FrmGetTutorshipRecord() {
         initComponents();
         this.setLocationRelativeTo(this);
+        this.setResizable(false);
         showTableDate();
     }
 
@@ -27,19 +28,68 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlTable = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblTutorships = new javax.swing.JTable();
         pnlButtons = new javax.swing.JPanel();
         btnPrint = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        titile = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTutorships = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("TUTORSHIP RECORD");
+        pnlButtons.setBackground(new java.awt.Color(17, 153, 158));
 
+        btnPrint.setBackground(new java.awt.Color(0, 102, 204));
+        btnPrint.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
+        btnBack.setBackground(new java.awt.Color(64, 81, 78));
+        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlButtonsLayout = new javax.swing.GroupLayout(pnlButtons);
+        pnlButtons.setLayout(pnlButtonsLayout);
+        pnlButtonsLayout.setHorizontalGroup(
+            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtonsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPrint)
+                .addGap(55, 55, 55)
+                .addComponent(btnBack)
+                .addGap(34, 34, 34))
+        );
+        pnlButtonsLayout.setVerticalGroup(
+            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlButtonsLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPrint)
+                    .addComponent(btnBack))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        jPanel1.setBackground(new java.awt.Color(228, 249, 245));
+
+        titile.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        titile.setForeground(new java.awt.Color(64, 81, 78));
+        titile.setText("TUTORSHIP RECORD");
+
+        tblTutorships.setBackground(new java.awt.Color(48, 227, 202));
+        tblTutorships.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tblTutorships.setForeground(new java.awt.Color(0, 0, 0));
         tblTutorships.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -58,93 +108,46 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
         tblTutorships.setEnabled(false);
         jScrollPane1.setViewportView(tblTutorships);
 
-        javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
-        pnlTable.setLayout(pnlTableLayout);
-        pnlTableLayout.setHorizontalGroup(
-            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTableLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(252, 252, 252))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(titile)
+                        .addGap(327, 327, 327))))
         );
-        pnlTableLayout.setVerticalGroup(
-            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTableLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
-
-        btnPrint.setBackground(new java.awt.Color(0, 102, 204));
-        btnPrint.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
-        btnPrint.setText("Print");
-        btnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintActionPerformed(evt);
-            }
-        });
-
-        btnBack.setBackground(new java.awt.Color(153, 0, 0));
-        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlButtonsLayout = new javax.swing.GroupLayout(pnlButtons);
-        pnlButtons.setLayout(pnlButtonsLayout);
-        pnlButtonsLayout.setHorizontalGroup(
-            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtonsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPrint)
-                .addGap(60, 60, 60)
-                .addComponent(btnBack)
-                .addGap(29, 29, 29))
-        );
-        pnlButtonsLayout.setVerticalGroup(
-            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlButtonsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrint)
-                    .addComponent(btnBack))
-                .addContainerGap(21, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(titile)
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 728, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pnlTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(pnlButtons, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 382, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(pnlButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -161,6 +164,8 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
         private void showTableDate() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = (DefaultTableModel) tblTutorships.getModel();
         ArrayList<Object> studentRow;
         
@@ -170,7 +175,7 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
         model.addColumn("Course Name");
         model.addColumn("date");
 
-        for (Tutorship tutorship : teacher.getTutorships()) {
+        for (Tutorship tutorship : dataPersistence.getTeacher().getTutorships()) {
             studentRow = buildRow(tutorship);
             model.addRow(studentRow.toArray());
         }
@@ -237,10 +242,10 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnPrint;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlButtons;
-    private javax.swing.JPanel pnlTable;
     private javax.swing.JTable tblTutorships;
+    private javax.swing.JLabel titile;
     // End of variables declaration//GEN-END:variables
 }

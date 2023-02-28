@@ -1,10 +1,9 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.DataPersistence;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Grade;
-import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
@@ -23,6 +22,8 @@ public class FrmAddGrade extends javax.swing.JFrame {
     }
 
     private void showTableDate(int unit, int gradeType) {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
         int numberOfGrades;
         ArrayList<Grade> studentsGrades;
@@ -31,7 +32,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
 
         emptyTable();
 
-        if (!teacher.getCourses().get(position).getStudents().isEmpty()) {
+        if (!dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().isEmpty()) {
 
             numberOfGrades = studentsGrades.get(0).getGradeValues().size();
 
@@ -50,6 +51,8 @@ public class FrmAddGrade extends javax.swing.JFrame {
 
     private ArrayList<Object> buildRow(ArrayList<Float> studentsGrade, int numberOfGrades) {
         int num = tblGrades.getRowCount();
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         ArrayList<Object> studentRow;
         studentRow = new ArrayList<>();
 
@@ -58,8 +61,8 @@ public class FrmAddGrade extends javax.swing.JFrame {
         }
 
         studentRow.add(String.valueOf(num + 1));
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getEspeId());
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getName());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getEspeId());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getName());
 
         for (Float grade : studentsGrade) {
             studentRow.add(String.valueOf(grade));
@@ -90,7 +93,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cmbUnit = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        btnadd = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -122,10 +125,10 @@ public class FrmAddGrade extends javax.swing.JFrame {
 
         jLabel5.setText("Grade:");
 
-        btnadd.setText("Add new grade");
-        btnadd.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Add new grade");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnaddActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -165,6 +168,11 @@ public class FrmAddGrade extends javax.swing.JFrame {
         });
         tblGrades.setAutoResizeMode(0);
         tblGrades.getTableHeader().setReorderingAllowed(false);
+        tblGrades.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tblGradesKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblGrades);
         if (tblGrades.getColumnModel().getColumnCount() > 0) {
             tblGrades.getColumnModel().getColumn(0).setPreferredWidth(30);
@@ -219,7 +227,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addGap(47, 47, 47))
@@ -251,7 +259,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnadd)
+                                .addComponent(btnAdd)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnSave)
                                 .addGap(18, 18, 18)
@@ -301,6 +309,8 @@ public class FrmAddGrade extends javax.swing.JFrame {
         int numberOfStudents = tblGrades.getRowCount();
         int unitNumber = cmbUnit.getSelectedIndex();
         int gradeType = cmbGradeType.getSelectedIndex();
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
 
         tblGrades.selectAll();
 
@@ -324,7 +334,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
                 studentsGrades.get(i).setGradeValues(grades);
             }
 
-            DataPersistence.updateStudentsInDB(teacher.getCourses().get(position));
+            dataPersistence.updateStudentsInDB(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()));
 
             JOptionPane.showMessageDialog(this, "Grades was saved", "Grades", INFORMATION_MESSAGE);
         } catch (Exception e) {
@@ -333,7 +343,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
         int unitNumber = cmbUnit.getSelectedIndex();
         int gradeType = cmbGradeType.getSelectedIndex();
@@ -347,7 +357,7 @@ public class FrmAddGrade extends javax.swing.JFrame {
         }
 
         lblAction.setText("Grades was added");
-    }//GEN-LAST:event_btnaddActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
@@ -381,6 +391,14 @@ public class FrmAddGrade extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void tblGradesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblGradesKeyTyped
+        char c = evt.getKeyChar();
+        char c1 = (char)0;
+        if (!Character.isDigit(c) && c!= KeyEvent.VK_PERIOD && c != KeyEvent.VK_DELETE) {                      
+            evt.setKeyChar(c1);
+        }
+    }//GEN-LAST:event_tblGradesKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -395,10 +413,10 @@ public class FrmAddGrade extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnadd;
     private javax.swing.JComboBox<String> cmbGradeType;
     private javax.swing.JComboBox<String> cmbUnit;
     private javax.swing.JLabel jLabel1;

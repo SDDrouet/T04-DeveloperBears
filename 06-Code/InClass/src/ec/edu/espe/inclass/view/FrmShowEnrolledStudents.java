@@ -1,8 +1,7 @@
 package ec.edu.espe.inclass.view;
 
+import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,7 +29,7 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStudents = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNrcReceive = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -59,8 +58,8 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblStudents);
 
-        jLabel1.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
-        jLabel1.setText("Enrolled Students");
+        title.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
+        title.setText("Enrolled Students");
 
         jLabel2.setText("NRC:");
 
@@ -72,7 +71,7 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(title)
                 .addGap(114, 114, 114)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -88,7 +87,7 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(title)
                     .addComponent(jLabel2)
                     .addComponent(txtNrcReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -189,6 +188,8 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
     }
 
     public final void refreshTable() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = new DefaultTableModel();
 
         model.addColumn("#");
@@ -196,7 +197,7 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
         model.addColumn("Espe Id");
 
         int i = 1;
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
+        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
             model.addRow(new Object[]{i, student.getName(), student.getEspeId()});
             i++;
         }
@@ -206,12 +207,12 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblStudents;
+    private javax.swing.JLabel title;
     public static javax.swing.JTextField txtNrcReceive;
     // End of variables declaration//GEN-END:variables
 }

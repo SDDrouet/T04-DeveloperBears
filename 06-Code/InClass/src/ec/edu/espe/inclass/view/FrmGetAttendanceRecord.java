@@ -1,10 +1,9 @@
 package ec.edu.espe.inclass.view;
 
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
+import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.controller.PdfManager;
 import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,61 +28,61 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlButtons1 = new javax.swing.JPanel();
-        btnPrint1 = new javax.swing.JButton();
-        btnBack1 = new javax.swing.JButton();
-        pnlTable1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        txtNrcReceive1 = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        pnlButtons = new javax.swing.JPanel();
+        btnPrint = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        pnlTable = new javax.swing.JPanel();
+        title = new javax.swing.JLabel();
+        txtNrcReceive = new javax.swing.JTextField();
+        jScrollPane = new javax.swing.JScrollPane();
         tblAttendance = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnPrint1.setBackground(new java.awt.Color(0, 102, 204));
-        btnPrint1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPrint1.setForeground(new java.awt.Color(255, 255, 255));
-        btnPrint1.setText("Print");
-        btnPrint1.addActionListener(new java.awt.event.ActionListener() {
+        btnPrint.setBackground(new java.awt.Color(0, 102, 204));
+        btnPrint.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrint1ActionPerformed(evt);
+                btnPrintActionPerformed(evt);
             }
         });
 
-        btnBack1.setBackground(new java.awt.Color(153, 0, 0));
-        btnBack1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnBack1.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack1.setText("Back");
-        btnBack1.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setBackground(new java.awt.Color(153, 0, 0));
+        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBack1ActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout pnlButtons1Layout = new javax.swing.GroupLayout(pnlButtons1);
-        pnlButtons1.setLayout(pnlButtons1Layout);
-        pnlButtons1Layout.setHorizontalGroup(
-            pnlButtons1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtons1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlButtonsLayout = new javax.swing.GroupLayout(pnlButtons);
+        pnlButtons.setLayout(pnlButtonsLayout);
+        pnlButtonsLayout.setHorizontalGroup(
+            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtonsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPrint1)
+                .addComponent(btnPrint)
                 .addGap(58, 58, 58)
-                .addComponent(btnBack1)
+                .addComponent(btnBack)
                 .addGap(66, 66, 66))
         );
-        pnlButtons1Layout.setVerticalGroup(
-            pnlButtons1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlButtons1Layout.createSequentialGroup()
-                .addGroup(pnlButtons1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrint1)
-                    .addComponent(btnBack1))
+        pnlButtonsLayout.setVerticalGroup(
+            pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlButtonsLayout.createSequentialGroup()
+                .addGroup(pnlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPrint)
+                    .addComponent(btnBack))
                 .addGap(0, 32, Short.MAX_VALUE))
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("ATTENDACE RECORD NRC: ");
+        title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        title.setText("ATTENDACE RECORD NRC: ");
 
-        txtNrcReceive1.setEnabled(false);
+        txtNrcReceive.setEnabled(false);
 
         tblAttendance.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,32 +101,32 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
             }
         });
         tblAttendance.setEnabled(false);
-        jScrollPane2.setViewportView(tblAttendance);
+        jScrollPane.setViewportView(tblAttendance);
 
-        javax.swing.GroupLayout pnlTable1Layout = new javax.swing.GroupLayout(pnlTable1);
-        pnlTable1.setLayout(pnlTable1Layout);
-        pnlTable1Layout.setHorizontalGroup(
-            pnlTable1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTable1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
+        pnlTable.setLayout(pnlTableLayout);
+        pnlTableLayout.setHorizontalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTable1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNrcReceive1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNrcReceive, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(221, 221, 221))
         );
-        pnlTable1Layout.setVerticalGroup(
-            pnlTable1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTable1Layout.createSequentialGroup()
+        pnlTableLayout.setVerticalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(pnlTable1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNrcReceive1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(title)
+                    .addComponent(txtNrcReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -135,31 +134,33 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTable1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlButtons1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlTable1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlButtons1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnlButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPrint1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrint1ActionPerformed
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         PdfManager.createAttendaceRecord(this, tblAttendance);
-    }//GEN-LAST:event_btnPrint1ActionPerformed
+    }//GEN-LAST:event_btnPrintActionPerformed
 
-    private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         FrmEnterCourse frmEnterCourse = new FrmEnterCourse();
         frmEnterCourse.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnBack1ActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
-    private void showTableDate() {
+    private void showTableDate() {                                       
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
         Float studentAttendace;
         ArrayList<Object> studentRow;
@@ -169,7 +170,7 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
         model.addColumn("Assistance Persent");
         model.addColumn("Status");
 
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
+        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
             studentAttendace = StudentController.calculateAssistancePersetn(student);
             studentRow = buildRow(studentAttendace);
             model.addRow(studentRow.toArray());
@@ -177,13 +178,15 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
     }
 
     private ArrayList<Object> buildRow(Float studentAttendace) {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         int num = tblAttendance.getRowCount();
         ArrayList<Object> studentRow;
         studentRow = new ArrayList<>();
 
         studentRow.add(String.valueOf(num + 1));
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getEspeId());
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getName());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getEspeId());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getName());
         studentRow.add(studentAttendace);
         
 
@@ -239,13 +242,13 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack1;
-    private javax.swing.JButton btnPrint1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPanel pnlButtons1;
-    private javax.swing.JPanel pnlTable1;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnPrint;
+    private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JPanel pnlButtons;
+    private javax.swing.JPanel pnlTable;
     private javax.swing.JTable tblAttendance;
-    public static javax.swing.JTextField txtNrcReceive1;
+    private javax.swing.JLabel title;
+    public static javax.swing.JTextField txtNrcReceive;
     // End of variables declaration//GEN-END:variables
 }

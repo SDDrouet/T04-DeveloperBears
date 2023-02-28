@@ -1,10 +1,9 @@
 package ec.edu.espe.inclass.view;
 
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
+import ec.edu.espe.inclass.controller.DataPersistence;
 import ec.edu.espe.inclass.controller.PdfManager;
 import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,7 +32,7 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlTable = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         txtNrcReceive = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGrades = new javax.swing.JTable();
@@ -43,8 +42,8 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("GRADE RECORD NRC: ");
+        title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        title.setText("GRADE RECORD NRC: ");
 
         txtNrcReceive.setEnabled(false);
 
@@ -76,7 +75,7 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNrcReceive, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(221, 221, 221))
@@ -86,7 +85,7 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
             .addGroup(pnlTableLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(title)
                     .addComponent(txtNrcReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -165,6 +164,8 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void showTableDate() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
         ArrayList<Float> studentsGrades;
         ArrayList<Object> studentRow;
@@ -177,7 +178,7 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
         model.addColumn("Average");
         model.addColumn("Status");
 
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
+        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
             studentsGrades = StudentController.getGradesUnit(student);
             studentRow = buildRow(studentsGrades);
             model.addRow(studentRow.toArray());
@@ -187,13 +188,15 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
     }
 
     private ArrayList<Object> buildRow(ArrayList<Float> studentsGrade) {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         int num = tblGrades.getRowCount();
         ArrayList<Object> studentRow;
         studentRow = new ArrayList<>();
 
         studentRow.add(String.valueOf(num + 1));
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getEspeId());
-        studentRow.add(teacher.getCourses().get(position).getStudents().get(num).getName());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getEspeId());
+        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getName());
 
         for (Float grade : studentsGrade) {
             studentRow.add(String.valueOf(grade));
@@ -252,11 +255,11 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnPrint;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlButtons;
     private javax.swing.JPanel pnlTable;
     private javax.swing.JTable tblGrades;
+    private javax.swing.JLabel title;
     public static javax.swing.JTextField txtNrcReceive;
     // End of variables declaration//GEN-END:variables
 }

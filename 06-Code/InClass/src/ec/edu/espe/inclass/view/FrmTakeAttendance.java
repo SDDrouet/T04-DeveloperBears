@@ -1,9 +1,7 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.DataPersistence;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.model.Student;
-import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;
@@ -22,10 +20,12 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
     }
 
     private void initCmbClasses() {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         int numClasses;
 
-        if (!teacher.getCourses().get(position).getStudents().isEmpty()) {
-            numClasses = teacher.getCourses().get(position).getStudents().get(0).getAttendanceRecord().getAttendance().size();
+        if (!dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().isEmpty()) {
+            numClasses = dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(0).getAttendanceRecord().getAttendance().size();
             for (int i = 1; i <= numClasses; i++) {
                 cmbClasses.addItem(String.valueOf(i));
             }
@@ -33,6 +33,8 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
     }
 
     private void showTableDate(int classNumber) {
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
         int num = 0;
         String name;
@@ -41,7 +43,7 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
 
         emptyTable();
 
-        for (Student student : teacher.getCourses().get(position).getStudents()) {
+        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
             num++;
             name = student.getName();
             id = student.getEspeId();
@@ -244,12 +246,14 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClassActionPerformed
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         int classNumber;
-        if (!teacher.getCourses().get(position).getStudents().isEmpty()) {
-            for (Student student : teacher.getCourses().get(position).getStudents()) {
+        if (!dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().isEmpty()) {
+            for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
                 student.getAttendanceRecord().getAttendance().add(false);
             }
-            cmbClasses.addItem(String.valueOf(teacher.getCourses().get(position).getStudents().get(0).getAttendanceRecord().getAttendance().size()));
+            cmbClasses.addItem(String.valueOf(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(0).getAttendanceRecord().getAttendance().size()));
             classNumber = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
             showTableDate(classNumber);
             lblAction.setText("Class was added");
@@ -272,29 +276,33 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
 
-        if (!teacher.getCourses().get(position).getStudents().isEmpty()) {
+        if (!dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().isEmpty()) {
 
             int classNumer = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
             boolean studentAttendance;
             int count = 0;
 
-            for (Student student : teacher.getCourses().get(position).getStudents()) {
+            for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
                 studentAttendance = (boolean) model.getValueAt(count, 3);
                 student.getAttendanceRecord().getAttendance().set(classNumer, studentAttendance);
                 student.getAttendanceRecord().setTotalClassNumber(student.getAttendanceRecord().getAttendance().size());
                 count++;
             }
             
-            DataPersistence.updateStudentsInDB(teacher.getCourses().get(position));
+            dataPersistence.updateStudentsInDB(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()));
 
             JOptionPane.showMessageDialog(this, "Attendance was saved" , "Attendance", INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClassActionPerformed
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();
         if (cmbClasses.getItemCount() > 1) {
-            for (Student student : teacher.getCourses().get(position).getStudents()) {
+            for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
                 student.getAttendanceRecord().getAttendance().remove(cmbClasses.getItemCount() - 1);
             }
 

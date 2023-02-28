@@ -1,13 +1,10 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.DataPersistence;
-import static ec.edu.espe.inclass.controller.DataPersistence.dBManager;
 import ec.edu.espe.inclass.model.Student;
 import java.awt.event.KeyEvent;
-import static ec.edu.espe.inclass.controller.DataPersistence.teacher;
 import ec.edu.espe.inclass.controller.StudentController;
 import ec.edu.espe.inclass.model.Course;
-import static ec.edu.espe.inclass.view.FrmEnterCourse.position;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
@@ -39,7 +36,7 @@ public class FrmAddStudent extends javax.swing.JFrame {
         txtName = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
-        btnback = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,10 +71,10 @@ public class FrmAddStudent extends javax.swing.JFrame {
             }
         });
 
-        btnback.setText("Back");
-        btnback.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbackActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -107,7 +104,7 @@ public class FrmAddStudent extends javax.swing.JFrame {
                         .addGap(76, 76, 76)
                         .addComponent(btnAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnback)))
+                        .addComponent(btnBack)))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -128,7 +125,7 @@ public class FrmAddStudent extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(btnback))
+                    .addComponent(btnBack))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -149,6 +146,8 @@ public class FrmAddStudent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        DataPersistence dataPersistence;                
+        dataPersistence = DataPersistence.getInstance();        
         boolean isValid = true;
         Student student;
         Course course;
@@ -157,7 +156,7 @@ public class FrmAddStudent extends javax.swing.JFrame {
         String id;
         int nrc;        
         
-        course = teacher.getCourses().get(position);
+        course = dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition());
         nrc = course.getNrc();
         name = String.valueOf(txtName.getText()).toUpperCase();
         id = String.valueOf(txtId.getText());
@@ -184,9 +183,9 @@ public class FrmAddStudent extends javax.swing.JFrame {
         }
 
         if (student != null && isValid) {
-            dBManager.createDocument("Students", StudentController.studentToJsonForDB(student, nrc));
+            dataPersistence.getdBManager().createDocument("Students", StudentController.studentToJsonForDB(student, nrc));
             JOptionPane.showMessageDialog(this, "Student successfully added to course's nrc: " + nrc , "Student add", INFORMATION_MESSAGE);
-            DataPersistence.updateData();
+            dataPersistence.updateData();
             txtName.setText("");
             txtId.setText("L");
         } else {
@@ -194,12 +193,11 @@ public class FrmAddStudent extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
-        // TODO add your handling code here:
-        FrmTeacherMenu frmTeacherMenu = new FrmTeacherMenu();
-        frmTeacherMenu.setVisible(true);
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        FrmEnterCourse frmEnterCourse = new FrmEnterCourse();
+        frmEnterCourse.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnbackActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
         char c = evt.getKeyChar();    
@@ -267,7 +265,7 @@ public class FrmAddStudent extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnback;
+    private javax.swing.JButton btnBack;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
