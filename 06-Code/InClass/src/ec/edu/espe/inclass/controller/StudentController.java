@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import ec.edu.espe.inclass.model.Course;
 import ec.edu.espe.inclass.model.Grade;
 import ec.edu.espe.inclass.model.Student;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  * @author Sheylee Enriquez, Developer Bears, DCCO-ESPE
  * @author Stephen Drouet, Developer Bears, DCCO-ESPE
  */
-public class StudentController {
+public class StudentController implements IStudent {
 
     public static String studentToJsonForDB(Student student, int courseNrc) {
         String json;
@@ -153,7 +154,7 @@ public class StudentController {
     }
 
     public static ArrayList<Grade> getGrades(int gradeType, int unit) {
-        DataPersistence dataPersistence;                
+        DataPersistence dataPersistence;
         dataPersistence = DataPersistence.getInstance();
         ArrayList<Grade> studentsGrades;
         studentsGrades = new ArrayList<>();
@@ -173,9 +174,9 @@ public class StudentController {
         }
         return studentsGrades;
     }
-    
+
     public static int removeStudent(String espeId, int nrc) {
-        DataPersistence dataPersistence;                
+        DataPersistence dataPersistence;
         dataPersistence = DataPersistence.getInstance();
         try {
             dataPersistence.getdBManager().deleteStudentDocument(espeId, nrc);
@@ -183,6 +184,20 @@ public class StudentController {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    @Override
+    public void update(Course course) {
+        DataPersistence dataPersistence;             
+        String notify;
+        ArrayList notifies;
+        
+        dataPersistence = DataPersistence.getInstance();
+        notifies = dataPersistence.getNotifies();
+        notify = "- The course: " + course.getName() + " - nrc: " + course.getNrc() + " was deleted\n";        
+        notifies.add(notify);
+        
+        dataPersistence.setNotifies(notifies);        
     }
 
 }

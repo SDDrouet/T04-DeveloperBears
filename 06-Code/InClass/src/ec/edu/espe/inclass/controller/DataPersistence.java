@@ -19,9 +19,12 @@ public class DataPersistence {
     private static DataPersistence instance;
     private Teacher teacher;
     private DBManager dBManager;
-    private int position = 0;
+    private ArrayList<String> notifies;
+    private int position;
 
     private DataPersistence() {
+        notifies = new ArrayList<>();
+        position = 0;
     }
 
     public static DataPersistence getInstance() {
@@ -127,5 +130,21 @@ public class DataPersistence {
     public void setPosition(int position) {
         this.position = position;
     }
+
+    /**
+     * @return the notifies
+     */
+    public ArrayList<String> getNotifies() {
+        return notifies;
+    }
+
+    /**
+     * @param notifies the notifies to set
+     */
+    public void setNotifies(ArrayList<String> notifies) {
+        this.notifies = notifies;
+    }
+    
+    
 
 }

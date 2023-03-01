@@ -77,9 +77,11 @@ public class CourseController {
 
     public static int removeCourse(int courseNumber) {
         DataPersistence dataPersistence;
+        StudentController studentController;
         int nrc;
 
         dataPersistence = DataPersistence.getInstance();
+        studentController = new StudentController();
        
         try {
             nrc = dataPersistence.getTeacher().getCourses().get(courseNumber).getNrc();
@@ -88,8 +90,9 @@ public class CourseController {
             for (Student student : dataPersistence.getTeacher().getCourses().get(courseNumber).getStudents()) {
                 StudentController.removeStudent(student.getEspeId(), nrc);
             }
-
             System.out.println("The course was remove successfully");
+            // This metod cause that send a notofy to observer
+            studentController.update(dataPersistence.getTeacher().getCourses().get(courseNumber));
             return 1;
         } catch (Exception e) {
             System.out.println("The course was not remove");

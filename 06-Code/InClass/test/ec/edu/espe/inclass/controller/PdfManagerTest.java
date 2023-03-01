@@ -1,12 +1,7 @@
 package ec.edu.espe.inclass.controller;
 import java.awt.Component;
 import javax.swing.JTable;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

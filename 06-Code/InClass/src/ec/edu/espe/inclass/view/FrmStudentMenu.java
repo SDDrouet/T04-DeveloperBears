@@ -1,5 +1,9 @@
 package ec.edu.espe.inclass.view;
 
+import ec.edu.espe.inclass.controller.DataPersistence;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Alejandro Cuadrado, Developer Bears, DCCO-ESPE
@@ -10,11 +14,21 @@ package ec.edu.espe.inclass.view;
 public class FrmStudentMenu extends javax.swing.JFrame {
 
     public FrmStudentMenu() {
+        DataPersistence dataPersistence;
+        DefaultTableModel model;                
+        
         initComponents();
         this.setLocationRelativeTo(this);
         this.setResizable(false);
+        
+        dataPersistence = DataPersistence.getInstance();
+        model = (DefaultTableModel) tblNotifications.getModel();
+        
+        for (String notify : dataPersistence.getNotifies()) {            
+            model.addRow(new Object[] {notify});
+        }        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,6 +41,8 @@ public class FrmStudentMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnRequest = new javax.swing.JButton();
         title = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblNotifications = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
 
@@ -48,27 +64,56 @@ public class FrmStudentMenu extends javax.swing.JFrame {
         title.setForeground(new java.awt.Color(64, 81, 78));
         title.setText("STUDENT MENU");
 
+        tblNotifications.setBackground(new java.awt.Color(48, 227, 202));
+        tblNotifications.setForeground(new java.awt.Color(25, 25, 25));
+        tblNotifications.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Notifications"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblNotifications.setShowGrid(false);
+        jScrollPane1.setViewportView(tblNotifications);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(234, 234, 234)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(title)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(btnRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(285, Short.MAX_VALUE))
+                        .addGap(74, 74, 74)
+                        .addComponent(btnRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(title)))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(title)
-                .addGap(60, 60, 60)
-                .addComponent(btnRequest)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(title)
+                        .addGap(76, 76, 76)
+                        .addComponent(btnRequest))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(17, 153, 158));
@@ -111,9 +156,10 @@ public class FrmStudentMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,6 +218,8 @@ public class FrmStudentMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnRequest;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblNotifications;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }
