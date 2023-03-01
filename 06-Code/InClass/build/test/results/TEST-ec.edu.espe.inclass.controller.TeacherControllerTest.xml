@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="1" hostname="MSI" name="ec.edu.espe.inclass.controller.TeacherControllerTest" skipped="0" tests="6" time="5.982" timestamp="2023-02-28T04:46:23">
+<testsuite errors="0" failures="1" hostname="MSI" name="ec.edu.espe.inclass.controller.TeacherControllerTest" skipped="0" tests="6" time="6.753" timestamp="2023-02-28T22:57:24">
   <properties>
+    <property name="" value="======" />
     <property name="libs.spring-framework300.classpath" value="C:\Program Files\NetBeans-15\netbeans\platform\modules\org-apache-commons-logging.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\cglib-2.2.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-aop-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-aspects-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-beans-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-context-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-context-support-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-core-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-expression-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-instrument-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-instrument-tomcat-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-jdbc-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-jms-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-orm-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-oxm-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-struts-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-test-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-tx-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-web-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-webmvc-3.2.18.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-3.0\spring-webmvc-portlet-3.2.18.RELEASE.jar" />
     <property name="javac.test.classpath" value="lib\bson-4.8.1.jar:lib\bson-record-codec-4.8.1.jar:lib\gson-2.8.2.jar:lib\mongodb-driver-core-4.8.1.jar:lib\mongodb-driver-sync-4.8.1.jar:lib\itextpdf-5.5.1.jar:lib\hamcrest-core-1.3.jar:lib\junit-4.12.jar:C:\Users\alejo\Downloads\lib\bson-4.8.1.jar:C:\Users\alejo\Downloads\lib\bson-record-codec-4.8.1.jar:C:\Users\alejo\Downloads\lib\gson-2.8.2.jar:C:\Users\alejo\Downloads\lib\hamcrest-core-1.3.jar:C:\Users\alejo\Downloads\lib\itextpdf-5.5.1.jar:C:\Users\alejo\Downloads\lib\junit-4.12.jar:C:\Users\alejo\Downloads\lib\mongodb-driver-core-4.8.1.jar:C:\Users\alejo\Downloads\lib\mongodb-driver-sync-4.8.1.jar:build/classes:lib\hamcrest-core-1.3.jar:lib\junit-4.12.jar" />
     <property name="java.specification.version" value="19" />
@@ -9,8 +10,8 @@
     <property name="libs.spring-webmvc4.0.javadoc" value="" />
     <property name="libs.spring-framework400.classpath" value="C:\Program Files\NetBeans-15\netbeans\platform\modules\org-apache-commons-logging.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\cglib-2.2.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-aop-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-aspects-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-beans-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-context-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-context-support-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-core-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-expression-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-instrument-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-instrument-tomcat-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-jdbc-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-jms-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-messaging-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-orm-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-oxm-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-test-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-tx-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-web-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-webmvc-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-webmvc-portlet-4.3.29.RELEASE.jar;C:\Program Files\NetBeans-15\netbeans\java\modules\ext\spring-4\spring-websocket-4.3.29.RELEASE.jar" />
     <property name="test.binaryincludes" value="&lt;nothing&gt;" />
-    <property name="do.jlink" value="false" />
     <property name="debug-transport" value="dt_shmem" />
+    <property name="do.jlink" value="false" />
     <property name="libs.javaee-web-api-8.0.src" value="" />
     <property name="java.vendor.url" value="https://java.oracle.com/" />
     <property name="debug.modulepath" value="" />
@@ -18,7 +19,7 @@
     <property name="libs.eclipselink.javadoc" value="C:\Program Files\NetBeans-15\netbeans\java\modules\ext\docs\jakarta.persistence-2.2.3-doc.zip" />
     <property name="libs.JWSAntTasks.javadoc" value="" />
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-19\bin" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner ec.edu.espe.inclass.controller.TeacherControllerTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Det-Pc\Documents\ESPE\POO\T04-DeveloperBears\06-Code\InClass\build\test\results\TEST-ec.edu.espe.inclass.controller.TeacherControllerTest.xml crashfile=C:\Users\Det-Pc\Documents\ESPE\POO\T04-DeveloperBears\06-Code\InClass\build\junitvmwatcher5372311720813195399.properties propsfile=C:\Users\Det-Pc\Documents\ESPE\POO\T04-DeveloperBears\06-Code\InClass\build\junit16507218264868716213.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner ec.edu.espe.inclass.controller.TeacherControllerTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Det-Pc\Documents\ESPE\POO\T04-DeveloperBears\06-Code\InClass\build\test\results\TEST-ec.edu.espe.inclass.controller.TeacherControllerTest.xml crashfile=C:\Users\Det-Pc\Documents\ESPE\POO\T04-DeveloperBears\06-Code\InClass\build\junitvmwatcher16491985358986088367.properties propsfile=C:\Users\Det-Pc\Documents\ESPE\POO\T04-DeveloperBears\06-Code\InClass\build\junit745958495722102965.properties" />
     <property name="jdk.debug" value="release" />
     <property name="libs.spring-framework300.src" value="" />
     <property name="javadoc.use" value="true" />
@@ -40,7 +41,7 @@
     <property name="libs.JAXB-ENDORSED.javadoc" value="" />
     <property name="sun.java2d.noddraw" value="true" />
     <property name="sun.zip.disableMemoryMapping" value="true" />
-    <property name="jnidispatch.path" value="C:\Users\Det-Pc\AppData\Local\Temp\jna-2043559469\jna6766660477147672171.dll" />
+    <property name="jnidispatch.path" value="C:\Users\Det-Pc\AppData\Local\Temp\jna-2043559469\jna9204790583052250336.dll" />
     <property name="libs.primefaces.javadoc" value="" />
     <property name="libs.jsp-compilation.javadoc" value="" />
     <property name="libs.jsf12.src" value="" />
@@ -207,6 +208,7 @@
     <property name="libs.jsp-compilation.maven-pom" value="" />
     <property name="javac.profile.cmd.line.arg" value="" />
     <property name="libs.jakartaee-api-9.0.classpath" value="C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\jakarta.jakartaee-api-9.0.0.jar" />
+    <property name="&gt;&gt;&gt;&gt;&gt;&gt;&gt;" value="2cecf71a3883055c2729204b1141c5de5e16873c" />
     <property name="application.title" value="InClass" />
     <property name="do.archive+main.class.available" value="true" />
     <property name="javac.test.modulepath" value="" />
@@ -214,7 +216,7 @@
     <property name="libs.jsp-compilation-syscp.classpath" value="C:\Program Files\NetBeans-15\netbeans\extide\ant\lib\ant.jar;C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\servlet3.1-jsp2.3-api.jar;C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\glassfish-jspparser-4.0.jar;C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\jstl-impl.jar;C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\jsf-2_2\javax.faces.jar" />
     <property name="libs.jsp-compilation.classpath" value="C:\Program Files\NetBeans-15\netbeans\extide\ant\lib\ant.jar;C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\servlet3.1-jsp2.3-api.jar;C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\glassfish-jspparser-4.0.jar;C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\jsf-2_2\javax.faces.jar;C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\jstl-api.jar;C:\Program Files\NetBeans-15\netbeans\extide\ant\lib\ant-launcher.jar" />
     <property name="libs.javaee-api-6.0.classpath" value="C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\javaee-api-6.0.jar" />
-    <property name="javac.includesfile.binary" value="C:\Users\Det-Pc\Documents\ESPE\POO\T04-DeveloperBears\06-Code\InClass\null867956782" />
+    <property name="javac.includesfile.binary" value="C:\Users\Det-Pc\Documents\ESPE\POO\T04-DeveloperBears\06-Code\InClass\null2102906342" />
     <property name="libs.javaee-api-7.0.classpath" value="C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\javaee-api-7.0.jar" />
     <property name="sun.cpu.isalist" value="amd64" />
     <property name="libs.restapi.maven-pom" value="" />
@@ -267,6 +269,7 @@
     <property name="stderr.encoding" value="Cp1252" />
     <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
     <property name="libs.struts.javadoc" value="C:\Program Files\NetBeans-15\netbeans\enterprise\docs\struts-1.3.10-javadoc.zip" />
+    <property name="&lt;&lt;&lt;&lt;&lt;&lt;&lt;" value="HEAD" />
     <property name="default.javac.source" value="19" />
     <property name="libs.javaee-web-api-8.0.javadoc" value="C:\Program Files\NetBeans-15\netbeans\enterprise\docs\javaee-doc-api.jar" />
     <property name="netbeans.dynamic.classpath" value="C:\Program Files\NetBeans-15\netbeans\platform\core\asm-9.3.jar;C:\Program Files\NetBeans-15\netbeans\platform\core\asm-commons-9.3.jar;C:\Program Files\NetBeans-15\netbeans\platform\core\asm-tree-9.3.jar;C:\Program Files\NetBeans-15\netbeans\platform\core\core-base.jar;C:\Program Files\NetBeans-15\netbeans\platform\core\core.jar;C:\Program Files\NetBeans-15\netbeans\platform\core\org-netbeans-libs-asm.jar;C:\Program Files\NetBeans-15\netbeans\platform\core\org-openide-filesystems-compat8.jar;C:\Program Files\NetBeans-15\netbeans\platform\core\org-openide-filesystems.jar;C:\Program Files\NetBeans-15\netbeans\nb\core\org-netbeans-upgrader.jar;C:\Program Files\NetBeans-15\netbeans\nb\core\locale\core_nb.jar" />
@@ -442,17 +445,17 @@
     <property name="libs.jsp-compiler.classpath" value="C:\Program Files\NetBeans-15\netbeans\enterprise\ant\extra\jspcompile.jar" />
     <property name="libs.javaee-endorsed-api-6.0.classpath" value="C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\javaee6-endorsed\javax.annotation.jar;C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\javaee6-endorsed\jaxb-api-osgi.jar;C:\Program Files\NetBeans-15\netbeans\enterprise\modules\ext\javaee6-endorsed\webservices-api-osgi.jar" />
   </properties>
-  <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testTeacherToJsonForDBEmpty" time="0.015" />
-  <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testLoginTeacherWrongPassword" time="2.35" />
-  <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testLoginTeacher" time="1.879" />
-  <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testJsonToTeacher" time="0.01">
+  <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testTeacherToJsonForDBEmpty" time="0.03" />
+  <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testLoginTeacherWrongPassword" time="3.109" />
+  <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testLoginTeacher" time="1.747" />
+  <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testJsonToTeacher" time="0.008">
     <failure message="expected: ec.edu.espe.inclass.model.Teacher&lt;Teacher{password=0, espeId=0, name=0}&gt; but was: ec.edu.espe.inclass.model.Teacher&lt;Teacher{password=0, espeId=0, name=0}&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: expected: ec.edu.espe.inclass.model.Teacher&lt;Teacher{password=0, espeId=0, name=0}&gt; but was: ec.edu.espe.inclass.model.Teacher&lt;Teacher{password=0, espeId=0, name=0}&gt;
 	at ec.edu.espe.inclass.controller.TeacherControllerTest.testJsonToTeacher(TeacherControllerTest.java:50)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 </failure>
   </testcase>
   <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testTeacherToJsonForDB" time="0.0" />
-  <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testLoginTeacherWrongUser" time="1.665" />
+  <testcase classname="ec.edu.espe.inclass.controller.TeacherControllerTest" name="testLoginTeacherWrongUser" time="1.73" />
   <system-out><![CDATA[teacherToJsonForDB
 loginTeacher
 Connected successfully to server.
@@ -463,7 +466,7 @@ teacherToJsonForDB
 loginTeacher
 Connected successfully to server.
 ]]></system-out>
-  <system-err><![CDATA[Feb 27, 2023 11:46:23 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+  <system-err><![CDATA[Feb 28, 2023 5:57:24 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
 WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
 ]]></system-err>
 </testsuite>
