@@ -11,14 +11,14 @@ import ec.edu.espe.inclass.controller.DataPersistence;
  */
 public class FrmTeacherMenu extends javax.swing.JFrame {
 
-    public FrmTeacherMenu() {        
+    public FrmTeacherMenu() {
         initComponents();
-        DataPersistence dataPersistence;                
+        DataPersistence dataPersistence;
         dataPersistence = DataPersistence.getInstance();
         int position = 0;
         dataPersistence.setPosition(position);
         this.setLocationRelativeTo(this);
-        
+
         this.setResizable(false);
     }
 

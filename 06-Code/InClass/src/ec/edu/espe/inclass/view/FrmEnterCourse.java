@@ -7,7 +7,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
 /**
  *
  * @author Alejandro Cuadrado, Developer Bears, DCCO-ESPE
@@ -20,18 +19,17 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     /**
      * Creates new form CourseMenu
      */
-
     public FrmEnterCourse() {
 
         initComponents();
         FormController.uploadCourses(this);
         this.setLocationRelativeTo(this);
         this.setResizable(false);
-    }        
-    
+    }
+
     public String getPositionNrc() {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance(); 
+        DataPersistence dataPersistence;
+        dataPersistence = DataPersistence.getInstance();
         String nrc;
         nrc = String.valueOf(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getNrc());
         return nrc;
@@ -323,9 +321,9 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void cmbNrcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbNrcItemStateChanged
-        DataPersistence dataPersistence;                
+        DataPersistence dataPersistence;
         dataPersistence = DataPersistence.getInstance();
-        int position;        
+        int position;
         position = (Integer) cmbNrc.getSelectedIndex();
         dataPersistence.setPosition(position);
     }//GEN-LAST:event_cmbNrcItemStateChanged
@@ -425,9 +423,7 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         return pnlMenu;
     }
 
-    
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnAddStudent;
     private javax.swing.JButton btnAddGrade;

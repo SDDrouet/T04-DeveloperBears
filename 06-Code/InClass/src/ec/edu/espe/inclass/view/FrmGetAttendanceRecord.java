@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 public class FrmGetAttendanceRecord extends javax.swing.JFrame {
 
     public FrmGetAttendanceRecord() {
-        initComponents();        
+        initComponents();
         this.setLocationRelativeTo(this);
         this.setResizable(false);
         FormController.showTableDate(this);
@@ -169,7 +169,6 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
-
     /**
      * @param args the command line arguments
      */
@@ -233,8 +232,7 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
     public static JTextField getTxtNrcReceive() {
         return txtNrcReceive;
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

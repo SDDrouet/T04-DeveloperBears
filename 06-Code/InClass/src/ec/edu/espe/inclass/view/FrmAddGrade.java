@@ -292,12 +292,12 @@ public class FrmAddGrade extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         FormController.AddGradeAction(this);
     }//GEN-LAST:event_btnAddActionPerformed
-  
+
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         FormController.removeGradeAction(this);
     }//GEN-LAST:event_btnRemoveActionPerformed
-   
+
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         FrmEnterCourse frmEnterCourse = new FrmEnterCourse();

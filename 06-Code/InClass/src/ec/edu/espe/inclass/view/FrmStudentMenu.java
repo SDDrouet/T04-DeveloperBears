@@ -2,7 +2,6 @@ package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.FormController;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;

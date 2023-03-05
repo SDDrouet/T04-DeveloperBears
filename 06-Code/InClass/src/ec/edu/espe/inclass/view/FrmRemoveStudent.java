@@ -1,4 +1,3 @@
-
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.FormController;
@@ -215,10 +214,8 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNStudentActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        FormController.deleteStudentAction(this);        
+        FormController.deleteStudentAction(this);
     }//GEN-LAST:event_btnDeleteActionPerformed
-
-    
 
     /**
      * @param args the command line arguments
@@ -300,8 +297,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
         return txtNrcReceive;
     }
 
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;

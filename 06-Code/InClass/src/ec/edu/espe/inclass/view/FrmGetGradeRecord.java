@@ -171,8 +171,6 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
         PdfManager.createGradeRecord(this, tblGrades);
     }//GEN-LAST:event_btnPrintActionPerformed
 
-
-
     /**
      * @param args the command line arguments
      */
@@ -236,8 +234,7 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
     public static JTextField getTxtNrcReceive() {
         return txtNrcReceive;
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

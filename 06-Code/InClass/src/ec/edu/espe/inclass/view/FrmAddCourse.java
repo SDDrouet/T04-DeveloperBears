@@ -1,10 +1,8 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.FormController;
-import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -194,7 +192,7 @@ public class FrmAddCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
-        
+
     }//GEN-LAST:event_txtNameKeyTyped
 
     private void txtNrcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNrcKeyTyped
