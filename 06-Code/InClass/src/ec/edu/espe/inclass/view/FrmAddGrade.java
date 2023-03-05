@@ -1,13 +1,13 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
-import ec.edu.espe.inclass.controller.StudentController;
-import ec.edu.espe.inclass.model.Grade;
+import ec.edu.espe.inclass.controller.FormController;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -17,66 +17,9 @@ public class FrmAddGrade extends javax.swing.JFrame {
 
     public FrmAddGrade() {
         initComponents();
-        showTableDate(0, 0);
+        FormController.showTableDate(0, 0, this);
         this.setLocationRelativeTo(this);
         this.setResizable(false);
-    }
-
-    private void showTableDate(int unit, int gradeType) {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
-        int numberOfGrades;
-        ArrayList<Grade> studentsGrades;
-        ArrayList<Object> studentRow;
-        studentsGrades = StudentController.getGrades(gradeType, unit);
-
-        emptyTable();
-
-        if (!dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().isEmpty()) {
-
-            numberOfGrades = studentsGrades.get(0).getGradeValues().size();
-
-            for (int i = 0; i < numberOfGrades; i++) {
-                model.addColumn("Grade #" + (i + 1));
-            }
-
-            for (Grade studentsGrade : studentsGrades) {
-                studentRow = buildRow(studentsGrade.getGradeValues(), numberOfGrades);
-                model.addRow(studentRow.toArray());
-            }
-
-            model.setColumnCount(3 + numberOfGrades);
-        }
-    }
-
-    private ArrayList<Object> buildRow(ArrayList<Float> studentsGrade, int numberOfGrades) {
-        int num = tblGrades.getRowCount();
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        ArrayList<Object> studentRow;
-        studentRow = new ArrayList<>();
-
-        while (studentsGrade.size() < numberOfGrades) {
-            studentsGrade.add(0.0F);
-        }
-
-        studentRow.add(String.valueOf(num + 1));
-        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getEspeId());
-        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getName());
-
-        for (Float grade : studentsGrade) {
-            studentRow.add(String.valueOf(grade));
-        }
-
-        return studentRow;
-    }
-
-    private void emptyTable() {
-        DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
-        model.setRowCount(0);
-        model.setColumnCount(3);
-        lblAction.setText("");
     }
 
     /**
@@ -332,95 +275,29 @@ public class FrmAddGrade extends javax.swing.JFrame {
     private void cmbUnitItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbUnitItemStateChanged
         int unitNumber = cmbUnit.getSelectedIndex();
         int gradeType = cmbGradeType.getSelectedIndex();
-        showTableDate(unitNumber, gradeType);
+        FormController.showTableDate(unitNumber, gradeType, this);
     }//GEN-LAST:event_cmbUnitItemStateChanged
 
     private void cmbGradeTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbGradeTypeItemStateChanged
         int unitNumber = cmbUnit.getSelectedIndex();
         int gradeType = cmbGradeType.getSelectedIndex();
-        showTableDate(unitNumber, gradeType);
+        FormController.showTableDate(unitNumber, gradeType, this);
     }//GEN-LAST:event_cmbGradeTypeItemStateChanged
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        int numberOfGrades = tblGrades.getColumnCount() - 3;
-        int numberOfStudents = tblGrades.getRowCount();
-        int unitNumber = cmbUnit.getSelectedIndex();
-        int gradeType = cmbGradeType.getSelectedIndex();
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-
-        tblGrades.selectAll();
-
-        ArrayList<Float> grades;
-        ArrayList<ArrayList> studentsGradesValidate;
-        ArrayList<Grade> studentsGrades;
-        studentsGrades = StudentController.getGrades(gradeType, unitNumber);
-        studentsGradesValidate = new ArrayList<>();
-
-        try {
-            for (int i = 0; i < numberOfStudents; i++) {
-                grades = new ArrayList<>();
-                for (int j = 3; j < 3 + numberOfGrades; j++) {
-                    grades.add(Float.valueOf((String) tblGrades.getValueAt(i, j)));
-                }
-                studentsGradesValidate.add(grades);
-            }
-
-            for (int i = 0; i < numberOfStudents; i++) {
-                grades = studentsGradesValidate.get(i);
-                studentsGrades.get(i).setGradeValues(grades);
-            }
-
-            dataPersistence.updateStudentsInDB(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()));
-
-            JOptionPane.showMessageDialog(this, "Grades was saved", "Grades", INFORMATION_MESSAGE);
-        } catch (Exception e) {
-            lblAction.setText("Grades wasn´t saved, please use numbers and point(.)");
-        }
+        FormController.saveActionGrade(this);
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
-        int unitNumber = cmbUnit.getSelectedIndex();
-        int gradeType = cmbGradeType.getSelectedIndex();
-        int numberOfGrades = tblGrades.getColumnCount() - 3;
-        ArrayList<Grade> studentsGrades;
-        studentsGrades = StudentController.getGrades(gradeType, unitNumber);
-        model.addColumn("Grade #" + (numberOfGrades + 1));
-
-        for (Grade studentGrades : studentsGrades) {
-            studentGrades.getGradeValues().add(0.0F);
-        }
-
-        lblAction.setText("Grades was added");
+        FormController.AddGradeAction(this);
     }//GEN-LAST:event_btnAddActionPerformed
+  
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
-        int unitNumber = cmbUnit.getSelectedIndex();
-        int gradeType = cmbGradeType.getSelectedIndex();
-        int numberOfGrades = tblGrades.getColumnCount() - 3;
-        ArrayList<Grade> studentsGrades;
-
-        int desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete the last grade?", "Grade delete info", WIDTH);
-
-        if (desicion == 0) {
-            if (numberOfGrades > 0) {
-                lblAction.setText("Grades was deleted");
-                studentsGrades = StudentController.getGrades(gradeType, unitNumber);
-
-                model.setColumnCount(2 + numberOfGrades);
-
-                for (Grade studentGrades : studentsGrades) {
-                    studentGrades.getGradeValues().remove(numberOfGrades - 1);
-                }
-
-            } else {
-                lblAction.setText("No grades to remove");
-            }
-        }
+        FormController.removeGradeAction(this);
     }//GEN-LAST:event_btnRemoveActionPerformed
+   
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         FrmEnterCourse frmEnterCourse = new FrmEnterCourse();
@@ -430,8 +307,8 @@ public class FrmAddGrade extends javax.swing.JFrame {
 
     private void tblGradesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblGradesKeyTyped
         char c = evt.getKeyChar();
-        char c1 = (char)0;
-        if (!Character.isDigit(c) && c!= KeyEvent.VK_PERIOD && c != KeyEvent.VK_DELETE) {                      
+        char c1 = (char) 0;
+        if (!Character.isDigit(c) && c != KeyEvent.VK_PERIOD && c != KeyEvent.VK_DELETE) {
             evt.setKeyChar(c1);
         }
     }//GEN-LAST:event_tblGradesKeyTyped
@@ -448,6 +325,67 @@ public class FrmAddGrade extends javax.swing.JFrame {
             }
         });
     }
+
+    public JButton getBtnAdd() {
+        return btnAdd;
+    }
+
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    public JButton getBtnRemove() {
+        return btnRemove;
+    }
+
+    public JButton getBtnSave() {
+        return btnSave;
+    }
+
+    public JComboBox<String> getCmbGradeType() {
+        return cmbGradeType;
+    }
+
+    public JComboBox<String> getCmbUnit() {
+        return cmbUnit;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public JLabel getjLabel5() {
+        return jLabel5;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public JScrollPane getjScrollPane2() {
+        return jScrollPane2;
+    }
+
+    public JLabel getLblAction() {
+        return lblAction;
+    }
+
+    public JTable getTblGrades() {
+        return tblGrades;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

@@ -15,86 +15,86 @@ public class CourseControllerTest {
     }
 
     /**
-     * Test of courseToJsonForDB method, of class CourseController.
+     * Test of convertCourseToJsonForDB method, of class CourseController.
      */
     @Test
     public void testCourseToJsonForDB() {
         System.out.println("courseToJsonForDB");
         Course course = null;
         String expResult = "";
-        String result = CourseController.courseToJsonForDB(course);
+        String result = CourseController.convertCourseToJsonForDB(course);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of courseToJsonForDB method, of class CourseController.
+     * Test of convertCourseToJsonForDB method, of class CourseController.
      */
     @Test
     public void testCourseToJsonForDBCourseWrong1() {
         System.out.println("courseToJsonForDB");
         Course course = new Course("prueba", -10);
         String expResult = "";
-        String result = CourseController.courseToJsonForDB(course);
+        String result = CourseController.convertCourseToJsonForDB(course);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of courseToJsonForDB method, of class CourseController.
+     * Test of convertCourseToJsonForDB method, of class CourseController.
      */
     @Test
     public void testCourseToJsonForDBCourseWrong2() {
         System.out.println("courseToJsonForDB");
         Course course = new Course("", -10);
         String expResult = "";
-        String result = CourseController.courseToJsonForDB(course);
+        String result = CourseController.convertCourseToJsonForDB(course);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of courseToJsonForDB method, of class CourseController.
+     * Test of convertCourseToJsonForDB method, of class CourseController.
      */
     @Test
     public void testCourseToJsonForDBCourseWrong3() {
         System.out.println("courseToJsonForDB");
         Course course = new Course("", 1054);
         String expResult = "";
-        String result = CourseController.courseToJsonForDB(course);
+        String result = CourseController.convertCourseToJsonForDB(course);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of courseToJsonForDB method, of class CourseController.
+     * Test of convertCourseToJsonForDB method, of class CourseController.
      */
     @Test
     public void testCourseToJsonForDBCourseWrong4() {
         System.out.println("courseToJsonForDB");
         Course course = new Course("", 1054464698);
         String expResult = "";
-        String result = CourseController.courseToJsonForDB(course);
+        String result = CourseController.convertCourseToJsonForDB(course);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of courseToJsonForDB method, of class CourseController.
+     * Test of convertCourseToJsonForDB method, of class CourseController.
      */
     @Test
     public void testCourseToJsonForDBCourseWrong5() {
         System.out.println("courseToJsonForDB");
         Course course = new Course("this is a text to long, with this can test de function and the name of the course validation", 125);
         String expResult = "";
-        String result = CourseController.courseToJsonForDB(course);
+        String result = CourseController.convertCourseToJsonForDB(course);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of courseToJsonForDB method, of class CourseController.
+     * Test of convertCourseToJsonForDB method, of class CourseController.
      */
     @Test
     public void testCourseToJsonForDBCourseWrong6() {
         System.out.println("courseToJsonForDB");
         Course course = new Course("this is a text to long, with this can test de function and the name of the course validation", 1253563345);
         String expResult = "";
-        String result = CourseController.courseToJsonForDB(course);
+        String result = CourseController.convertCourseToJsonForDB(course);
         assertEquals(expResult, result);
     }
 
@@ -164,50 +164,50 @@ public class CourseControllerTest {
     }
 
     /**
-     * Test of jsonToCourse method, of class CourseController.
+     * Test of convertJsonToCourse method, of class CourseController.
      */
     @Test
     public void testJsonToCourse() {
         System.out.println("jsonToCourse");
         String json = null;
         Course expResult = null;
-        Course result = CourseController.jsonToCourse(json);
+        Course result = CourseController.convertJsonToCourse(json);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of jsonToCourse method, of class CourseController.
+     * Test of convertJsonToCourse method, of class CourseController.
      */
     @Test
     public void testJsonToCourseJsonEmpty() {
         System.out.println("jsonToCourse");
         String json = "";
         Course expResult = null;
-        Course result = CourseController.jsonToCourse(json);
+        Course result = CourseController.convertJsonToCourse(json);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of jsonToCourse method, of class CourseController.
+     * Test of convertJsonToCourse method, of class CourseController.
      */
     @Test
     public void testJsonToCourseJsonWrong() {
         System.out.println("jsonToCourse");
         String json = "this is no json";
         Course expResult = null;
-        Course result = CourseController.jsonToCourse(json);
+        Course result = CourseController.convertJsonToCourse(json);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of jsonToCourse method, of class CourseController.
+     * Test of convertJsonToCourse method, of class CourseController.
      */
     @Test
     public void testJsonToCourseJsonWrong2() {
         System.out.println("jsonToCourse");
         String json = "{\"name\": math}";
         Course expResult = null;
-        Course result = CourseController.jsonToCourse(json);
+        Course result = CourseController.convertJsonToCourse(json);
         assertEquals(expResult, result);
     }
 

@@ -1,7 +1,11 @@
 package ec.edu.espe.inclass.view;
 
 import ec.edu.espe.inclass.controller.DataPersistence;
-import javax.swing.DefaultComboBoxModel;
+import ec.edu.espe.inclass.controller.FormController;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 /**
@@ -20,27 +24,10 @@ public class FrmEnterCourse extends javax.swing.JFrame {
     public FrmEnterCourse() {
 
         initComponents();
-        uploadCourses();
+        FormController.uploadCourses(this);
         this.setLocationRelativeTo(this);
         this.setResizable(false);
-    }
-    
-    private void uploadCourses() {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance(); 
-        String[] coursesArray;
-        coursesArray = new String[dataPersistence.getTeacher().getCourses().size()];
-        String coursesString;
-
-        for (int i = 0; i < dataPersistence.getTeacher().getCourses().size(); i++) {
-
-            coursesString = dataPersistence.getTeacher().getCourses().get(i).getName() + " - nrc: " + String.valueOf(dataPersistence.getTeacher().getCourses().get(i).getNrc());
-            coursesArray[i] = coursesString;
-        }
-
-        cmbNrc.setModel(new DefaultComboBoxModel<>(coursesArray));
-        cmbNrc.setSelectedIndex(dataPersistence.getPosition());
-    }
+    }        
     
     public String getPositionNrc() {
         DataPersistence dataPersistence;                
@@ -382,6 +369,65 @@ public class FrmEnterCourse extends javax.swing.JFrame {
         });
     }
 
+    public JButton getBrnAddStudent() {
+        return brnAddStudent;
+    }
+
+    public JButton getBtnAddGrade() {
+        return btnAddGrade;
+    }
+
+    public JButton getBtnAttendance() {
+        return btnAttendance;
+    }
+
+    public JButton getBtnAttendanceRecord() {
+        return btnAttendanceRecord;
+    }
+
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    public JButton getBtnEnrolled() {
+        return btnEnrolled;
+    }
+
+    public JButton getBtnRecord() {
+        return btnRecord;
+    }
+
+    public JButton getBtnRemove() {
+        return btnRemove;
+    }
+
+    public JComboBox<String> getCmbNrc() {
+        return cmbNrc;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public JPanel getPnlButtons() {
+        return pnlButtons;
+    }
+
+    public JPanel getPnlMenu() {
+        return pnlMenu;
+    }
+
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brnAddStudent;
     private javax.swing.JButton btnAddGrade;

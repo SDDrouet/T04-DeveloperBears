@@ -1,10 +1,12 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
+import ec.edu.espe.inclass.controller.FormController;
 import ec.edu.espe.inclass.controller.PdfManager;
-import ec.edu.espe.inclass.model.Tutorship;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -16,7 +18,7 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setResizable(false);
-        showTableDate();
+        FormController.showTableDate(this);
     }
 
     /**
@@ -163,46 +165,6 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
-        private void showTableDate() {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        DefaultTableModel model = (DefaultTableModel) tblTutorships.getModel();
-        ArrayList<Object> studentRow;
-        
-        emptyTable();
-        
-        model.addColumn("Career");
-        model.addColumn("Course Name");
-        model.addColumn("date");
-
-        for (Tutorship tutorship : dataPersistence.getTeacher().getTutorships()) {
-            studentRow = buildRow(tutorship);
-            model.addRow(studentRow.toArray());
-        }
-    }
-
-    private ArrayList<Object> buildRow(Tutorship tutorship) {
-        int num = tblTutorships.getRowCount();
-        ArrayList<Object> studentRow;
-        studentRow = new ArrayList<>();
-
-        studentRow.add(String.valueOf(num + 1));
-        studentRow.add(tutorship.getId());
-        studentRow.add(tutorship.getName());
-        studentRow.add(tutorship.getCareer());
-        studentRow.add(tutorship.getCourseName());
-        studentRow.add(tutorship.getDate().toString());
-
-        return studentRow;
-    }
-
-    private void emptyTable() {
-        DefaultTableModel model = (DefaultTableModel) tblTutorships.getModel();
-        model.setRowCount(0);
-        model.setColumnCount(3);
-    }
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -238,6 +200,35 @@ public class FrmGetTutorshipRecord extends javax.swing.JFrame {
             }
         });
     }
+
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    public JButton getBtnPrint() {
+        return btnPrint;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public JPanel getPnlButtons() {
+        return pnlButtons;
+    }
+
+    public JTable getTblTutorships() {
+        return tblTutorships;
+    }
+
+    public JLabel getTitile() {
+        return titile;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

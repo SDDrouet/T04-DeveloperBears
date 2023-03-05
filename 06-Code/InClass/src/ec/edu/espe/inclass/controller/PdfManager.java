@@ -30,14 +30,14 @@ import javax.swing.JTable;
 public class PdfManager {
 
     private static String askDirectory(Component parent) {
-        JFileChooser fc = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser();
         String directory;
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        fc.setApproveButtonText("Save");
-        fc.setDialogTitle("Choose Directory");
-        int answer = fc.showOpenDialog(parent);
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setApproveButtonText("Save");
+        fileChooser.setDialogTitle("Choose Directory");
+        int answer = fileChooser.showOpenDialog(parent);
         if (answer == JFileChooser.APPROVE_OPTION) {
-            File fileChoose = fc.getSelectedFile();
+            File fileChoose = fileChooser.getSelectedFile();
             directory = fileChoose.getPath();
         } else {
             directory = "";
@@ -61,16 +61,16 @@ public class PdfManager {
                 FileOutputStream archive;
                 File file = new File(directory + "/GradeRecordNrc" + nrc + ".pdf");
                 archive = new FileOutputStream(file);
-                Document doc = new Document();
-                PdfWriter.getInstance(doc, archive);
+                Document document = new Document();
+                PdfWriter.getInstance(document, archive);
                 float[] columnGradeRecordStudents = new float[]{10F, 20F, 40F, 15F, 15F, 15F, 15F, 20F};
                 String texts[] = {"#", "id", "Students", "Unit1", "Unit2", "Unit3", "Average", "Status"};
 
-                doc.open();
-                doc.add(generateHead(nrc, "GRADE RECORD"));
-                doc.add(generateInfo());
-                doc.add(generateRecord(columnGradeRecordStudents, texts, table));
-                doc.close();
+                document.open();
+                document.add(generateHead(nrc, "GRADE RECORD"));
+                document.add(generateInfo());
+                document.add(generateRecord(columnGradeRecordStudents, texts, table));
+                document.close();
                 archive.close();
                 JOptionPane.showMessageDialog(null, "Pdf successfully created");
 
@@ -161,17 +161,17 @@ public class PdfManager {
         DataPersistence dataPersistence;                
         dataPersistence = DataPersistence.getInstance();
         Font fontType12 = new Font(Font.FontFamily.TIMES_ROMAN, 12);
-        Paragraph info = new Paragraph();
-        info.add(Chunk.NEWLINE);
-        info.add(new Phrase("ASIGNATURE:  " + dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getName() + "\n\n", fontType12));
-        return info;
+        Paragraph informationParagraph = new Paragraph();
+        informationParagraph.add(Chunk.NEWLINE);
+        informationParagraph.add(new Phrase("ASIGNATURE:  " + dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getName() + "\n\n", fontType12));
+        return informationParagraph;
     }
 
     private static PdfPTable generateHead(String nrc, String recordType) throws DocumentException {
         Font fontType12 = new Font(Font.FontFamily.TIMES_ROMAN, 12);
-        Image img = null;
+        Image image = null;
         try {
-            img = Image.getInstance("src/img/espeLogo.png");
+            image = Image.getInstance("src/img/espeLogo.png");
         } catch (Exception e) {
             System.out.println("espeLogo.png no founded");
         }
@@ -188,7 +188,7 @@ public class PdfManager {
         head.setWidths(columnHead);
         head.setHorizontalAlignment(Element.ALIGN_LEFT);
 
-        head.addCell(img);
+        head.addCell(image);
         head.addCell("");
         head.addCell(new Phrase("UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPE \n\n\t" + recordType + " NRC: " + nrc, fontType12));
         head.addCell(dateParagraph);

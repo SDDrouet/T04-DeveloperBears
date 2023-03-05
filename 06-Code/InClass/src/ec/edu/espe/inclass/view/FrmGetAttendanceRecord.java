@@ -1,11 +1,12 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
+import ec.edu.espe.inclass.controller.FormController;
 import ec.edu.espe.inclass.controller.PdfManager;
-import ec.edu.espe.inclass.controller.StudentController;
-import ec.edu.espe.inclass.model.Student;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -17,7 +18,7 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
         initComponents();        
         this.setLocationRelativeTo(this);
         this.setResizable(false);
-        showTableDate();
+        FormController.showTableDate(this);
     }
 
     /**
@@ -168,52 +169,6 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void showTableDate() {                                       
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
-        Float studentAttendace;
-        ArrayList<Object> studentRow;
-        
-        emptyTable();
-        
-        model.addColumn("Assistance Persent");
-        model.addColumn("Status");
-
-        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
-            studentAttendace = StudentController.calculateAssistancePersetn(student);
-            studentRow = buildRow(studentAttendace);
-            model.addRow(studentRow.toArray());
-        }
-    }
-
-    private ArrayList<Object> buildRow(Float studentAttendace) {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        int num = tblAttendance.getRowCount();
-        ArrayList<Object> studentRow;
-        studentRow = new ArrayList<>();
-
-        studentRow.add(String.valueOf(num + 1));
-        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getEspeId());
-        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getName());
-        studentRow.add(studentAttendace);
-        
-
-        if (StudentController.verifyAttendancePesent(studentAttendace)) {
-            studentRow.add("Approved");
-        } else {
-            studentRow.add("Not approved");
-        }
-
-        return studentRow;
-    }
-
-    private void emptyTable() {
-        DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
-        model.setRowCount(0);
-        model.setColumnCount(3);
-    }
 
     /**
      * @param args the command line arguments
@@ -250,6 +205,36 @@ public class FrmGetAttendanceRecord extends javax.swing.JFrame {
             }
         });
     }
+
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    public JButton getBtnPrint() {
+        return btnPrint;
+    }
+
+    public JScrollPane getjScrollPane() {
+        return jScrollPane;
+    }
+
+    public JPanel getPnlButtons() {
+        return pnlButtons;
+    }
+
+    public JPanel getPnlTable() {
+        return pnlTable;
+    }
+
+    public JTable getTblAttendance() {
+        return tblAttendance;
+    }
+
+    public static JTextField getTxtNrcReceive() {
+        return txtNrcReceive;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

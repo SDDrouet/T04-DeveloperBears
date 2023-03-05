@@ -45,7 +45,7 @@ public class DataPersistence {
             dBManager = new DBManager();
             getdBManager().connect("mongodb+srv://oop22:oop22@cluster0.cd2tjad.mongodb.net/test", "InClassProject");
             teacher = new Teacher(espeId, name);
-            teacher = TeacherController.jsonToTeacher((String) getdBManager().readCollection("Teacher").get(0));
+            teacher = TeacherController.convertJsonToTeacher((String) getdBManager().readCollection("Teacher").get(0));
             tutorships = TutorshipController.loadTutorships(getdBManager().readCollection("Tutorships"));
             courses = CourseController.loadCourses(getdBManager().readCollection("Courses"));
 
@@ -72,7 +72,7 @@ public class DataPersistence {
 
         try {
             teacher = new Teacher(espeId, name);
-            teacher = TeacherController.jsonToTeacher((String) getdBManager().readCollection("Teacher").get(0));
+            teacher = TeacherController.convertJsonToTeacher((String) getdBManager().readCollection("Teacher").get(0));
             tutorships = TutorshipController.loadTutorships(getdBManager().readCollection("Tutorships"));
             courses = CourseController.loadCourses(getdBManager().readCollection("Courses"));
 
@@ -94,7 +94,7 @@ public class DataPersistence {
         try {
             for (Student student : course.getStudents()) {
                 getdBManager().updateDocument("Students", student.getEspeId(), course.getNrc(),
-                        StudentController.studentToJsonForDB(student, course.getNrc()));
+                        StudentController.convertStudentToJsonForDB(student, course.getNrc()));
             }
             return true;
         } catch (Exception e) {

@@ -216,7 +216,7 @@ public class DBManager {
         return newJson;
     }
 
-    public static String toJson(Object object) {
+    public static String convertToJson(Object object) {
         Gson gson = new Gson();
         String json;
         json = gson.toJson(object);

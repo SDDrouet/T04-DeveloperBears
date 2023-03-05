@@ -25,7 +25,7 @@ public class TutorshipControllerTest {
         Date date = new Date();
         Tutorship tutorship = new Tutorship(date, "0", "0", "0", "0");
         ArrayList<String> jsons = new ArrayList<>();
-        jsons.add(DBManager.toJson(tutorship));
+        jsons.add(DBManager.convertToJson(tutorship));
         ArrayList<Tutorship> expResult = new ArrayList<>();
         expResult.add(tutorship);
         ArrayList<Tutorship> result = TutorshipController.loadTutorships(jsons);
@@ -44,7 +44,7 @@ public class TutorshipControllerTest {
         dataPersistence.connectMongoDB();
         Tutorship tutorship = dataPersistence.getTeacher().getTutorships().get(0);
         ArrayList< String> jsons = new ArrayList<>();
-        jsons.add(DBManager.toJson(tutorship));
+        jsons.add(DBManager.convertToJson(tutorship));
         ArrayList<Tutorship> expResult = new ArrayList<>();
         expResult.add(tutorship);
         ArrayList<Tutorship> result = TutorshipController.loadTutorships(jsons);
@@ -52,42 +52,42 @@ public class TutorshipControllerTest {
     }
 
     /**
-     * Test of jsonToTutorship null method, of class TutorshipController.
+     * Test of convertJsonToTutorship null method, of class TutorshipController.
      */
     @Test
     public void testJsonToTutorshipNull() {
         System.out.println("jsonToTutorship");
         String json = "";
         Tutorship expResult = null;
-        Tutorship result = TutorshipController.jsonToTutorship(json);
+        Tutorship result = TutorshipController.convertJsonToTutorship(json);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of jsonToTutorship method, of class TutorshipController.
+     * Test of convertJsonToTutorship method, of class TutorshipController.
      */
     @Test
     public void testJsonToTutorship() {
         System.out.println("jsonToTutorship");
         Date date = new Date();
         Tutorship tutorship = new Tutorship(date, "0", "0", "0", "0");
-        String json = DBManager.toJson(tutorship);
+        String json = DBManager.convertToJson(tutorship);
         Tutorship expResult = tutorship;
-        Tutorship result = TutorshipController.jsonToTutorship(json);
+        Tutorship result = TutorshipController.convertJsonToTutorship(json);
         assertEquals(expResult.toString(), result.toString());
     }
     
     /**
-     * Test of jsonToTutorship without using toString method, of class TutorshipController.
+     * Test of convertJsonToTutorship without using toString method, of class TutorshipController.
      */
     @Test
     public void testJsonToTutorshipNoToString() {
         System.out.println("jsonToTutorship");
         Date date = new Date();
         Tutorship tutorship = new Tutorship(date, "0", "0", "0", "0");
-        String json = DBManager.toJson(tutorship);
+        String json = DBManager.convertToJson(tutorship);
         Tutorship expResult = tutorship;
-        Tutorship result = TutorshipController.jsonToTutorship(json);
+        Tutorship result = TutorshipController.convertJsonToTutorship(json);
         assertEquals(expResult, result);
     }
 

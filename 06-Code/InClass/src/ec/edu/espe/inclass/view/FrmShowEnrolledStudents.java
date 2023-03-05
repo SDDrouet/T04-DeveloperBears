@@ -1,8 +1,12 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
-import ec.edu.espe.inclass.model.Student;
-import javax.swing.table.DefaultTableModel;
+import ec.edu.espe.inclass.controller.FormController;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -12,7 +16,7 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
 
     public FrmShowEnrolledStudents() {
         initComponents();
-        refreshTable();
+        FormController.refreshTableStudent(this);
         this.setLocationRelativeTo(this);
         this.setResizable(false);
 
@@ -196,23 +200,66 @@ public final class FrmShowEnrolledStudents extends javax.swing.JFrame {
         });
     }
 
-    public final void refreshTable() {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        DefaultTableModel model = new DefaultTableModel();
-
-        model.addColumn("#");
-        model.addColumn("Name");
-        model.addColumn("Espe Id");
-
-        int i = 1;
-        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
-            model.addRow(new Object[]{i, student.getName(), student.getEspeId()});
-            i++;
-        }
-
-        tblStudents.setModel(model);
+    public JButton getBtnBack() {
+        return btnBack;
     }
+
+    public void setBtnBack(JButton btnBack) {
+        this.btnBack = btnBack;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public void setjLabel2(JLabel jLabel2) {
+        this.jLabel2 = jLabel2;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public void setjPanel1(JPanel jPanel1) {
+        this.jPanel1 = jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public void setjPanel2(JPanel jPanel2) {
+        this.jPanel2 = jPanel2;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JTable getTblStudents() {
+        return tblStudents;
+    }
+
+    public void setTblStudents(JTable tblStudents) {
+        this.tblStudents = tblStudents;
+    }
+
+    public void setTitle(JLabel title) {
+        this.title = title;
+    }
+
+    public static JTextField getTxtNrcReceive() {
+        return txtNrcReceive;
+    }
+
+    public static void setTxtNrcReceive(JTextField txtNrcReceive) {
+        FrmShowEnrolledStudents.txtNrcReceive = txtNrcReceive;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

@@ -25,7 +25,7 @@ public class TeacherController {
         return json;
     }
 
-    public static Teacher jsonToTeacher(String json) {
+    public static Teacher convertJsonToTeacher(String json) {
         Teacher teacher;
         Gson gson;
         String name = "";

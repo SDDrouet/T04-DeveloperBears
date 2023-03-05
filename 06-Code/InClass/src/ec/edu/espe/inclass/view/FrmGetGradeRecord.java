@@ -1,11 +1,12 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
+import ec.edu.espe.inclass.controller.FormController;
 import ec.edu.espe.inclass.controller.PdfManager;
-import ec.edu.espe.inclass.controller.StudentController;
-import ec.edu.espe.inclass.model.Student;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,7 +21,7 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setResizable(false);
-        showTableDate();
+        FormController.showTableDate(this);
     }
 
     /**
@@ -170,58 +171,7 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
         PdfManager.createGradeRecord(this, tblGrades);
     }//GEN-LAST:event_btnPrintActionPerformed
 
-    private void showTableDate() {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
-        ArrayList<Float> studentsGrades;
-        ArrayList<Object> studentRow;
 
-        emptyTable();
-
-        for (int i = 0; i < 3; i++) {
-            model.addColumn("Unit " + (i + 1));
-        }
-        model.addColumn("Average");
-        model.addColumn("Status");
-
-        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
-            studentsGrades = StudentController.getGradesUnit(student);
-            studentRow = buildRow(studentsGrades);
-            model.addRow(studentRow.toArray());
-
-        }
-
-    }
-
-    private ArrayList<Object> buildRow(ArrayList<Float> studentsGrade) {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        int num = tblGrades.getRowCount();
-        ArrayList<Object> studentRow;
-        studentRow = new ArrayList<>();
-
-        studentRow.add(String.valueOf(num + 1));
-        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getEspeId());
-        studentRow.add(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(num).getName());
-
-        for (Float grade : studentsGrade) {
-            studentRow.add(String.valueOf(grade));
-        }
-        if (studentsGrade.get(3) >= 14) {
-            studentRow.add("Approved");
-        } else {
-            studentRow.add("Not approved");
-        }
-
-        return studentRow;
-    }
-
-    private void emptyTable() {
-        DefaultTableModel model = (DefaultTableModel) tblGrades.getModel();
-        model.setRowCount(0);
-        model.setColumnCount(3);
-    }
 
     /**
      * @param args the command line arguments
@@ -258,6 +208,36 @@ public class FrmGetGradeRecord extends javax.swing.JFrame {
             }
         });
     }
+
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    public JButton getBtnPrint() {
+        return btnPrint;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public JPanel getPnlButtons() {
+        return pnlButtons;
+    }
+
+    public JPanel getPnlTable() {
+        return pnlTable;
+    }
+
+    public JTable getTblGrades() {
+        return tblGrades;
+    }
+
+    public static JTextField getTxtNrcReceive() {
+        return txtNrcReceive;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

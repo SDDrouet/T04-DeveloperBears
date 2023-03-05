@@ -16,7 +16,7 @@ public class StudentControllerTest {
     }
 
     /**
-     * Test of studentToJsonForDB method, of class StudentController.
+     * Test of convertStudentToJsonForDB method, of class StudentController.
      */
     @Test
     public void testStudentToJsonForDB() {
@@ -24,7 +24,7 @@ public class StudentControllerTest {
         Student student = new Student("L00121233", "dan");
         int courseNrc = 0;
         String expResult = "{\"attendanceRecord\":{\"Attendance\":[false],\"totalClassNumber\":1},\"gradeRecord\":{\"units\":[{\"workshops\":{\"gradeValues\":[],\"totalGradePercent\":0.2},\"homeworks\":{\"gradeValues\":[],\"totalGradePercent\":0.2},\"tests\":{\"gradeValues\":[],\"totalGradePercent\":0.25},\"exam\":{\"gradeValues\":[],\"totalGradePercent\":0.35}},{\"workshops\":{\"gradeValues\":[],\"totalGradePercent\":0.2},\"homeworks\":{\"gradeValues\":[],\"totalGradePercent\":0.2},\"tests\":{\"gradeValues\":[],\"totalGradePercent\":0.25},\"exam\":{\"gradeValues\":[],\"totalGradePercent\":0.35}},{\"workshops\":{\"gradeValues\":[],\"totalGradePercent\":0.2},\"homeworks\":{\"gradeValues\":[],\"totalGradePercent\":0.2},\"tests\":{\"gradeValues\":[],\"totalGradePercent\":0.25},\"exam\":{\"gradeValues\":[],\"totalGradePercent\":0.35}}]},\"name\":\"dan\",\"espeId\":\"L00121233\",\"nrc\":0}";
-        String result = StudentController.studentToJsonForDB(student, courseNrc);
+        String result = StudentController.convertStudentToJsonForDB(student, courseNrc);
         assertEquals(expResult, result);
     }
 
@@ -41,14 +41,14 @@ public class StudentControllerTest {
     }
 
     /**
-     * Test of jsonToStudent method, of class StudentController.
+     * Test of convertJsonToStudent method, of class StudentController.
      */
     @Test
     public void testJsonToStudent() {
         System.out.println("jsonToStudent");
         String json = "";
         Student expResult = null;
-        Student result = StudentController.jsonToStudent(json);
+        Student result = StudentController.convertJsonToStudent(json);
         assertEquals(expResult, result);
     }
 

@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class StudentController implements IStudent {
 
-    public static String studentToJsonForDB(Student student, int courseNrc) {
+    public static String convertStudentToJsonForDB(Student student, int courseNrc) {
         String json;
         Gson gson = new Gson();
         JsonParser parser = new JsonParser();
@@ -39,13 +39,13 @@ public class StudentController implements IStudent {
         students = new ArrayList<>();
 
         for (String json : jsons) {
-            students.add(jsonToStudent(json));
+            students.add(convertJsonToStudent(json));
         }
 
         return students;
     }
 
-    public static Student jsonToStudent(String json) {
+    public static Student convertJsonToStudent(String json) {
         Student student;
         Gson gson;
         gson = new Gson();

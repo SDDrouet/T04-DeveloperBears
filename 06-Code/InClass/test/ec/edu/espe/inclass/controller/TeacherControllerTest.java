@@ -38,7 +38,7 @@ public class TeacherControllerTest {
     }
 
     /**
-     * Test of jsonToTeacher method, of class TeacherController.
+     * Test of convertJsonToTeacher method, of class TeacherController.
      */
     @Test
     public void testJsonToTeacher() {
@@ -46,7 +46,7 @@ public class TeacherControllerTest {
         String json = "{\"password\":\"0\",\"name\":\"0\",\"espeId\":\"0\"}";
         Teacher expResult = new Teacher("0", "0");
         expResult.setPassword("0");
-        Teacher result = TeacherController.jsonToTeacher(json);
+        Teacher result = TeacherController.convertJsonToTeacher(json);
         assertEquals(expResult, result);
     }
 

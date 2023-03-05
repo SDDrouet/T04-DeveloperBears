@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class CourseController {
 
-    public static String courseToJsonForDB(Course course) {
+    public static String convertCourseToJsonForDB(Course course) {
         if (course == null) {
             return "";
         }
@@ -36,13 +36,13 @@ public class CourseController {
         courses = new ArrayList<>();
 
         for (String json : jsons) {
-            courses.add(jsonToCourse(json));
+            courses.add(convertJsonToCourse(json));
         }
 
         return courses;
     }
 
-    public static Course jsonToCourse(String json) {
+    public static Course convertJsonToCourse(String json) {
         try {
             Course course;
             Gson gson;

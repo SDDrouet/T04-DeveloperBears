@@ -18,13 +18,13 @@ public class TutorshipController {
         tutorships = new ArrayList<>();
 
         for (String json : jsons) {
-            tutorships.add(jsonToTutorship(json));
+            tutorships.add(convertJsonToTutorship(json));
         }
 
         return tutorships;
     }
 
-    public static Tutorship jsonToTutorship(String json) {
+    public static Tutorship convertJsonToTutorship(String json) {
         Tutorship tutorship;
         Gson gson;
         gson = new Gson();

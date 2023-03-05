@@ -1,11 +1,10 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
-import ec.edu.espe.inclass.model.Tutorship;
-import java.util.Date;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import utils.DBManager;
+import ec.edu.espe.inclass.controller.FormController;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -196,31 +195,10 @@ public class FrmRequestTutorship extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        Tutorship tutorship;
-        Date date;
-        String id;
-        String name;
-        String career;
-        String courseName;
-
-        try {
-            date = new Date();
-            id = txtID.getText();
-            name = txtName.getText();
-            career = txtCarrer.getText();
-            courseName = txtNRC.getText();
-
-            tutorship = new Tutorship(date, id, name, career, courseName);
-            dataPersistence.getdBManager().createDocument("Tutorships", DBManager.toJson(tutorship));
-            
-            JOptionPane.showMessageDialog(this, "Tutorship was Requested", "Tutorship", INFORMATION_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error not requested", "Tutorship", INFORMATION_MESSAGE);
-        }
+        FormController.requestTutorship(this);
 
     }//GEN-LAST:event_btnRequestActionPerformed
+
 
     private void txtCarrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarrerActionPerformed
     }//GEN-LAST:event_txtCarrerActionPerformed
@@ -260,6 +238,59 @@ public class FrmRequestTutorship extends javax.swing.JFrame {
             }
         });
     }
+
+    public JButton getBtnCancel() {
+        return btnCancel;
+    }
+
+    public JButton getBtnRequest() {
+        return btnRequest;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public JLabel getjLabel5() {
+        return jLabel5;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public JTextField getTxtCarrer() {
+        return txtCarrer;
+    }
+
+    public JTextField getTxtID() {
+        return txtID;
+    }
+
+    public JTextField getTxtNRC() {
+        return txtNRC;
+    }
+
+    public JTextField getTxtName() {
+        return txtName;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

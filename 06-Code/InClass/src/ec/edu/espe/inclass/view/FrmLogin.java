@@ -1,8 +1,11 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.TeacherController;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import ec.edu.espe.inclass.controller.FormController;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -188,28 +191,9 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
-        String user;
-        String password;
-        int validated;
-
-        user = String.valueOf(txtUser.getText());
-        password = String.valueOf(txtPassword.getText());
-
-        validated = TeacherController.loginTeacher(user, password);
-
-        if (validated == 1) {
-            JOptionPane.showMessageDialog(this, "WELCOME", "LOGIN INFO", INFORMATION_MESSAGE);
-            emptyFields();
-
-            FrmTeacherMenu frmTeacherMenu = new FrmTeacherMenu();
-            frmTeacherMenu.setVisible(true);
-            this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "ERROR", "LOGIN INFO", INFORMATION_MESSAGE);
-            emptyFields();
-        }
+        FormController.login(this);
     }//GEN-LAST:event_btnLoginActionPerformed
+
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
@@ -217,11 +201,6 @@ public class FrmLogin extends javax.swing.JFrame {
         frmInClassMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
-
-    private void emptyFields() {
-        txtUser.setText("");
-        txtPassword.setText("");
-    }
 
     /**
      * @param args the command line arguments
@@ -257,6 +236,51 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
     }
+
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    public JButton getBtnLogin() {
+        return btnLogin;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public JLabel getjLabel6() {
+        return jLabel6;
+    }
+
+    public JPanel getPnlButtons() {
+        return pnlButtons;
+    }
+
+    public JPanel getPnlInput() {
+        return pnlInput;
+    }
+
+    public JPasswordField getTxtPassword() {
+        return txtPassword;
+    }
+
+    public JTextField getTxtUser() {
+        return txtUser;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

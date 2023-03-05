@@ -1,10 +1,12 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
-import ec.edu.espe.inclass.model.Student;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import javax.swing.table.DefaultTableModel;
+import ec.edu.espe.inclass.controller.FormController;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -14,51 +16,10 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
 
     public FrmTakeAttendance() {
         initComponents();
-        showTableDate(0);
-        initCmbClasses();
+        FormController.showTableAttendace(0, this);
+        FormController.initCmbClasses(this);
         this.setLocationRelativeTo(this);
         this.setResizable(false);
-    }
-
-    private void initCmbClasses() {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        int numClasses;
-
-        if (!dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().isEmpty()) {
-            numClasses = dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(0).getAttendanceRecord().getAttendance().size();
-            for (int i = 1; i <= numClasses; i++) {
-                cmbClasses.addItem(String.valueOf(i));
-            }
-        }
-    }
-
-    private void showTableDate(int classNumber) {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
-        int num = 0;
-        String name;
-        String id;
-        boolean attendance;
-
-        emptyTable();
-
-        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
-            num++;
-            name = student.getName();
-            id = student.getEspeId();
-            attendance = student.getAttendanceRecord().getAttendance().get(classNumber);
-            model.addRow(new Object[]{num, id, name, attendance});
-        }
-    }
-
-    private void emptyTable() {
-        DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
-        int numRows = model.getRowCount();
-        for (int i = 0; i < numRows; i++) {
-            model.removeRow(0);
-        }
     }
 
     /**
@@ -301,24 +262,14 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClassActionPerformed
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        int classNumber;
-        if (!dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().isEmpty()) {
-            for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
-                student.getAttendanceRecord().getAttendance().add(false);
-            }
-            cmbClasses.addItem(String.valueOf(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(0).getAttendanceRecord().getAttendance().size()));
-            classNumber = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
-            showTableDate(classNumber);
-            lblAction.setText("Class was added");
-        }
+        FormController.AddClassAttendance(this);
 
     }//GEN-LAST:event_btnAddClassActionPerformed
 
+
     private void cmbClassesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbClassesItemStateChanged
         int classNumber = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
-        showTableDate(classNumber);
+        FormController.showTableAttendace(classNumber, this);
         lblAction.setText("");
     }//GEN-LAST:event_cmbClassesItemStateChanged
 
@@ -330,46 +281,14 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
     }//GEN-LAST:event_tblAttendanceMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-
-        if (!dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().isEmpty()) {
-
-            int classNumer = Integer.parseInt(cmbClasses.getSelectedItem().toString()) - 1;
-            boolean studentAttendance;
-            int count = 0;
-
-            for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
-                studentAttendance = (boolean) model.getValueAt(count, 3);
-                student.getAttendanceRecord().getAttendance().set(classNumer, studentAttendance);
-                student.getAttendanceRecord().setTotalClassNumber(student.getAttendanceRecord().getAttendance().size());
-                count++;
-            }
-            
-            dataPersistence.updateStudentsInDB(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()));
-
-            JOptionPane.showMessageDialog(this, "Attendance was saved" , "Attendance", INFORMATION_MESSAGE);
-        }
+        FormController.saveAttendanceAction(this);
     }//GEN-LAST:event_btnSaveActionPerformed
 
+
     private void btnDeleteClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClassActionPerformed
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        if (cmbClasses.getItemCount() > 1) {
-            for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
-                student.getAttendanceRecord().getAttendance().remove(cmbClasses.getItemCount() - 1);
-            }
-
-            cmbClasses.removeItemAt(cmbClasses.getItemCount() - 1);
-
-            showTableDate(cmbClasses.getItemCount() - 1);
-
-            lblAction.setText("class #" + (cmbClasses.getItemCount() + 1) + " was deleted");
-        }
-
-
+        FormController.deleteAttendanceAction(this);
     }//GEN-LAST:event_btnDeleteClassActionPerformed
+
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         FrmEnterCourse frmEnterCourse = new FrmEnterCourse();
@@ -412,6 +331,59 @@ public class FrmTakeAttendance extends javax.swing.JFrame {
             }
         });
     }
+
+    public JButton getBtnAddClass() {
+        return btnAddClass;
+    }
+
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    public JButton getBtnDeleteClass() {
+        return btnDeleteClass;
+    }
+
+    public JButton getBtnSave() {
+        return btnSave;
+    }
+
+    public JComboBox<String> getCmbClasses() {
+        return cmbClasses;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public JPanel getjPanel3() {
+        return jPanel3;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public JLabel getLblAction() {
+        return lblAction;
+    }
+
+    public JTable getTblAttendance() {
+        return tblAttendance;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddClass;

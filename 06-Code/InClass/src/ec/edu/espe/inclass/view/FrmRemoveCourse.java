@@ -1,10 +1,10 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.CourseController;
-import ec.edu.espe.inclass.controller.DataPersistence;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import ec.edu.espe.inclass.controller.FormController;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,7 +17,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
 
     public FrmRemoveCourse() {
         initComponents();
-        uploadCourses();
+        FormController.uploadCourses(this);
         this.setLocationRelativeTo(this);
         this.setResizable(false);
     }
@@ -156,46 +156,9 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        String courseDeleteString;        
-        int courseToDelete;
-        int desicion;
-        int result;
-
-        courseToDelete = (Integer) cmbNrc.getSelectedIndex();
-        courseDeleteString = (String) cmbNrc.getSelectedItem();
-
-        desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete course: " + courseDeleteString + " ?", "course delete info", WIDTH);
-
-        if (desicion == 0) {
-            result = CourseController.removeCourse(courseToDelete);
-            if(result==1){
-                JOptionPane.showMessageDialog(this, "Course successfully deleted ", "course delete info", INFORMATION_MESSAGE);
-                dataPersistence.updateData();
-            }
-            uploadCourses();
-        } else{
-            uploadCourses();
-        }
+        FormController.removeCourseAction(this);
 
     }//GEN-LAST:event_btnRemoveActionPerformed
-    
-    private void uploadCourses() {
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        String[] coursesArray;
-        coursesArray = new String[dataPersistence.getTeacher().getCourses().size()];
-        String coursesString;
-
-        for (int i = 0; i < dataPersistence.getTeacher().getCourses().size(); i++) {
-
-            coursesString = dataPersistence.getTeacher().getCourses().get(i).getName() + " - nrc: " + String.valueOf(dataPersistence.getTeacher().getCourses().get(i).getNrc());
-            coursesArray[i] = coursesString;
-        }
-
-        cmbNrc.setModel(new DefaultComboBoxModel<>(coursesArray));
-    }
 
     /**
      * @param args the command line arguments
@@ -223,7 +186,7 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmRemoveCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -231,6 +194,35 @@ public class FrmRemoveCourse extends javax.swing.JFrame {
             }
         });
     }
+
+    public JButton getBtnCancel() {
+        return btnCancel;
+    }
+
+    public JButton getBtnRemove() {
+        return btnRemove;
+    }
+
+    public JComboBox<String> getCmbNrc() {
+        return cmbNrc;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public JLabel getTitile() {
+        return titile;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

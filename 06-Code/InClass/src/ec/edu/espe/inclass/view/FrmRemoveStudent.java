@@ -1,15 +1,15 @@
 
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
-import ec.edu.espe.inclass.controller.StudentController;
-import ec.edu.espe.inclass.model.Student;
-import java.awt.HeadlessException;
+import ec.edu.espe.inclass.controller.FormController;
 import java.awt.event.KeyEvent;
-import static java.awt.image.ImageObserver.WIDTH;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -22,7 +22,7 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
      */
     public FrmRemoveStudent() {
         initComponents();
-        refreshTable();
+        FormController.refreshTable(this);
         this.setLocationRelativeTo(this);
         this.setResizable(false);
     }
@@ -201,12 +201,12 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
 
     private void txtNStudentKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNStudentKeyTyped
         // TODO add your handling code here:
-        char c = evt.getKeyChar();
-        char c1 = (char) 0;
+        char character = evt.getKeyChar();
+        char nullCharacter = (char) 0;
 
-        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
-            JOptionPane.showMessageDialog(this, c + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE);
-            evt.setKeyChar(c1);
+        if (!Character.isDigit(character) && character != KeyEvent.VK_BACK_SPACE && character != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, character + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE);
+            evt.setKeyChar(nullCharacter);
         }
     }//GEN-LAST:event_txtNStudentKeyTyped
 
@@ -215,45 +215,10 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNStudentActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        String espeId;
-        String name;
-        int studentNumber;
-        int nrc;
-        int desicion;
-        int result;
-
-        try {
-            studentNumber = Integer.parseInt(txtNStudent.getText()) - 1;
-            int totalStudents = dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().size();
-            nrc = dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getNrc();
-            if (studentNumber < totalStudents) {
-                espeId = String.valueOf(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(studentNumber).getEspeId());
-                name = String.valueOf(dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents().get(studentNumber).getName());
-                desicion = JOptionPane.showConfirmDialog(this, "Do you want to delete this student: " + name + " (" + espeId + ")" + " ?", "course delete info", WIDTH);
-
-                if (desicion == 0) {
-                    result = StudentController.removeStudent(espeId, nrc);
-                    if (result == 1) {
-                        JOptionPane.showMessageDialog(this, "Student " + name + " (" + espeId + ")" + " was successfully eliminated", "Student delete information", INFORMATION_MESSAGE);
-                        txtNStudent.setText("");
-                        refreshTable();
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "operation canceled");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Student not found, try Again\nRemember do you have " + totalStudents + " students in this nrc " + "(" + nrc + ")");
-                txtNStudent.setText("");
-            }
-
-            dataPersistence.updateData();
-            refreshTable();
-        } catch (HeadlessException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Can't delete that student\n Error: " + e);
-        }        
+        FormController.deleteStudentAction(this);        
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    
 
     /**
      * @param args the command line arguments
@@ -291,22 +256,52 @@ public class FrmRemoveStudent extends javax.swing.JFrame {
         });
     }
 
-    public final void refreshTable() {
-        DefaultTableModel model = new DefaultTableModel();
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        model.addColumn("#");
-        model.addColumn("Name");
-        model.addColumn("Espe Id");
-
-        int i = 1;
-        for (Student student : dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition()).getStudents()) {
-            model.addRow(new Object[]{i, student.getName(), student.getEspeId()});
-            i++;
-        }
-
-        tblStudents.setModel(model);
+    public JButton getBtnBack() {
+        return btnBack;
     }
+
+    public JButton getBtnDelete() {
+        return btnDelete;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public JTable getTblStudents() {
+        return tblStudents;
+    }
+
+    public JTextField getTxtNStudent() {
+        return txtNStudent;
+    }
+
+    public static JTextField getTxtNrcReceive() {
+        return txtNrcReceive;
+    }
+
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;

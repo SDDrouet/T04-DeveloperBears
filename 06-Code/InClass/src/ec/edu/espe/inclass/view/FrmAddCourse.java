@@ -1,11 +1,12 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.CourseController;
-import ec.edu.espe.inclass.controller.DataPersistence;
-import ec.edu.espe.inclass.model.Course;
+import ec.edu.espe.inclass.controller.FormController;
 import java.awt.event.KeyEvent;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -181,41 +182,7 @@ public class FrmAddCourse extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();
-        Course course;
-        course = null;
-
-        String name = "";
-        int nrc = -1;
-        boolean isCourseValid = true;
-
-        name = String.valueOf(txtName.getText()).toUpperCase();
-
-        if (name.length() < 3) {
-            isCourseValid = false;
-        }
-
-        try {
-            nrc = Integer.parseInt(txtNrc.getText());
-            course = new Course(name, nrc);
-        } catch (Exception e) {
-            isCourseValid = false;
-        }
-
-        if (CourseController.findCourse(dataPersistence.getTeacher().getCourses(), nrc) != -1) {
-            isCourseValid = false;
-        }
-
-        if (isCourseValid) {
-            dataPersistence.getdBManager().createDocument("Courses", CourseController.courseToJsonForDB(course));
-            JOptionPane.showMessageDialog(this, "Course successfully added", "COURSE add", INFORMATION_MESSAGE);
-            txtName.setText("");
-            txtNrc.setText("");
-            dataPersistence.updateData();
-        } else {
-            JOptionPane.showMessageDialog(this, "Course not add, course not valid or already exists ", "COURSE add", INFORMATION_MESSAGE);
-        }
+        FormController.AddValidCourse(this);
 
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -227,19 +194,14 @@ public class FrmAddCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
+        
     }//GEN-LAST:event_txtNameKeyTyped
 
     private void txtNrcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNrcKeyTyped
-        char c = evt.getKeyChar();
-        char c1 = (char) 0;
-        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
-            JOptionPane.showMessageDialog(this, c + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE);
-            evt.setKeyChar(c1);
-        }
+        FormController.validKeyName(this, evt);
     }//GEN-LAST:event_txtNrcKeyTyped
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
     /**
@@ -276,6 +238,42 @@ public class FrmAddCourse extends javax.swing.JFrame {
                 new FrmAddCourse().setVisible(true);
             }
         });
+    }
+
+    public JButton getBtnAdd() {
+        return btnAdd;
+    }
+
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public JPanel getjPanel3() {
+        return jPanel3;
+    }
+
+    public JTextField getTxtName() {
+        return txtName;
+    }
+
+    public JTextField getTxtNrc() {
+        return txtNrc;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

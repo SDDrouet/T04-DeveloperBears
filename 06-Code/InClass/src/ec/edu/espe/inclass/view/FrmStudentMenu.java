@@ -1,8 +1,11 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import ec.edu.espe.inclass.controller.FormController;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -14,21 +17,13 @@ import javax.swing.table.DefaultTableModel;
 public class FrmStudentMenu extends javax.swing.JFrame {
 
     public FrmStudentMenu() {
-        DataPersistence dataPersistence;
-        DefaultTableModel model;                
-        
+
         initComponents();
         this.setLocationRelativeTo(this);
         this.setResizable(false);
-        
-        dataPersistence = DataPersistence.getInstance();
-        model = (DefaultTableModel) tblNotifications.getModel();
-        
-        for (String notify : dataPersistence.getNotifies()) {            
-            model.addRow(new Object[] {notify});
-        }        
+        FormController.showNotifications(this);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -174,7 +169,7 @@ public class FrmStudentMenu extends javax.swing.JFrame {
     private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
         FrmRequestTutorship frmRequestTutorship = new FrmRequestTutorship();
         frmRequestTutorship.setVisible(true);
-        this.setVisible(false); 
+        this.setVisible(false);
     }//GEN-LAST:event_btnRequestActionPerformed
 
     /**
@@ -211,6 +206,30 @@ public class FrmStudentMenu extends javax.swing.JFrame {
                 new FrmStudentMenu().setVisible(true);
             }
         });
+    }
+
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    public JButton getBtnRequest() {
+        return btnRequest;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public JTable getTblNotifications() {
+        return tblNotifications;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

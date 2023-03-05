@@ -1,12 +1,12 @@
 package ec.edu.espe.inclass.view;
 
-import ec.edu.espe.inclass.controller.DataPersistence;
-import ec.edu.espe.inclass.model.Student;
+import ec.edu.espe.inclass.controller.FormController;
 import java.awt.event.KeyEvent;
-import ec.edu.espe.inclass.controller.StudentController;
-import ec.edu.espe.inclass.model.Course;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 
 /**
@@ -175,51 +175,7 @@ public class FrmAddStudent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        DataPersistence dataPersistence;                
-        dataPersistence = DataPersistence.getInstance();        
-        boolean isValid = true;
-        Student student;
-        Course course;
-        
-        String name;
-        String id;
-        int nrc;        
-        
-        course = dataPersistence.getTeacher().getCourses().get(dataPersistence.getPosition());
-        nrc = course.getNrc();
-        name = String.valueOf(txtName.getText()).toUpperCase();
-        id = String.valueOf(txtId.getText());
-        
-        if (name.length() < 6) {
-            JOptionPane.showMessageDialog(this,"name: " + name + " is too short", "warning", JOptionPane.WARNING_MESSAGE);
-            isValid = false;
-        }
-        
-        if (id.length() < 9) {
-            JOptionPane.showMessageDialog(this,"id: " + id + " is incomplete", "warning", JOptionPane.WARNING_MESSAGE);
-            isValid = false;
-        }
-        
-        if (isValid && StudentController.findStudent(course.getStudents(), id) != -1) {
-            JOptionPane.showMessageDialog(this,"id: " + id + " already existing in course's nrc: " + nrc, "warning", JOptionPane.WARNING_MESSAGE);
-            isValid = false;            
-        }
-
-        try {
-            student = new Student(id, name);
-        } catch (Exception e) {
-            student = null;
-        }
-
-        if (student != null && isValid) {
-            dataPersistence.getdBManager().createDocument("Students", StudentController.studentToJsonForDB(student, nrc));
-            JOptionPane.showMessageDialog(this, "Student successfully added to course's nrc: " + nrc , "Student add", INFORMATION_MESSAGE);
-            dataPersistence.updateData();
-            txtName.setText("");
-            txtId.setText("L");
-        } else {
-            JOptionPane.showMessageDialog(this, "Student not add", "Student add", INFORMATION_MESSAGE);
-        }
+        FormController.AddStudentAction(this);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -229,30 +185,30 @@ public class FrmAddStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
-        char c = evt.getKeyChar();    
-        char c1 = (char)0;
-        if (!Character.isAlphabetic(c) && !Character.isSpaceChar(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
-            JOptionPane.showMessageDialog(this, c + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE);                        
-            evt.setKeyChar(c1);
+        char character = evt.getKeyChar();    
+        char nullCharacter = (char)0;
+        if (!Character.isAlphabetic(character) && !Character.isSpaceChar(character) && character != KeyEvent.VK_BACK_SPACE && character != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, character + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE);                        
+            evt.setKeyChar(nullCharacter);
         }
     }//GEN-LAST:event_txtNameKeyTyped
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
-        char c = evt.getKeyChar();
-        char c1 = (char)0;
+        char character = evt.getKeyChar();
+        char nullCharacter = (char)0;
         int txtSize = txtId.getText().length();
         
-        if (txtSize == 0 && c == KeyEvent.VK_BACK_SPACE) {
+        if (txtSize == 0 && character == KeyEvent.VK_BACK_SPACE) {
             evt.setKeyChar((char)76);
         }
         
-        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
-            JOptionPane.showMessageDialog(this, c + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE); 
-            evt.setKeyChar(c1);
+        if (!Character.isDigit(character) && character != KeyEvent.VK_BACK_SPACE && character != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, character + " is not accepted here", "warning", JOptionPane.WARNING_MESSAGE); 
+            evt.setKeyChar(nullCharacter);
         }
         
         if (txtSize > 8) {
-            evt.setKeyChar(c1);
+            evt.setKeyChar(nullCharacter);
         }
         
     }//GEN-LAST:event_txtIdKeyTyped
@@ -291,6 +247,48 @@ public class FrmAddStudent extends javax.swing.JFrame {
             }
         });
     }
+
+    public JButton getBtnAdd() {
+        return btnAdd;
+    }
+
+    public JButton getBtnBack() {
+        return btnBack;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public JTextField getTxtId() {
+        return txtId;
+    }
+
+    public JTextField getTxtName() {
+        return txtName;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
